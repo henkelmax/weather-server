@@ -158,6 +158,29 @@ const ecowittSchema = Joi.object()
         res.status(200).send(weather);
     });
 
+    app.get("/data/weather/current", async (req, res) => {
+        const deviceIdElement = deviceIdSchema.validate(req.query.id);
+        if (deviceIdElement.error) {
+            res.status(400).send({ error: deviceIdElement.error.details });
+            res.end();
+            return;
+        }
+
+        const arr = await db.collection('weather').aggregate([
+            { $match: { deviceId: deviceIdElement.value } },
+            { $sort: { date: 1 } },
+            { $limit: 1 }
+        ]).toArray();
+
+        if (arr.length <= 0) {
+            res.status(404).send({ error: "No element found" });
+            res.end();
+            return;
+        }
+
+        res.status(200).send(arr[0]);
+    });
+
     app.post("/data/ecowitt", async (req, res) => {
         const ecowittElement = ecowittSchema.validate(req.body);
         if (ecowittElement.error) {
@@ -216,7 +239,7 @@ const ecowittSchema = Joi.object()
             res.end();
             return;
         }
-        
+
         const result = await db.collection('passkeys').insertOne(passKeyElement.value);
         if (!result.acknowledged) {
             res.status(400).send({ error: [{ message: 'Unknown Error' }] });
