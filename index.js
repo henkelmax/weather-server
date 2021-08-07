@@ -24,6 +24,18 @@ const dayMilliseconds = 24 * 60 * 60 * 1000;
 
 const apiKeySchema = Joi.string().regex(/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/).required();
 
+const passKeySchema = Joi.object()
+    .keys({
+        passKey: Joi.string()
+            .regex(/^[0-9a-fA-F]{32}$/)
+            .required(),
+        deviceId: Joi.number()
+            .integer()
+            .min(1)
+            .required()
+    })
+    .required();
+
 const deviceIdSchema = Joi.number()
     .integer()
     .min(1)
@@ -41,6 +53,9 @@ const toTimestampSchema = Joi.number()
 
 const ecowittSchema = Joi.object()
     .keys({
+        PASSKEY: Joi.string()
+            .regex(/^[0-9a-fA-F]{32}$/)
+            .required(),
         dateutc: Joi.string()
             .regex(/^\d{4}-\d{1,2}-\d{1,2} \d{1,2}:\d{1,2}:\d{1,2}$/)
             .required(),
@@ -144,17 +159,6 @@ const ecowittSchema = Joi.object()
     });
 
     app.post("/data/ecowitt", async (req, res) => {
-        if (!(await checkAuthRequest(req))) {
-            res.status(401).end();
-            return;
-        }
-        const deviceIdElement = deviceIdSchema.validate(req.query.deviceId)
-        if (deviceIdElement.error) {
-            res.status(400).send({ error: deviceIdElement.error.details });
-            res.end();
-            return;
-        }
-
         const ecowittElement = ecowittSchema.validate(req.body);
         if (ecowittElement.error) {
             res.status(400).send({ error: ecowittElement.error.details });
@@ -162,8 +166,16 @@ const ecowittSchema = Joi.object()
             return;
         }
 
+        const pk = await db.collection('passkeys').findOne({ passKey: ecowittElement.value.PASSKEY });
+
+        if (!pk || !pk.deviceId) {
+            res.status(400).send({ error: 'PassKey not found' });
+            res.end();
+            return;
+        }
+
         const weatherData = {
-            deviceId: deviceIdElement.value,
+            deviceId: pk.deviceId,
             date: moment.utc(ecowittElement.value.dateutc).local().toDate(),
             temperature: +toCelsius(ecowittElement.value.tempf).toFixed(2),
             humidity: ecowittElement.value.humidity,
@@ -184,6 +196,28 @@ const ecowittSchema = Joi.object()
         }
 
         const result = await db.collection('weather').insertOne(weatherData);
+        if (!result.acknowledged) {
+            res.status(400).send({ error: [{ message: 'Unknown Error' }] });
+            return;
+        }
+        res.status(200).end();
+    });
+
+    app.post("/data/passkey/add", async (req, res) => {
+        const passKeyElement = passKeySchema.validate(req.body)
+        if (passKeyElement.error) {
+            res.status(400).send({ error: passKeyElement.error.details });
+            res.end();
+            return;
+        }
+        //TODO check duplicate passkeys
+        if (!checkAuthRequest(req)) {
+            res.status(400).send({ error: "Invalid API key" });
+            res.end();
+            return;
+        }
+        
+        const result = await db.collection('passkeys').insertOne(passKeyElement.value);
         if (!result.acknowledged) {
             res.status(400).send({ error: [{ message: 'Unknown Error' }] });
             return;
@@ -213,16 +247,15 @@ function toMm(inch) {
     return inch * 25.4;
 }
 
-async function checkAuthRequest(req) {
-    const apiKeyElement = apiKeySchema.validate(req.query.apiKey);
+function checkAuthRequest(req) {
+    const apiKeyElement = apiKeySchema.validate(req.headers["x-api-key"]);
     if (apiKeyElement.error) {
         return false;
     }
-
     return apiKey === apiKeyElement.value;
 }
 
-async function basicAuth(req) {
+function basicAuth(req) {
     const credentials = auth(req);
     if (!loginUsername || !loginPassword) {
         return true;
