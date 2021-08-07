@@ -1,0 +1,231 @@
+// @ts-check
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const Joi = require('joi');
+const { MongoClient } = require('mongodb');
+const auth = require('basic-auth');
+const moment = require('moment');
+const path = require('path');
+
+const dbIp = process.env.DB_IP || 'localhost';
+const dbPort = Number.parseInt(process.env.DB_PORT, 10) || 27017;
+const dbUrl = `mongodb://${dbIp}:${dbPort}`;
+const dbName = process.env.DB_NAME || 'weather';
+
+const port = Number.parseInt(process.env.PORT, 10) || 8088;
+
+const loginUsername = process.env.LOGIN_USERNAME;
+const loginPassword = process.env.LOGIN_PASSWORD;
+
+const apiKey = process.env.API_KEY || 'f943db12-9f0c-40f9-acf3-ff2339b51c74';
+
+const dayMilliseconds = 24 * 60 * 60 * 1000;
+
+const apiKeySchema = Joi.string().regex(/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/).required();
+
+const deviceIdSchema = Joi.number()
+    .integer()
+    .min(1)
+    .required();
+
+const fromTimestampSchema = Joi.number()
+    .integer()
+    .min(1)
+    .default(() => new Date().getTime() - dayMilliseconds);
+
+const toTimestampSchema = Joi.number()
+    .integer()
+    .min(1)
+    .default(() => new Date().getTime());
+
+const ecowittSchema = Joi.object()
+    .keys({
+        dateutc: Joi.string()
+            .regex(/^\d{4}-\d{1,2}-\d{1,2} \d{1,2}:\d{1,2}:\d{1,2}$/)
+            .required(),
+        tempf: Joi.number()
+            .required(),
+        humidity: Joi.number()
+            .required(),
+        winddir: Joi.number()
+            .required(),
+        windspeedmph: Joi.number()
+            .required(),
+        windgustmph: Joi.number()
+            .required(),
+        maxdailygust: Joi.number()
+            .required(),
+        rainratein: Joi.number()
+            .required(),
+        eventrainin: Joi.number()
+            .required(),
+        hourlyrainin: Joi.number()
+            .required(),
+        dailyrainin: Joi.number()
+            .required(),
+        weeklyrainin: Joi.number()
+            .required(),
+        monthlyrainin: Joi.number()
+            .required(),
+        solarradiation: Joi.number()
+            .required(),
+        uv: Joi.number()
+            .required(),
+        baromrelin: Joi.number()
+            .required(),
+        baromabsin: Joi.number()
+            .required()
+    })
+    .unknown()
+    .required();
+
+(async () => {
+    const client = await MongoClient.connect(dbUrl, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    });
+
+    const db = client.db(dbName);
+
+    const app = express();
+
+    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(bodyParser.json());
+    app.use(cors());
+
+    app.get('/', async (req, res, next) => {
+        if (await basicAuth(req)) {
+            next();
+        } else {
+            res.set('WWW-Authenticate', 'Basic realm="401"');
+            res.status(401).send('Authentication required.');
+        }
+    });
+
+    app.use('/', express.static(path.join(__dirname, 'frontend/dist')));
+
+    app.get("/data/weather", async (req, res) => {
+        const fromElement = fromTimestampSchema.validate(req.query.from);
+        if (fromElement.error) {
+            res.status(400).send({ error: fromElement.error.details });
+            res.end();
+            return;
+        }
+
+        const toElement = toTimestampSchema.validate(req.query.to);
+        if (toElement.error) {
+            res.status(400).send({ error: toElement.error.details });
+            res.end();
+            return;
+        }
+
+        if (toElement.value - fromElement.value > dayMilliseconds) {
+            res.status(400).send({ error: "The maximum timespan is 24 hours" });
+            res.end();
+            return;
+        }
+
+        const deviceIdElement = deviceIdSchema.validate(req.query.id);
+        if (deviceIdElement.error) {
+            res.status(400).send({ error: deviceIdElement.error.details });
+            res.end();
+            return;
+        }
+
+        const fromDate = new Date(fromElement.value);
+        const toDate = new Date(toElement.value);
+
+        const weather = await db.collection('weather').aggregate([
+            { $match: { date: { $gte: fromDate, $lte: toDate }, deviceId: deviceIdElement.value } },
+            { $sort: { date: 1 } }
+        ]).toArray();
+        res.status(200).send(weather);
+    });
+
+    app.post("/data/ecowitt", async (req, res) => {
+        if (!(await checkAuthRequest(req))) {
+            res.status(401).end();
+            return;
+        }
+        const deviceIdElement = deviceIdSchema.validate(req.query.deviceId)
+        if (deviceIdElement.error) {
+            res.status(400).send({ error: deviceIdElement.error.details });
+            res.end();
+            return;
+        }
+
+        const ecowittElement = ecowittSchema.validate(req.body);
+        if (ecowittElement.error) {
+            res.status(400).send({ error: ecowittElement.error.details });
+            res.end();
+            return;
+        }
+
+        const weatherData = {
+            deviceId: deviceIdElement.value,
+            date: moment.utc(ecowittElement.value.dateutc).local().toDate(),
+            temperature: +toCelsius(ecowittElement.value.tempf).toFixed(2),
+            humidity: ecowittElement.value.humidity,
+            relativePressure: +toHpa(ecowittElement.value.baromrelin).toFixed(2),
+            absolutePressure: +toHpa(ecowittElement.value.baromabsin).toFixed(2),
+            windDirection: ecowittElement.value.winddir,
+            windSpeed: +toKmh(ecowittElement.value.windspeedmph).toFixed(2),
+            windGust: +toKmh(ecowittElement.value.windgustmph).toFixed(2),
+            maxDailyWindGust: +toKmh(ecowittElement.value.maxdailygust).toFixed(2),
+            rainRate: +toMm(ecowittElement.value.rainratein).toFixed(2),
+            rainEvent: +toMm(ecowittElement.value.eventrainin).toFixed(2),
+            rainHourly: +toMm(ecowittElement.value.hourlyrainin).toFixed(2),
+            rainDaily: +toMm(ecowittElement.value.dailyrainin).toFixed(2),
+            rainWeekly: +toMm(ecowittElement.value.weeklyrainin).toFixed(2),
+            rainMonthly: +toMm(ecowittElement.value.monthlyrainin).toFixed(2),
+            solarRadiation: ecowittElement.value.solarradiation,
+            uvi: ecowittElement.value.uv,
+        }
+
+        const result = await db.collection('weather').insertOne(weatherData);
+        if (!result.acknowledged) {
+            res.status(400).send({ error: [{ message: 'Unknown Error' }] });
+            return;
+        }
+        res.status(200).end();
+    });
+
+    app.listen(port, () => {
+        console.log(`Server listening on port ${port}`);
+    });
+
+})();
+
+function toCelsius(fahrenheit) {
+    return (fahrenheit - 32) * 5 / 9;
+}
+
+function toHpa(inhg) {
+    return inhg * 33.86389;
+}
+
+function toKmh(mph) {
+    return mph * 1.609344;
+}
+
+function toMm(inch) {
+    return inch * 25.4;
+}
+
+async function checkAuthRequest(req) {
+    const apiKeyElement = apiKeySchema.validate(req.query.apiKey);
+    if (apiKeyElement.error) {
+        return false;
+    }
+
+    return apiKey === apiKeyElement.value;
+}
+
+async function basicAuth(req) {
+    const credentials = auth(req);
+    return loginUsername
+        && loginPassword
+        && credentials.name === loginUsername
+        && credentials.pass === loginPassword;
+}
