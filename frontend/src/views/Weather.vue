@@ -200,17 +200,13 @@ export default {
     weather: [],
   }),
   created() {
-    console.log(this.$route.query.test)
-    fetch(
-      `${this.getServerHost()}data/weather?id=1&from=1628320597387&to=1628349374742`
-    )
+    fetch(`${this.getServerHost()}data/weather?id=${this.$route.query.id || 1}`)
       .then((response) => response.json())
       .then((data) => {
         this.weather = data.map((w) => {
           return { ...w, date: new Date(w.date) };
         });
       });
-    console.log(process.env.NODE_ENV);
   },
   methods: {
     getServerHost() {

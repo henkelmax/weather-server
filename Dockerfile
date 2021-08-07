@@ -24,7 +24,7 @@ COPY --from=frontend-builder dist frontend/dist
 
 ENV DB_IP=localhost
 ENV DB_PORT=27017
-ENV DB_NAME=updates
+ENV DB_NAME=weather
 ENV PORT=80
 
 ENTRYPOINT []
