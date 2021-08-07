@@ -231,6 +231,20 @@ export default {
     min(data, func) {
       return Math.min(...data.map((e) => func(e)));
     },
+    dewpoint(temp, humidity) {
+      let a, b;
+      if (temp >= 0) {
+        a = 7.5;
+        b = 237.3;
+      } else {
+        a = 7.6;
+        b = 240.7;
+      }
+      let sdd = 6.1078 * Math.pow(10, (a * temp) / (b + temp));
+      let dd = sdd * (humidity / 100);
+      let v = Math.log10(dd / 6.1078);
+      return (b * v) / (a - v);
+    },
   },
   computed: {
     current() {
@@ -245,12 +259,23 @@ export default {
           w.date,
           w.temperature,
           `${this.formatDate(w.date)}\n${w.temperature} °C`,
+          +this.dewpoint(w.temperature, w.humidity).toFixed(2),
+          `${this.formatDate(w.date)}\n${this.dewpoint(
+            w.temperature,
+            w.humidity
+          ).toFixed(2)} °C`,
         ];
       });
       if (arr.length <= 0) {
-        arr.push([new Date(), 0, ""]);
+        arr.push([new Date(), 0, "", 0, ""]);
       }
-      arr.unshift(["Date", "Temperature", { type: "string", role: "tooltip" }]);
+      arr.unshift([
+        "Date",
+        "Temperature",
+        { type: "string", role: "tooltip" },
+        "Dewpoint",
+        { type: "string", role: "tooltip" },
+      ]);
       return arr;
     },
     humidityData() {
@@ -278,7 +303,7 @@ export default {
         ];
       });
       if (arr.length <= 0) {
-        arr.push([new Date(), 0, ""]);
+        arr.push([new Date(), 0, "", 0, ""]);
       }
       arr.unshift([
         "Date",
@@ -314,7 +339,7 @@ export default {
         ];
       });
       if (arr.length <= 0) {
-        arr.push([new Date(), 0, ""]);
+        arr.push([new Date(), 0, "", 0, ""]);
       }
       arr.unshift([
         "Date",
