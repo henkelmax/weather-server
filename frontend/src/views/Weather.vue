@@ -200,15 +200,21 @@ export default {
     weather: [],
   }),
   created() {
-    fetch(`${this.getServerHost()}data/weather?id=${this.$route.query.id || 1}`)
-      .then((response) => response.json())
-      .then((data) => {
-        this.weather = data.map((w) => {
-          return { ...w, date: new Date(w.date) };
-        });
-      });
+    this.updateWeatherData();
+    setTimeout(this.updateWeatherData, 30000);
   },
   methods: {
+    updateWeatherData() {
+      fetch(
+        `${this.getServerHost()}data/weather?id=${this.$route.query.id || 1}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          this.weather = data.map((w) => {
+            return { ...w, date: new Date(w.date) };
+          });
+        });
+    },
     getServerHost() {
       if (process.env.NODE_ENV === "development") {
         return "http://localhost:8088/";
