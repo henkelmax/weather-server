@@ -224,8 +224,8 @@ async function checkAuthRequest(req) {
 
 async function basicAuth(req) {
     const credentials = auth(req);
-    if(!loginUsername || !loginPassword){
+    if (!loginUsername || !loginPassword) {
         return true;
     }
-    return credentials.name === loginUsername && credentials.pass === loginPassword;
+    return credentials && credentials.name === loginUsername && credentials.pass === loginPassword;
 }
