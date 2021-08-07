@@ -13,7 +13,7 @@ const dbPort = Number.parseInt(process.env.DB_PORT, 10) || 27017;
 const dbUrl = `mongodb://${dbIp}:${dbPort}`;
 const dbName = process.env.DB_NAME || 'weather';
 
-const port = Number.parseInt(process.env.PORT, 10) || 8088;
+const port = Number.parseInt(process.env.PORT, 10) || 8089;
 
 const loginUsername = process.env.LOGIN_USERNAME;
 const loginPassword = process.env.LOGIN_PASSWORD;

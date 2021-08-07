@@ -217,7 +217,7 @@ export default {
     },
     getServerHost() {
       if (process.env.NODE_ENV === "development") {
-        return "http://localhost:8088/";
+        return "http://localhost:8089/";
       } else {
         return "";
       }
