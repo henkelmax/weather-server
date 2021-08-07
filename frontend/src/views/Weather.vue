@@ -259,13 +259,12 @@ export default {
         });
     },
     getURL() {
-      const url = new URL(`${this.getServerHost()}data/weather`);
-      url.search = new URLSearchParams({
+      const params = new URLSearchParams({
         id: this.id,
         from: this.$moment(this.date, "YYYY-MM-DD").valueOf(),
         to: this.$moment(this.date, "YYYY-MM-DD").add(1, "days").valueOf(),
       });
-      return url;
+      return `${this.getServerHost()}data/weather?${params}`;
     },
     getServerHost() {
       if (process.env.NODE_ENV === "development") {
