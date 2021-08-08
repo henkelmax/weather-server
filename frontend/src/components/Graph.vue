@@ -68,7 +68,6 @@ export default {
             color: "#FFF",
           },
         },
-        pointSize: 5,
         chartArea: {
           left: 50,
           right: 25,
