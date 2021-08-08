@@ -252,7 +252,7 @@ export default {
             return { ...w, date: new Date(w.date) };
           });
         });
-      fetch(`${this.getServerHost()}data/weather/current?id=${this.id}`)
+      fetch(`${this.getServerHost()}/data/weather/current?id=${this.id}`)
         .then((response) => response.json())
         .then((data) => {
           this.currentWeather = data;
@@ -264,13 +264,13 @@ export default {
         from: this.$moment(this.date, "YYYY-MM-DD").valueOf(),
         to: this.$moment(this.date, "YYYY-MM-DD").add(1, "days").valueOf(),
       });
-      return `${this.getServerHost()}data/weather?${params}`;
+      return `${this.getServerHost()}/data/weather?${params}`;
     },
     getServerHost() {
       if (process.env.NODE_ENV === "development") {
-        return "http://localhost:8089/";
+        return "http://localhost:8089";
       } else {
-        return "";
+        return location.protocol + "//" + location.host;
       }
     },
     isToday() {

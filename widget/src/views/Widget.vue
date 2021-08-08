@@ -34,7 +34,7 @@ export default {
     };
   },
   created() {
-    fetch(`${this.getServerHost()}data/weather/current?id=${this.id}`)
+    fetch(`${this.getServerHost()}/data/weather/current?id=${this.id}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to get weather data");
@@ -51,9 +51,9 @@ export default {
   methods: {
     getServerHost() {
       if (process.env.NODE_ENV === "development") {
-        return "http://localhost:8089/";
+        return "http://localhost:8089";
       } else {
-        return "";
+        return location.protocol + "//" + location.host;
       }
     },
     getIcon() {
