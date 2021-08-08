@@ -59,11 +59,11 @@ export default {
     getIcon() {
       if (this.weather.rainRate > 0 || this.weather.rainHourly > 0) {
         return "rainy";
-      } else if (this.weather.uvi < 0) {
+      } else if (this.weather.uvi <= 0) {
         return "cloudy";
       } else if (this.weather.uvi >= 1 && this.weather.uvi <= 2) {
         return "sunny_cloudy";
-      } else if (this.weather.uvi > 1) {
+      } else {
         return "sunny";
       }
     },
