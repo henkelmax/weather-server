@@ -168,7 +168,7 @@ const ecowittSchema = Joi.object()
 
         const arr = await db.collection('weather').aggregate([
             { $match: { deviceId: deviceIdElement.value } },
-            { $sort: { date: 1 } },
+            { $sort: { date: -1 } },
             { $limit: 1 }
         ]).toArray();
 
