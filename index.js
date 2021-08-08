@@ -120,6 +120,8 @@ const ecowittSchema = Joi.object()
 
     app.use('/', express.static(path.join(__dirname, 'frontend/dist')));
 
+    app.use('/widget', express.static(path.join(__dirname, 'widget/dist')));
+
     app.get("/data/weather", async (req, res) => {
         const fromElement = fromTimestampSchema.validate(req.query.from);
         if (fromElement.error) {
