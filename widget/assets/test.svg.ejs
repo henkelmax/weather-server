@@ -26,7 +26,7 @@
         fill="#3e3e3e" 
         font-weight="bold"
         font-family="Avenir, Helvetica, Arial, sans-serif">
-        25 °C
+        <%= weather.temperature.toFixed(1) %> °C
     </text>
 
     <svg x="24%" y="24%" width="25%" height="8">
@@ -38,7 +38,7 @@
             fill="#3e3e3e"
             font-family="Avenir, Helvetica, Arial, sans-serif"
             font-weight="bold">
-            <%= weather.rainDaily %> mm
+            <%= weather.rainDaily.toFixed(0) %> mm
         </text>
         <svg x="0" y="1" width="6" height="6">
             <%- images.rainIcon %>
