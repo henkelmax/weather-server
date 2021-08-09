@@ -12,6 +12,9 @@ module.exports = {
   },
   pwa: {
     name: "Weather",
-    themeColor: "#121212"
+    themeColor: "#121212",
+    workboxOptions: {
+      skipWaiting: true
+    }
   }
 }
