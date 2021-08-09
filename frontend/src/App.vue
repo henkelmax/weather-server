@@ -6,17 +6,12 @@
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
-
+      <v-btn v-if="!!installPrompt" @click="installPWA" plain>
+        <v-icon>mdi-download</v-icon>
+        Install
+      </v-btn>
       <v-btn to="/privacy" plain>Privacy</v-btn>
       <v-btn to="/legal" plain>Legal</v-btn>
-      <v-btn
-        href="https://github.com/henkelmax/weather-server"
-        target="_blank"
-        plain
-      >
-        <span class="mr-2">Source Code</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
     </v-app-bar>
 
     <v-main>
@@ -28,6 +23,30 @@
 <script>
 export default {
   name: "App",
+  data() {
+    return {
+      installPrompt: null,
+    };
+  },
+  beforeCreate() {
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      this.installPrompt = e;
+    });
+  },
+  methods: {
+    installPWA() {
+      if (!this.installPrompt) {
+        return;
+      }
+      this.installPrompt.prompt();
+      this.installPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === "accepted") {
+          this.installPrompt = null;
+        }
+      });
+    },
+  },
 };
 </script>
 
