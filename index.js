@@ -1,6 +1,7 @@
 // @ts-check
 const express = require('express');
 const cors = require('cors');
+const nocache = require("nocache");
 const Joi = require('joi');
 const { MongoClient } = require('mongodb');
 const auth = require('basic-auth');
@@ -108,6 +109,7 @@ const ecowittSchema = Joi.object()
     app.use(express.urlencoded({ extended: false }));
     app.use(express.json());
     app.use(cors());
+    app.use(nocache());
 
     app.get('/', async (req, res, next) => {
         if (await basicAuth(req)) {
