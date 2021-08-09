@@ -6,7 +6,7 @@ const { MongoClient } = require('mongodb');
 const auth = require('basic-auth');
 const moment = require('moment');
 const path = require('path');
-const { renderSVG } = require('./widget/index.js')
+const { renderSVG } = require(path.join(__dirname, 'widget', 'index.js'));
 
 const dbIp = process.env.DB_IP || 'localhost';
 const dbPort = Number.parseInt(process.env.DB_PORT, 10) || 27017;
