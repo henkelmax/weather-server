@@ -19,7 +19,7 @@ COPY yarn.lock .
 
 RUN yarn install --production --silent
 
-COPY *.js .
+COPY . .
 COPY --from=frontend-builder dist frontend/dist
 
 ENV DB_IP=localhost
