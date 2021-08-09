@@ -10,18 +10,6 @@ COPY frontend .
 RUN yarn build
 
 
-FROM node:12-alpine AS widget-builder
-
-COPY widget/package.json .
-COPY widget/yarn.lock .
-
-RUN yarn install --non-interactive
-
-COPY widget .
-
-RUN yarn build
-
-
 FROM node:12-alpine
 
 WORKDIR /weather
@@ -33,7 +21,6 @@ RUN yarn install --production --silent
 
 COPY *.js .
 COPY --from=frontend-builder dist frontend/dist
-COPY --from=widget-builder dist widget/dist
 
 ENV DB_IP=localhost
 ENV DB_PORT=27017

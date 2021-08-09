@@ -120,9 +120,7 @@ const ecowittSchema = Joi.object()
 
     app.use('/', express.static(path.join(__dirname, 'frontend/dist')));
 
-    app.use('/widget', express.static(path.join(__dirname, 'widget/dist')));
-
-    app.get("/api/v1/widget/weather.svg", async (req, res) => {
+    app.get('/api/v1/widget/weather.svg', async (req, res) => {
         const deviceIdElement = deviceIdSchema.validate(req.query.id);
         if (deviceIdElement.error) {
             res.status(400).send({ error: deviceIdElement.error.details });
@@ -137,7 +135,7 @@ const ecowittSchema = Joi.object()
         ]);
 
         if (!await cursor.hasNext()) {
-            res.status(404).send({ error: "No element found" });
+            res.status(404).send({ error: 'No element found' });
             res.end();
             return;
         }
@@ -147,7 +145,7 @@ const ecowittSchema = Joi.object()
         cursor.close();
     });
 
-    app.get("/api/v1/weather", async (req, res) => {
+    app.get('/api/v1/weather', async (req, res) => {
         const fromElement = fromTimestampSchema.validate(req.query.from);
         if (fromElement.error) {
             res.status(400).send({ error: fromElement.error.details });
@@ -163,7 +161,7 @@ const ecowittSchema = Joi.object()
         }
 
         if (toElement.value - fromElement.value > dayMilliseconds) {
-            res.status(400).send({ error: "The maximum timespan is 24 hours" });
+            res.status(400).send({ error: 'The maximum timespan is 24 hours' });
             res.end();
             return;
         }
@@ -185,7 +183,7 @@ const ecowittSchema = Joi.object()
         res.status(200).send(weather);
     });
 
-    app.get("/api/v1/weather/current", async (req, res) => {
+    app.get('/api/v1/weather/current', async (req, res) => {
         const deviceIdElement = deviceIdSchema.validate(req.query.id);
         if (deviceIdElement.error) {
             res.status(400).send({ error: deviceIdElement.error.details });
@@ -200,7 +198,7 @@ const ecowittSchema = Joi.object()
         ]);
 
         if (!await cursor.hasNext()) {
-            res.status(404).send({ error: "No element found" });
+            res.status(404).send({ error: 'No element found' });
             res.end();
             return;
         }
@@ -208,7 +206,7 @@ const ecowittSchema = Joi.object()
         res.status(200).send(await cursor.next());
     });
 
-    app.post(["/api/v1/weather/ecowitt", "/data/ecowitt"], async (req, res) => {
+    app.post(['/api/v1/weather/ecowitt', '/data/ecowitt'], async (req, res) => {
         const ecowittElement = ecowittSchema.validate(req.body);
         if (ecowittElement.error) {
             res.status(400).send({ error: ecowittElement.error.details });
@@ -253,7 +251,7 @@ const ecowittSchema = Joi.object()
         res.status(200).end();
     });
 
-    app.post("/data/passkey/add", async (req, res) => {
+    app.post('/data/passkey/add', async (req, res) => {
         const passKeyElement = passKeySchema.validate(req.body)
         if (passKeyElement.error) {
             res.status(400).send({ error: passKeyElement.error.details });
@@ -262,7 +260,7 @@ const ecowittSchema = Joi.object()
         }
         //TODO check duplicate passkeys
         if (!checkAuthRequest(req)) {
-            res.status(400).send({ error: "Invalid API key" });
+            res.status(400).send({ error: 'Invalid API key' });
             res.end();
             return;
         }
@@ -298,7 +296,7 @@ function toMm(inch) {
 }
 
 function checkAuthRequest(req) {
-    const apiKeyElement = apiKeySchema.validate(req.headers["x-api-key"]);
+    const apiKeyElement = apiKeySchema.validate(req.headers['x-api-key']);
     if (apiKeyElement.error) {
         return false;
     }
