@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row class="text-center" justify="center">
-      <template v-if="currentWeather && isToday()">
+      <template v-if="currentWeather && isToday() && weather.length > 0">
         <v-col cols="12" lg="3" md="4" class="pa-1">
           <MinMax
             title="Temperature"
@@ -252,7 +252,7 @@ export default {
             return { ...w, date: new Date(w.date) };
           });
         });
-      fetch(`${this.getServerHost()}/data/weather/current?id=${this.id}`)
+      fetch(`${this.getServerHost()}/api/v1/weather/current?id=${this.id}`)
         .then((response) => response.json())
         .then((data) => {
           this.currentWeather = data;
@@ -264,7 +264,7 @@ export default {
         from: this.$moment(this.date, "YYYY-MM-DD").valueOf(),
         to: this.$moment(this.date, "YYYY-MM-DD").add(1, "days").valueOf(),
       });
-      return `${this.getServerHost()}/data/weather?${params}`;
+      return `${this.getServerHost()}/api/v1/weather?${params}`;
     },
     getServerHost() {
       if (process.env.NODE_ENV === "development") {

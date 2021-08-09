@@ -1,12 +1,12 @@
 // @ts-check
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 const Joi = require('joi');
 const { MongoClient } = require('mongodb');
 const auth = require('basic-auth');
 const moment = require('moment');
 const path = require('path');
+const { renderSVG } = require('./widget/index.js')
 
 const dbIp = process.env.DB_IP || 'localhost';
 const dbPort = Number.parseInt(process.env.DB_PORT, 10) || 27017;
@@ -39,7 +39,7 @@ const passKeySchema = Joi.object()
 const deviceIdSchema = Joi.number()
     .integer()
     .min(1)
-    .required();
+    .default(1);
 
 const fromTimestampSchema = Joi.number()
     .integer()
@@ -105,8 +105,8 @@ const ecowittSchema = Joi.object()
 
     const app = express();
 
-    app.use(bodyParser.urlencoded({ extended: false }));
-    app.use(bodyParser.json());
+    app.use(express.urlencoded({ extended: false }));
+    app.use(express.json());
     app.use(cors());
 
     app.get('/', async (req, res, next) => {
@@ -122,7 +122,32 @@ const ecowittSchema = Joi.object()
 
     app.use('/widget', express.static(path.join(__dirname, 'widget/dist')));
 
-    app.get("/data/weather", async (req, res) => {
+    app.get("/api/v1/widget/weather.svg", async (req, res) => {
+        const deviceIdElement = deviceIdSchema.validate(req.query.id);
+        if (deviceIdElement.error) {
+            res.status(400).send({ error: deviceIdElement.error.details });
+            res.end();
+            return;
+        }
+
+        const cursor = db.collection('weather').aggregate([
+            { $match: { deviceId: deviceIdElement.value } },
+            { $sort: { date: -1 } },
+            { $limit: 1 }
+        ]);
+
+        if (!await cursor.hasNext()) {
+            res.status(404).send({ error: "No element found" });
+            res.end();
+            return;
+        }
+
+        res.setHeader('Content-Type', 'image/svg+xml');
+        res.status(200).send(renderSVG(await cursor.next()));
+        cursor.close();
+    });
+
+    app.get("/api/v1/weather", async (req, res) => {
         const fromElement = fromTimestampSchema.validate(req.query.from);
         if (fromElement.error) {
             res.status(400).send({ error: fromElement.error.details });
@@ -160,7 +185,7 @@ const ecowittSchema = Joi.object()
         res.status(200).send(weather);
     });
 
-    app.get("/data/weather/current", async (req, res) => {
+    app.get("/api/v1/weather/current", async (req, res) => {
         const deviceIdElement = deviceIdSchema.validate(req.query.id);
         if (deviceIdElement.error) {
             res.status(400).send({ error: deviceIdElement.error.details });
@@ -168,22 +193,22 @@ const ecowittSchema = Joi.object()
             return;
         }
 
-        const arr = await db.collection('weather').aggregate([
+        const cursor = db.collection('weather').aggregate([
             { $match: { deviceId: deviceIdElement.value } },
             { $sort: { date: -1 } },
             { $limit: 1 }
-        ]).toArray();
+        ]);
 
-        if (arr.length <= 0) {
+        if (!await cursor.hasNext()) {
             res.status(404).send({ error: "No element found" });
             res.end();
             return;
         }
 
-        res.status(200).send(arr[0]);
+        res.status(200).send(await cursor.next());
     });
 
-    app.post("/data/ecowitt", async (req, res) => {
+    app.post(["/api/v1/weather/ecowitt", "/data/ecowitt"], async (req, res) => {
         const ecowittElement = ecowittSchema.validate(req.body);
         if (ecowittElement.error) {
             res.status(400).send({ error: ecowittElement.error.details });
