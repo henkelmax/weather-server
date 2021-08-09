@@ -106,10 +106,20 @@ const ecowittSchema = Joi.object()
 
     const app = express();
 
+    app.set('trust proxy', true)
     app.use(express.urlencoded({ extended: false }));
     app.use(express.json());
     app.use(cors());
     app.use(nocache());
+    app.all('/', async (req, res, next) => {
+        if (req.secure) {
+            return next();
+        }
+        if (req.hostname === 'localhost' || req.hostname === '127.0.0.1') {
+            return next();
+        }
+        res.redirect(`https://${req.hostname}${req.originalUrl}`);
+    });
 
     app.get('/', async (req, res, next) => {
         if (await basicAuth(req)) {
