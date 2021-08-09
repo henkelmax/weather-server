@@ -9,5 +9,9 @@ module.exports = {
       localeDir: 'locales',
       enableInSFC: true
     }
+  },
+  pwa: {
+    name: "Weather",
+    themeColor: "#121212"
   }
 }
