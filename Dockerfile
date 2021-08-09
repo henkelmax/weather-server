@@ -20,6 +20,7 @@ COPY yarn.lock .
 RUN yarn install --production --silent
 
 COPY . .
+COPY widget widget
 COPY --from=frontend-builder dist frontend/dist
 
 ENV DB_IP=localhost
