@@ -4,7 +4,7 @@ const cors = require('cors');
 const Joi = require('joi');
 const { MongoClient } = require('mongodb');
 const auth = require('basic-auth');
-const moment = require('moment');
+const moment = require('moment-timezone');
 const path = require('path');
 const { renderSVG } = require(path.join(__dirname, 'widget', 'index.js'));
 

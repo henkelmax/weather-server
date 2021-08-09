@@ -2,7 +2,9 @@
 const fs = require('fs');
 const path = require('path');
 const ejs = require('ejs');
-const moment = require('moment');
+const moment = require('moment-timezone');
+
+moment.tz.setDefault('Europe/Berlin');
 
 const svgTemplate = fs.readFileSync(path.join(__dirname, 'assets', 'test.svg.ejs'));
 const rainIcon = fs.readFileSync(path.join(__dirname, 'assets', 'rain_icon.svg'));
