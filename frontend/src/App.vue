@@ -2,16 +2,25 @@
   <v-app>
     <v-app-bar app color="gray" dark>
       <v-toolbar-title class="headline text-uppercase">
-        <router-link to="/" class="no-link"><span>WEATHER</span></router-link>
+        <router-link to="/" class="no-link">
+          <span>{{ $t("weather") }}</span>
+        </router-link>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
       <v-btn v-if="!!installPrompt" @click="installPWA" plain>
         <v-icon>mdi-download</v-icon>
-        Install
+        {{ $t("install") }}
       </v-btn>
-      <v-btn to="/privacy" plain>Privacy</v-btn>
-      <v-btn to="/legal" plain>Legal</v-btn>
+
+      <v-btn to="/privacy" plain>
+        <v-icon v-if="$vuetify.breakpoint.smAndDown">mdi-cookie-lock</v-icon>
+        <template v-else>{{ $t("privacy") }}</template>
+      </v-btn>
+      <v-btn to="/legal" plain>
+        <v-icon v-if="$vuetify.breakpoint.smAndDown">mdi-account-box</v-icon>
+        <template v-else>{{ $t("legal") }}</template>
+      </v-btn>
     </v-app-bar>
 
     <v-main>

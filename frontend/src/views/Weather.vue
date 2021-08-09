@@ -4,7 +4,7 @@
       <template v-if="currentWeather && isToday() && weather.length > 0">
         <v-col cols="12" lg="3" md="4" class="pa-1">
           <MinMax
-            title="Temperature"
+            :title="$t('temperature')"
             :value="`${currentWeather.temperature.toFixed(1)} °C`"
             :min="`${min(weather, (e) => e.temperature).toFixed(1)} °C`"
             :max="`${max(weather, (e) => e.temperature).toFixed(1)} °C`"
@@ -16,7 +16,7 @@
             <v-card-text>
               <v-row align="center">
                 <v-col cols="12">
-                  <span class="text-h5"> Wind </span>
+                  <span class="text-h5"> {{ $t("wind") }} </span>
                 </v-col>
                 <v-col cols="6">
                   <v-row align="center">
@@ -55,12 +55,12 @@
             <v-card-text>
               <v-row align="center">
                 <v-col cols="12">
-                  <span class="text-h5"> Rain </span>
+                  <span class="text-h5"> {{ $t("rain") }} </span>
                 </v-col>
                 <v-col cols="6">
                   <v-row align="center">
                     <v-col cols="12" class="pt-0">
-                      <span>Current</span>
+                      <span>{{ $t("current") }}</span>
                     </v-col>
                     <v-col cols="12" class="pt-0">
                       <span class="text-h4 white--text">
@@ -73,7 +73,7 @@
                 <v-col cols="6">
                   <v-row align="center">
                     <v-col cols="12" class="pt-0">
-                      <span>Today</span>
+                      <span>{{ $t("today") }}</span>
                     </v-col>
                     <v-col cols="12" class="pt-0">
                       <span class="text-h4 white--text">
@@ -93,12 +93,12 @@
             <v-card-text>
               <v-row align="center">
                 <v-col cols="12">
-                  <span class="text-h5"> Sun </span>
+                  <span class="text-h5"> {{ $t("sun") }} </span>
                 </v-col>
                 <v-col cols="6">
                   <v-row align="center">
                     <v-col cols="12" class="pt-0">
-                      <span>Solar</span>
+                      <span>{{ $t("solar") }}</span>
                     </v-col>
                     <v-col cols="12" class="pt-0">
                       <span class="text-h4 white--text">
@@ -111,7 +111,7 @@
                 <v-col cols="6">
                   <v-row align="center">
                     <v-col cols="12" class="pt-0">
-                      <span>UV Index</span>
+                      <span>{{ $t("uv_index") }}</span>
                     </v-col>
                     <v-col cols="12" class="pt-0">
                       <span class="text-h4 white--text">
@@ -127,7 +127,7 @@
 
         <v-col cols="12" lg="3" md="4" class="pa-1">
           <MinMax
-            title="Pressure"
+            :title="$t('pressure')"
             :value="`${currentWeather.relativePressure.toFixed(0)} hPa`"
             :min="`${min(weather, (e) => e.relativePressure).toFixed(0)} hPa`"
             :max="`${max(weather, (e) => e.relativePressure).toFixed(0)} hPa`"
@@ -136,7 +136,7 @@
 
         <v-col cols="12" lg="3" md="4" class="pa-1">
           <MinMax
-            title="Humidity"
+            :title="$t('humidity')"
             :value="`${currentWeather.humidity.toFixed(0)} %`"
             :min="`${min(weather, (e) => e.humidity).toFixed(0)} %`"
             :max="`${max(weather, (e) => e.humidity).toFixed(0)} %`"
@@ -330,10 +330,10 @@ export default {
         arr.push([new Date(), 0, "", 0, ""]);
       }
       arr.unshift([
-        "Date",
-        "Temperature",
+        this.$t("date"),
+        this.$t("temperature"),
         { type: "string", role: "tooltip" },
-        "Dewpoint",
+        this.$t("dewpoint"),
         { type: "string", role: "tooltip" },
       ]);
       return arr;
@@ -349,7 +349,7 @@ export default {
       if (arr.length <= 0) {
         arr.push([new Date(), 0, ""]);
       }
-      arr.unshift(["Date", "Humidity", { type: "string", role: "tooltip" }]);
+      arr.unshift([this.$t("date"), this.$t("humidity"), { type: "string", role: "tooltip" }]);
       return arr;
     },
     pressureData() {
@@ -366,10 +366,10 @@ export default {
         arr.push([new Date(), 0, "", 0, ""]);
       }
       arr.unshift([
-        "Date",
-        "Relative Pressure",
+        this.$t("date"),
+        this.$t("relative_pressure"),
         { type: "string", role: "tooltip" },
-        "Absolute Pressure",
+        this.$t("absolute_pressure"),
         { type: "string", role: "tooltip" },
       ]);
       return arr;
@@ -385,7 +385,7 @@ export default {
       if (arr.length <= 0) {
         arr.push([new Date(), 0, ""]);
       }
-      arr.unshift(["Date", "Rainfall", { type: "string", role: "tooltip" }]);
+      arr.unshift([this.$t("date"), this.$t("rainfall"), { type: "string", role: "tooltip" }]);
       return arr;
     },
     windData() {
@@ -402,10 +402,10 @@ export default {
         arr.push([new Date(), 0, "", 0, ""]);
       }
       arr.unshift([
-        "Date",
-        "Wind Speed",
+        this.$t("date"),
+        this.$t("wind_speed"),
         { type: "string", role: "tooltip" },
-        "Wind Gust",
+        this.$t("wind_gust"),
         { type: "string", role: "tooltip" },
       ]);
       return arr;
@@ -422,8 +422,8 @@ export default {
         arr.push([new Date(), 0, ""]);
       }
       arr.unshift([
-        "Date",
-        "Solar Radiation",
+        this.$t("date"),
+        this.$t("solar_radiation"),
         { type: "string", role: "tooltip" },
       ]);
       return arr;
@@ -435,7 +435,7 @@ export default {
       if (arr.length <= 0) {
         arr.push([new Date(), 0, ""]);
       }
-      arr.unshift(["Date", "UV Index", { type: "string", role: "tooltip" }]);
+      arr.unshift([this.$t("date"), this.$t("uv_index"), { type: "string", role: "tooltip" }]);
       return arr;
     },
   },

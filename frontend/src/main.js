@@ -7,6 +7,7 @@ import './registerServiceWorker'
 
 import VueGoogleCharts from 'vue-google-charts'
 import router from './router'
+import i18n from './i18n'
 
 Vue.use(VueGoogleCharts)
 
@@ -17,5 +18,6 @@ Vue.config.productionTip = false
 new Vue({
   vuetify,
   router,
+  i18n,
   render: h => h(App)
 }).$mount('#app')
