@@ -10,7 +10,9 @@
       <v-spacer></v-spacer>
       <v-btn v-if="!!installPrompt" @click="installPWA" plain>
         <v-icon>mdi-download</v-icon>
-        {{ $t("install") }}
+        <template v-if="!$vuetify.breakpoint.smAndDown">
+          {{ $t("install") }}
+        </template>
       </v-btn>
 
       <v-btn to="/privacy" plain>
