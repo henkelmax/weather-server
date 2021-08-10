@@ -23,7 +23,7 @@
                     <v-col cols="12" class="pt-0">
                       <v-icon
                         x-large
-                        :style="`transform: rotate(${currentWeather.windDirection}deg);`"
+                        :style="`transform: rotate(${currentWeather.windDirection + 180}deg);`"
                       >
                         mdi-navigation
                       </v-icon>
@@ -349,7 +349,11 @@ export default {
       if (arr.length <= 0) {
         arr.push([new Date(), 0, ""]);
       }
-      arr.unshift([this.$t("date"), this.$t("humidity"), { type: "string", role: "tooltip" }]);
+      arr.unshift([
+        this.$t("date"),
+        this.$t("humidity"),
+        { type: "string", role: "tooltip" },
+      ]);
       return arr;
     },
     pressureData() {
@@ -385,7 +389,11 @@ export default {
       if (arr.length <= 0) {
         arr.push([new Date(), 0, ""]);
       }
-      arr.unshift([this.$t("date"), this.$t("rainfall"), { type: "string", role: "tooltip" }]);
+      arr.unshift([
+        this.$t("date"),
+        this.$t("rainfall"),
+        { type: "string", role: "tooltip" },
+      ]);
       return arr;
     },
     windData() {
@@ -435,7 +443,11 @@ export default {
       if (arr.length <= 0) {
         arr.push([new Date(), 0, ""]);
       }
-      arr.unshift([this.$t("date"), this.$t("uv_index"), { type: "string", role: "tooltip" }]);
+      arr.unshift([
+        this.$t("date"),
+        this.$t("uv_index"),
+        { type: "string", role: "tooltip" },
+      ]);
       return arr;
     },
   },
