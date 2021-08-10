@@ -177,7 +177,11 @@
 
       <template v-if="weather.length > 0">
         <v-col cols="12" class="pa-1">
-          <Graph :chartData="temperatureData" :seriesColors="['#FFFF00']" />
+          <Graph
+            :chartData="temperatureData"
+            :seriesColors="['#FFFF00']"
+            :lowerBound="false"
+          />
         </v-col>
         <v-col cols="12" class="pa-1">
           <Graph

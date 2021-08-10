@@ -28,6 +28,10 @@ export default {
       type: Number,
       default: 0,
     },
+    lowerBound: {
+      type: Boolean,
+      default: true,
+    },
   },
   computed: {
     chartOptions() {
@@ -55,6 +59,9 @@ export default {
           },
           textStyle: {
             color: "#FFF",
+          },
+          viewWindow: {
+            min: this.lowerBound ? 0 : undefined,
           },
         },
         hAxis: {
