@@ -15,11 +15,11 @@
         </template>
       </v-btn>
 
-      <v-btn to="/privacy" plain>
+      <v-btn v-if="!installed" to="/privacy" plain>
         <v-icon v-if="$vuetify.breakpoint.smAndDown">mdi-cookie-lock</v-icon>
         <template v-else>{{ $t("privacy") }}</template>
       </v-btn>
-      <v-btn to="/legal" plain>
+      <v-btn v-if="!installed" to="/legal" plain>
         <v-icon v-if="$vuetify.breakpoint.smAndDown">mdi-account-box</v-icon>
         <template v-else>{{ $t("legal") }}</template>
       </v-btn>
@@ -56,6 +56,11 @@ export default {
           this.installPrompt = null;
         }
       });
+    },
+  },
+  computed: {
+    installed() {
+      return window.matchMedia("(display-mode: standalone)").matches;
     },
   },
 };
