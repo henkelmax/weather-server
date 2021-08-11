@@ -23,7 +23,9 @@
                     <v-col cols="12" class="pt-0">
                       <v-icon
                         x-large
-                        :style="`transform: rotate(${currentWeather.windDirection + 180}deg);`"
+                        :style="`transform: rotate(${
+                          currentWeather.windDirection + 180
+                        }deg);`"
                       >
                         mdi-navigation
                       </v-icon>
@@ -142,6 +144,32 @@
             :max="`${max(weather, (e) => e.humidity).toFixed(0)} %`"
           />
         </v-col>
+
+        <v-col cols="12" lg="3" md="4" class="pa-1">
+          <v-card height="100%">
+            <v-card-text>
+              <v-row align="center">
+                <v-col cols="12" class="pb-0">
+                  <span class="text-h5"> {{ $t("last_update") }} </span>
+                </v-col>
+                <v-col cols="12" class="pb-0">
+                  <span class="text-h4 white--text">
+                    {{ this.$moment(this.currentWeather.date).fromNow() }}
+                  </span>
+                </v-col>
+                <v-col cols="12">
+                  <span>
+                    {{
+                      this.$moment(this.currentWeather.date).format(
+                        "DD.MM.YYYY HH:mm"
+                      )
+                    }}
+                  </span>
+                </v-col>
+              </v-row>
+            </v-card-text>
+          </v-card>
+        </v-col>
       </template>
 
       <v-col cols="12" class="pa-1">
@@ -243,9 +271,12 @@ export default {
       calendar: false,
     };
   },
+  beforeCreate() {
+    this.$moment.locale(this.$i18n.locale);
+  },
   created() {
     this.updateWeatherData();
-    setTimeout(this.updateWeatherData, 30000);
+    setInterval(this.updateWeatherData, 30000);
   },
   methods: {
     updateWeatherData() {

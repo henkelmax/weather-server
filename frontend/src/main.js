@@ -9,9 +9,14 @@ import VueGoogleCharts from 'vue-google-charts'
 import router from './router'
 import i18n from './i18n'
 
-Vue.use(VueGoogleCharts)
+import VueMoment from 'vue-moment'
+import moment from 'moment/min/moment-with-locales'
 
-Vue.use(require('vue-moment'));
+Vue.use(VueMoment, {
+    moment,
+})
+
+Vue.use(VueGoogleCharts)
 
 Vue.config.productionTip = false
 

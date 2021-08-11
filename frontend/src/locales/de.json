@@ -20,5 +20,6 @@
   "rainfall": "Niederschlag",
   "wind_speed": "Windgeschwindigkeit",
   "wind_gust": "Windböen",
-  "solar_radiation": "Sonneneinstrahlung"
+  "solar_radiation": "Sonneneinstrahlung",
+  "last_update": "Zuletzt Aktualisiert"
 }
