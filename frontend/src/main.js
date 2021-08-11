@@ -13,12 +13,14 @@ import VueMoment from 'vue-moment'
 import moment from 'moment/min/moment-with-locales'
 
 Vue.use(VueMoment, {
-    moment,
+  moment,
 })
 
 Vue.use(VueGoogleCharts)
 
 Vue.config.productionTip = false
+
+Vue.prototype.$eventBus = new Vue()
 
 new Vue({
   vuetify,

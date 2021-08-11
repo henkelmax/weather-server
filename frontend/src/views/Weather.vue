@@ -275,6 +275,7 @@ export default {
     this.$moment.locale(this.$i18n.locale);
   },
   created() {
+    this.$eventBus.$on("update", this.updateWeatherData);
     this.updateWeatherData();
     setInterval(this.updateWeatherData, 30000);
   },
@@ -303,7 +304,8 @@ export default {
     },
     getServerHost() {
       if (process.env.NODE_ENV === "development") {
-        return "http://localhost:8089";
+        // return "http://localhost:8089";
+        return "https://weather.maxhenkel.de";
       } else {
         return location.protocol + "//" + location.host;
       }

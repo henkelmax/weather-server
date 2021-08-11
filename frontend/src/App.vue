@@ -23,6 +23,9 @@
         <v-icon v-if="$vuetify.breakpoint.smAndDown">mdi-account-box</v-icon>
         <template v-else>{{ $t("legal") }}</template>
       </v-btn>
+      <v-btn v-if="installed" @click="refresh" plain>
+        <v-icon>mdi-refresh</v-icon>
+      </v-btn>
     </v-app-bar>
 
     <v-main>
@@ -56,6 +59,19 @@ export default {
           this.installPrompt = null;
         }
       });
+    },
+    refresh() {
+      this.forceSWupdate();
+      this.$eventBus.$emit("update");
+    },
+    forceSWupdate() {
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.getRegistrations().then((registrations) => {
+          for (let registration of registrations) {
+            registration.update();
+          }
+        });
+      }
     },
   },
   computed: {
