@@ -21,5 +21,6 @@
   "wind_speed": "Windgeschwindigkeit",
   "wind_gust": "Windböen",
   "solar_radiation": "Sonneneinstrahlung",
-  "last_update": "Zuletzt Aktualisiert"
+  "last_update": "Zuletzt Aktualisiert",
+  "station": "Station"
 }

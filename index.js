@@ -218,6 +218,32 @@ const ecowittSchema = Joi.object()
         res.status(200).send(await cursor.next());
     });
 
+    app.get('/api/v1/stations', async (req, res) => {
+        const stations = await db.collection('stations').aggregate([
+            { $sort: { deviceId: 1 } }
+        ]).toArray();
+
+        res.status(200).send(stations);
+    });
+
+    app.get('/api/v1/station', async (req, res) => {
+        const deviceIdElement = deviceIdSchema.validate(req.query.id);
+        if (deviceIdElement.error) {
+            res.status(400).send({ error: deviceIdElement.error.details });
+            res.end();
+            return;
+        }
+        const station = await db.collection('stations').findOne({ deviceId: deviceIdElement.value });
+
+        if (!station) {
+            res.status(400).send({ error: "Station not found" });
+            res.end();
+            return;
+        }
+
+        res.status(200).send(station);
+    });
+
     app.post(['/api/v1/weather/ecowitt', '/data/ecowitt'], async (req, res) => {
         const ecowittElement = ecowittSchema.validate(req.body);
         if (ecowittElement.error) {

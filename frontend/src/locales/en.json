@@ -21,5 +21,6 @@
   "wind_speed": "Wind Speed",
   "wind_gust": "Wind Gust",
   "solar_radiation": "Solar Radiation",
-  "last_update": "Last Update"
+  "last_update": "Last Update",
+  "station": "Station"
 }

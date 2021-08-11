@@ -1,6 +1,31 @@
 <template>
   <v-container>
     <v-row class="text-center" justify="center">
+      <v-col v-if="station" cols="12" lg="3" md="4" class="pa-1">
+        <v-card
+          height="100%"
+          @click="openMap(station.latitude, station.longitude)"
+        >
+          <v-card-text>
+            <v-row align="center">
+              <v-col cols="12" class="pb-0">
+                <span class="text-h5"> {{ $t("station") }} </span>
+              </v-col>
+              <v-col cols="12" class="pb-0">
+                <span class="text-h4 white--text">
+                  {{ station.name }}
+                </span>
+              </v-col>
+              <v-col cols="12">
+                <span>
+                  {{ station.description }}
+                </span>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </v-col>
+
       <template v-if="currentWeather && isToday() && weather.length > 0">
         <v-col cols="12" lg="3" md="4" class="pa-1">
           <MinMax
@@ -265,6 +290,7 @@ export default {
   },
   data() {
     return {
+      station: null,
       currentWeather: null,
       weather: [],
       date: this.$moment().format("YYYY-MM-DD"),
@@ -276,6 +302,11 @@ export default {
   },
   created() {
     this.$eventBus.$on("update", this.updateWeatherData);
+    fetch(`${this.getServerHost()}/api/v1/station`)
+      .then((response) => response.json())
+      .then((data) => {
+        this.station = data;
+      });
     this.updateWeatherData();
     setInterval(this.updateWeatherData, 30000);
   },
@@ -316,6 +347,9 @@ export default {
           this.$moment(this.$moment().format("YYYY-MM-DD"), "YYYY-MM-DD")
         ) === 0
       );
+    },
+    openMap(lat, lon) {
+      window.open(`https://maps.google.com/?q=${lat},${lon}`, "_blank");
     },
     formatDate(date) {
       return this.$moment(date).format("HH:mm:ss");
