@@ -22,5 +22,8 @@
   "wind_gust": "Windböen",
   "solar_radiation": "Sonneneinstrahlung",
   "last_update": "Zuletzt Aktualisiert",
-  "station": "Station"
+  "station": "Station",
+  "daylight": "Tageslicht",
+  "sunrise": "Sonnenaufgang",
+  "sunset": "Sonnenuntergang"
 }

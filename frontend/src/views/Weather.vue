@@ -152,6 +152,50 @@
           </v-card>
         </v-col>
 
+        <v-col v-if="station" cols="12" lg="3" md="4" class="pa-1">
+          <v-card>
+            <v-card-text>
+              <v-row align="center">
+                <v-col cols="12">
+                  <span class="text-h5"> {{ $t("daylight") }} </span>
+                </v-col>
+                <v-col cols="6">
+                  <v-row align="center">
+                    <v-col cols="12" class="pt-0">
+                      <span>{{ $t("sunrise") }}</span>
+                    </v-col>
+                    <v-col cols="12" class="pt-0">
+                      <span class="text-h4 white--text">
+                        {{
+                          $moment(
+                            getSunrise(station.latitude, station.longitude)
+                          ).format("HH:mm")
+                        }}
+                      </span>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <v-col cols="6">
+                  <v-row align="center">
+                    <v-col cols="12" class="pt-0">
+                      <span>{{ $t("sunset") }}</span>
+                    </v-col>
+                    <v-col cols="12" class="pt-0">
+                      <span class="text-h4 white--text">
+                        {{
+                          $moment(
+                            getSunset(station.latitude, station.longitude)
+                          ).format("HH:mm")
+                        }}
+                      </span>
+                    </v-col>
+                  </v-row>
+                </v-col>
+              </v-row>
+            </v-card-text>
+          </v-card>
+        </v-col>
+
         <v-col cols="12" lg="3" md="4" class="pa-1">
           <MinMax
             :title="$t('pressure')"
@@ -281,6 +325,7 @@
 <script>
 import Graph from "../components/Graph";
 import MinMax from "../components/MinMax";
+import { getSunrise, getSunset } from "sunrise-sunset-js";
 
 export default {
   name: "Weather",
@@ -311,6 +356,8 @@ export default {
     setInterval(this.updateWeatherData, 30000);
   },
   methods: {
+    getSunrise,
+    getSunset,
     updateWeatherData() {
       fetch(this.getURL())
         .then((response) => response.json())

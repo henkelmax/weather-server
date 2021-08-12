@@ -22,5 +22,8 @@
   "wind_gust": "Wind Gust",
   "solar_radiation": "Solar Radiation",
   "last_update": "Last Update",
-  "station": "Station"
+  "station": "Station",
+  "daylight": "Daylight",
+  "sunrise": "Sunrise",
+  "sunset": "Sunset"
 }
