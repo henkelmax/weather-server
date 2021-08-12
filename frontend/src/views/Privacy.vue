@@ -171,7 +171,7 @@
                 werden:
               </p>
               <ul>
-                <li>Die ausgewählte Wetterstation</li>
+                <li>Einstellungen</li>
               </ul>
               <p></p>
               <p>

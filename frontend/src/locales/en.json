@@ -25,5 +25,6 @@
   "station": "Station",
   "daylight": "Daylight",
   "sunrise": "Sunrise",
-  "sunset": "Sunset"
+  "sunset": "Sunset",
+  "smooth_graphs": "Smooth graphs"
 }

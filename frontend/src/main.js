@@ -11,6 +11,7 @@ import i18n from './i18n'
 
 import VueMoment from 'vue-moment'
 import moment from 'moment/min/moment-with-locales'
+import store from './store'
 
 Vue.use(VueMoment, {
   moment,
@@ -26,5 +27,6 @@ new Vue({
   vuetify,
   router,
   i18n,
+  store,
   render: h => h(App)
 }).$mount('#app')

@@ -15,15 +15,10 @@
         </template>
       </v-btn>
 
-      <v-btn v-if="!installed" to="/privacy" plain>
-        <v-icon v-if="$vuetify.breakpoint.smAndDown">mdi-cookie-lock</v-icon>
-        <template v-else>{{ $t("privacy") }}</template>
+      <v-btn to="/settings" plain fab>
+        <v-icon>mdi-cog</v-icon>
       </v-btn>
-      <v-btn v-if="!installed" to="/legal" plain>
-        <v-icon v-if="$vuetify.breakpoint.smAndDown">mdi-account-box</v-icon>
-        <template v-else>{{ $t("legal") }}</template>
-      </v-btn>
-      <v-btn v-if="installed" @click="refresh" plain>
+      <v-btn @click="refresh" plain fab>
         <v-icon>mdi-refresh</v-icon>
       </v-btn>
     </v-app-bar>
@@ -31,6 +26,13 @@
     <v-main>
       <router-view></router-view>
     </v-main>
+
+    <v-footer class="pa-3">
+      <v-spacer></v-spacer>
+      <v-btn to="/privacy" plain small>{{ $t("privacy") }}</v-btn>
+      <v-btn to="/legal" plain small class="mr-2">{{ $t("legal") }}</v-btn>
+      <div class="mr-2">&copy; {{ new Date().getFullYear() }} Max Henkel</div>
+    </v-footer>
   </v-app>
 </template>
 

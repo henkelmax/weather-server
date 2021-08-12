@@ -25,5 +25,6 @@
   "station": "Station",
   "daylight": "Tageslicht",
   "sunrise": "Sonnenaufgang",
-  "sunset": "Sonnenuntergang"
+  "sunset": "Sonnenuntergang",
+  "smooth_graphs": "Geglättete Graphen"
 }

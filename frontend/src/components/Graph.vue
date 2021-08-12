@@ -37,7 +37,7 @@ export default {
     chartOptions() {
       return {
         height: 250,
-        curveType: "function",
+        curveType: this.$store.state.smoothGraphs ? "function" : undefined,
         backgroundColor: "#1E1E1E",
         series: this.seriesColors.map((e) => {
           return { color: e };
