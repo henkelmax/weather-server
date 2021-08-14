@@ -38,7 +38,7 @@
             fill="#3e3e3e"
             font-family="Avenir, Helvetica, Arial, sans-serif"
             font-weight="bold">
-            <%= weather.rainDaily.toFixed(0) %> mm
+            <%= Math.ceil(weather.rainDaily) %> mm
         </text>
         <svg x="0" y="1" width="6" height="6">
             <%- images.rainIcon %>
