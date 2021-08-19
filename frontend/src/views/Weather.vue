@@ -26,7 +26,11 @@
         </v-card>
       </v-col>
 
-      <template v-if="currentWeather && isToday() && weather.length > 0">
+      <template
+        v-if="
+          currentWeather && isToday() && weather != null && weather.length > 0
+        "
+      >
         <v-col cols="12" lg="3" md="4" class="pa-1">
           <MinMax
             :title="$t('temperature')"
@@ -241,6 +245,18 @@
         </v-col>
       </template>
 
+      <v-col v-if="loading" cols="12" class="pa-1">
+        <v-card height="100%">
+          <v-card-text>
+            <v-progress-circular
+              :size="70"
+              :width="6"
+              indeterminate
+            ></v-progress-circular>
+          </v-card-text>
+        </v-card>
+      </v-col>
+
       <v-col cols="12" class="pa-1">
         <v-card>
           <v-card-text>
@@ -272,7 +288,7 @@
         </v-card>
       </v-col>
 
-      <template v-if="weather.length > 0">
+      <template v-if="weather != null && weather.length > 0">
         <v-col cols="12" class="pa-1">
           <Graph
             :chartData="temperatureData"
@@ -337,7 +353,7 @@ export default {
     return {
       station: null,
       currentWeather: null,
-      weather: [],
+      weather: null,
       date: this.$moment().format("YYYY-MM-DD"),
       calendar: false,
     };
@@ -430,6 +446,9 @@ export default {
   computed: {
     id() {
       return Number.parseInt(this.$route.query.id) || 1;
+    },
+    loading() {
+      return this.weather === null;
     },
     temperatureData() {
       const arr = this.weather.map((w) => {
