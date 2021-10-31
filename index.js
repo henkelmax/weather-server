@@ -172,8 +172,8 @@ const ecowittSchema = Joi.object()
             return;
         }
 
-        if (toElement.value - fromElement.value > dayMilliseconds) {
-            res.status(400).send({ error: 'The maximum timespan is 24 hours' });
+        if (toElement.value - fromElement.value > dayMilliseconds * 2) {
+            res.status(400).send({ error: 'The maximum timespan is 48 hours' });
             res.end();
             return;
         }
