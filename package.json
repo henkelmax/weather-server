@@ -10,8 +10,8 @@
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "joi": "^17.4.2",
-    "moment-timezone": "^0.5.33",
-    "mongodb": "^4.1.4",
+    "moment-timezone": "^0.5.34",
+    "mongodb": "^4.2.0",
     "nocache": "^3.0.1"
   }
 }
