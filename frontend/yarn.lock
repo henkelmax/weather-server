@@ -1552,10 +1552,10 @@
     semver "^6.1.0"
     strip-ansi "^6.0.0"
 
-"@vue/compiler-sfc@2.7.0":
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/@vue/compiler-sfc/-/compiler-sfc-2.7.0.tgz#1c203e85290688e10ed3e70b151b9a2f8acab9c1"
-  integrity sha512-hPOI15RsXO1G8aK6FNF93ld9C/D4e/uAJBE59K8NnL8giuKqeVksvamgu4jKhCJ9f9bbUpj5BuSV3sufIx2hmw==
+"@vue/compiler-sfc@2.7.2":
+  version "2.7.2"
+  resolved "https://registry.yarnpkg.com/@vue/compiler-sfc/-/compiler-sfc-2.7.2.tgz#15ec0a39c81dad831add7da45d28de37e75fa577"
+  integrity sha512-khG5m63A4DSeHEOe5yyjHQY2TAE0pUXqKqxgauNUcFaa8M4+J55OWhagy8Bk8O6cO4GhKbQf2NDYzceijmOy8A==
   dependencies:
     "@babel/parser" "^7.18.4"
     postcss "^8.4.14"
@@ -1760,6 +1760,11 @@ acorn-walk@^7.1.1:
   resolved "https://registry.yarnpkg.com/acorn-walk/-/acorn-walk-7.2.0.tgz#0de889a601203909b0fbe07b8938dc21d2e967bc"
   integrity sha512-OPdCF6GsMIP+Az+aWfAAOEt2/+iVDKE7oy6lJ098aoe59oAmK76qV6Gw60SbZ8jHuG2wH058GF4pLFbYamYrVA==
 
+acorn-walk@^8.2.0:
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/acorn-walk/-/acorn-walk-8.2.0.tgz#741210f2e2426454508853a2f44d0ab83b7f69c1"
+  integrity sha512-k+iyHEuPgSw6SbuDpGQM+06HQUa04DZ3o+F6CSzXMvvI5KMvnaEqXe+YVe555R9nn6GPt404fos4wcgpw12SDA==
+
 acorn@^6.4.1:
   version "6.4.2"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.4.2.tgz#35866fd710528e92de10cf06016498e47e39e1e6"
@@ -1769,6 +1774,11 @@ acorn@^7.1.1, acorn@^7.4.0, acorn@^7.4.1:
   version "7.4.1"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-7.4.1.tgz#feaed255973d2e77555b83dbc08851a6c63520fa"
   integrity sha512-nQyp0o1/mNdbTO1PO6kHkwSrmgZ0MT/jCCpNiwbUjGoRN4dlBhqJtoQuCnEOKzgTVwg0ZWiCoQy6SxMebQVh8A==
+
+acorn@^8.4.1:
+  version "8.7.1"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.7.1.tgz#0197122c843d1bf6d0a5e83220a788f278f63c30"
+  integrity sha512-Xx54uLJQZ19lKygFXOWsscKUbsBZW0CPykPhVQdhIeIwrbPmJzqeASDInc8nKBnp/JT6igTs82qPXz069H8I/A==
 
 address@^1.1.2:
   version "1.2.0"
@@ -2450,7 +2460,7 @@ caller-path@^2.0.0:
 callsite@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/callsite/-/callsite-1.0.0.tgz#280398e5d664bd74038b6f0905153e6e8af1bc20"
-  integrity sha1-KAOY5dZkvXQDi28JBRU+borxvCA=
+  integrity sha512-0vdNRFXn5q+dtOqjfFtmtlI9N2eVZ7LMyEV2iKC5mEEFvSg/69Ml6b/WU2qF8W1nLRa0wiSrDT3Y5jOHZCwKPQ==
 
 callsites@^2.0.0:
   version "2.0.0"
@@ -3235,9 +3245,9 @@ debug@^4.3.0:
     ms "2.1.2"
 
 decache@^4.6.0:
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/decache/-/decache-4.6.0.tgz#87026bc6e696759e82d57a3841c4e251a30356e8"
-  integrity sha512-PppOuLiz+DFeaUvFXEYZjLxAkKiMYH/do/b/MxpDe/8AgKBi5GhZxridoVIbBq72GDbL36e4p0Ce2jTGUwwU+w==
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/decache/-/decache-4.6.1.tgz#5928bfab97a6fcf22a65047a3d07999af36efaf0"
+  integrity sha512-ohApBM8u9ygepJCjgBrEZSSxPjc0T/PJkD+uNyxXPkqudyUpdXpwJYp0VISm2WrPVzASU6DZyIi6BWdyw7uJ2Q==
   dependencies:
     callsite "^1.0.0"
 
@@ -8394,9 +8404,9 @@ vue-style-loader@^4.1.0, vue-style-loader@^4.1.2:
     loader-utils "^1.0.2"
 
 vue-template-compiler@^2.6.11:
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.7.0.tgz#b8ec6b9eb8ca99f20534ac75f0f374d3e48347cf"
-  integrity sha512-b9kKOPNS6J2BVf9skXkKsUwQLP3Bjfb/gG6UoBt3fn4xUVEDko5TSWmkPGW6dSSeAOOvYEMALdouv9caKlTq0Q==
+  version "2.7.2"
+  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.7.2.tgz#656c2ccfd53696c52a9740645b7a9fda421d84e6"
+  integrity sha512-3PDLIPankm7b1YZHk6/mTz9kMZaDSd1Vhp1tFPITot5uW9WjnIyv6zRax3+j1kwF0DHmvfIVXMX8G+Rn/BHfaQ==
   dependencies:
     de-indent "^1.0.2"
     he "^1.2.0"
@@ -8407,18 +8417,20 @@ vue-template-es2015-compiler@^1.9.0:
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
 vue@^2.6.11:
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/vue/-/vue-2.7.0.tgz#9542552e0460563feff11727949f8964e2501bed"
-  integrity sha512-su25f1hocH+QNkVEqk+Oj7B+mkDIWU70l0YY7nYSJFEs3Z64njXxo65RUXnWH46ooEhKmEWyLdW6HcYn8coNrg==
+  version "2.7.2"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.7.2.tgz#d42aba8d03c4e82d4b127f7b764a822cf19f9cdc"
+  integrity sha512-fQPKEfdiUP4bDlrGEjI5MOTkC5s/XIbnfKAx0B3MxJHI4qwh8FPLSo8/9tFkgFiRH3HwvcHjZQ1tCTifOUH0tg==
   dependencies:
-    "@vue/compiler-sfc" "2.7.0"
+    "@vue/compiler-sfc" "2.7.2"
     csstype "^3.1.0"
 
 vuetify-loader@^1.7.3:
-  version "1.7.3"
-  resolved "https://registry.yarnpkg.com/vuetify-loader/-/vuetify-loader-1.7.3.tgz#404657f4925c828f400fe3269003421d586835c6"
-  integrity sha512-1Kt6Rfvuw3i9BBlxC9WTMnU3WEU7IBWQmDX+fYGAVGpzWCX7oHythUIwPCZGShHSYcPMKSDbXTPP8UvT5RNw8Q==
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/vuetify-loader/-/vuetify-loader-1.9.0.tgz#958ff51a13a024a2b98618a77e4ae16b9af34c09"
+  integrity sha512-qJGm35Ds7wgycdZxAUJPlwekNJ50OeO3/OL2fi1AtRwD94F00uXud7PIT0E/Svh6l8uP0JWiC01INS1N7vde+w==
   dependencies:
+    acorn "^8.4.1"
+    acorn-walk "^8.2.0"
     decache "^4.6.0"
     file-loader "^6.2.0"
     loader-utils "^2.0.0"
