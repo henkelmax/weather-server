@@ -41,7 +41,7 @@
         </v-col>
 
         <v-col cols="12" lg="3" md="4" class="pa-1">
-          <v-card>
+          <v-card height="100%">
             <v-card-text>
               <v-row align="center">
                 <v-col cols="12">
@@ -82,7 +82,7 @@
         </v-col>
 
         <v-col cols="12" lg="3" md="4" class="pa-1">
-          <v-card>
+          <v-card height="100%">
             <v-card-text>
               <v-row align="center">
                 <v-col cols="12">
@@ -114,13 +114,39 @@
                     </v-col>
                   </v-row>
                 </v-col>
+                <v-col cols="6">
+                  <v-row align="center">
+                    <v-col cols="12" class="pt-0">
+                      <span>{{ $t("this_week") }}</span>
+                    </v-col>
+                    <v-col cols="12" class="pt-0">
+                      <span class="text-h4 white--text">
+                        {{ currentWeather.rainWeekly.toFixed(0) }}
+                      </span>
+                      <span> mm</span>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <v-col cols="6">
+                  <v-row align="center">
+                    <v-col cols="12" class="pt-0">
+                      <span>{{ $t("this_month") }}</span>
+                    </v-col>
+                    <v-col cols="12" class="pt-0">
+                      <span class="text-h4 white--text">
+                        {{ currentWeather.rainMonthly.toFixed(0) }}
+                      </span>
+                      <span> mm</span>
+                    </v-col>
+                  </v-row>
+                </v-col>
               </v-row>
             </v-card-text>
           </v-card>
         </v-col>
 
         <v-col cols="12" lg="3" md="4" class="pa-1">
-          <v-card>
+          <v-card height="100%">
             <v-card-text>
               <v-row align="center">
                 <v-col cols="12">
@@ -157,7 +183,7 @@
         </v-col>
 
         <v-col v-if="station" cols="12" lg="3" md="4" class="pa-1">
-          <v-card>
+          <v-card height="100%">
             <v-card-text>
               <v-row align="center">
                 <v-col cols="12">
@@ -258,7 +284,7 @@
       </v-col>
 
       <v-col cols="12" class="pa-1">
-        <v-card>
+        <v-card height="100%">
           <v-card-text>
             <v-menu
               v-model="calendar"
