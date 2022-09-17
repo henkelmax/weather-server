@@ -97,10 +97,7 @@ const ecowittSchema = Joi.object()
     .required();
 
 (async () => {
-    const client = await MongoClient.connect(dbUrl, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    });
+    const client = await MongoClient.connect(dbUrl);
 
     const db = client.db(dbName);
 
