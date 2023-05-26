@@ -97,7 +97,8 @@ const ecowittSchema = Joi.object()
     .required();
 
 (async () => {
-    const client = await MongoClient.connect(dbUrl);
+    const client = new MongoClient(dbUrl, { family: 4 });
+    await client.connect();
 
     const db = client.db(dbName);
 
