@@ -9,25 +9,12 @@ COPY frontend .
 
 RUN yarn build
 
+FROM openjdk:17-jdk-alpine
 
-FROM node:18-alpine
-
-WORKDIR /weather
-
-COPY package.json .
-COPY yarn.lock .
-
-RUN yarn install --production --silent
-
+COPY --from=frontend-builder dist /var/www/
 COPY . .
-COPY widget widget
-COPY --from=frontend-builder dist frontend/dist
 
-ENV DB_IP=localhost
-ENV DB_PORT=27017
-ENV DB_NAME=weather
-ENV PORT=80
+RUN chmod +x ./gradlew
+RUN ./gradlew backend:build
 
-ENTRYPOINT []
-
-CMD ["node","index.js"]
+ENTRYPOINT ["java","-jar","backend/build/libs/app.jar"]
