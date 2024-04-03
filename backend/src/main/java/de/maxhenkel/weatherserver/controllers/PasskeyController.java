@@ -34,4 +34,13 @@ public class PasskeyController {
         return ResponseEntity.ok().build();
     }
 
+    @DeleteMapping("/{id}")
+    @ValidateApiKey
+    public ResponseEntity<Void> deletePasskey(@PathVariable long id) {
+        if (!passkeyService.deletePasskey(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Passkey not found"); //TODO Return problem+json
+        }
+        return ResponseEntity.ok().build();
+    }
+
 }

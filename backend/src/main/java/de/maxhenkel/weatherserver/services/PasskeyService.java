@@ -41,4 +41,12 @@ public class PasskeyService {
         return true;
     }
 
+    public boolean deletePasskey(long id) {
+        if (!passkeyRepository.existsById(id)) {
+            return false;
+        }
+        passkeyRepository.deleteById(id);
+        return true;
+    }
+
 }
