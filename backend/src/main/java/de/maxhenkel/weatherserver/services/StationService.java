@@ -21,8 +21,8 @@ public class StationService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public Optional<Station> getById(long id) {
-        return stationRepository.findById(id).map(e -> modelMapper.map(e, Station.class));
+    public Optional<Station> getByStationId(long id) {
+        return stationRepository.findByStationId(id).map(e -> modelMapper.map(e, Station.class));
     }
 
     public List<Station> getAll() {

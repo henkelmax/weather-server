@@ -25,13 +25,18 @@ public class StationController {
     private Long defaultStationId;
 
     @GetMapping("/stations")
-    public List<Station> stations() {
+    public List<Station> getStations() {
         return stationService.getAll();
     }
 
     @GetMapping("/station")
-    public Station station(@RequestParam(name = "id") Optional<Long> deviceId) {
-        return stationService.getById(deviceId.orElse(defaultStationId)).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No element found")); //TODO Return problem+json
+    public Station getStation(@RequestParam(name = "id") Optional<Long> stationId) {
+        return stationService.getByStationId(stationId.orElse(defaultStationId)).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No element found")); //TODO Return problem+json
+    }
+
+    @GetMapping("/stations/{stationId}")
+    public Station getStation(@PathVariable long stationId) {
+        return stationService.getByStationId(stationId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No element found")); //TODO Return problem+json
     }
 
     @ValidateApiKey
@@ -45,9 +50,9 @@ public class StationController {
     }
 
     @ValidateApiKey
-    @DeleteMapping("/stations/{id}")
-    public ResponseEntity<Void> deleteStation(@PathVariable long id) {
-        if (!stationService.deleteStation(id)) {
+    @DeleteMapping("/stations/{stationId}")
+    public ResponseEntity<Void> deleteStation(@PathVariable long stationId) {
+        if (!stationService.deleteStation(stationId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Station not found"); //TODO Return problem+json
         }
         return ResponseEntity.ok().build();

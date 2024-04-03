@@ -16,7 +16,7 @@ public class StationEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false)
     private Long stationId;
     @Column(nullable = false)
     private String name;
