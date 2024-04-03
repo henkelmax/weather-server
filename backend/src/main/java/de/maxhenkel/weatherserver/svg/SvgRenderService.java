@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter;
 @Service
 public class SvgRenderService {
 
-    private static final NumberFormat ONE_DIGIT = new DecimalFormat("##.0");
+    private static final NumberFormat ONE_DIGIT = new DecimalFormat("##.#");
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 
     @Autowired

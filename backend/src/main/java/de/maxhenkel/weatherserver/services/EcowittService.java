@@ -35,27 +35,30 @@ public class EcowittService {
     private WeatherEntity convert(long deviceId, EcowittData ecowittData) {
         WeatherEntity weather = new WeatherEntity();
 
-        //TODO Truncate after two digits
         weather.setStationId(deviceId);
         weather.setDate(LocalDateTime.parse(ecowittData.getDateutc(), ECOWITT_FORMATTER));
-        weather.setTemperature(toCelsius(ecowittData.getTempf()));
-        weather.setHumidity(ecowittData.getHumidity());
-        weather.setRelativePressure(toHpa(ecowittData.getBaromrelin()));
-        weather.setAbsolutePressure(toHpa(ecowittData.getBaromabsin()));
-        weather.setWindDirection(ecowittData.getWinddir());
-        weather.setWindSpeed(toKmh(ecowittData.getWindspeedmph()));
-        weather.setWindGust(toKmh(ecowittData.getWindgustmph()));
-        weather.setMaxDailyWindGust(toKmh(ecowittData.getMaxdailygust()));
-        weather.setRainRate(toMm(ecowittData.getRainratein()));
-        weather.setRainEvent(toMm(ecowittData.getEventrainin()));
-        weather.setRainHourly(toMm(ecowittData.getHourlyrainin()));
-        weather.setRainDaily(toMm(ecowittData.getDailyrainin()));
-        weather.setRainWeekly(toMm(ecowittData.getWeeklyrainin()));
-        weather.setRainMonthly(toMm(ecowittData.getMonthlyrainin()));
-        weather.setSolarRadiation(ecowittData.getSolarradiation());
+        weather.setTemperature(round(toCelsius(ecowittData.getTempf())));
+        weather.setHumidity(round(ecowittData.getHumidity()));
+        weather.setRelativePressure(round(toHpa(ecowittData.getBaromrelin())));
+        weather.setAbsolutePressure(round(toHpa(ecowittData.getBaromabsin())));
+        weather.setWindDirection(round(ecowittData.getWinddir()));
+        weather.setWindSpeed(round(toKmh(ecowittData.getWindspeedmph())));
+        weather.setWindGust(round(toKmh(ecowittData.getWindgustmph())));
+        weather.setMaxDailyWindGust(round(toKmh(ecowittData.getMaxdailygust())));
+        weather.setRainRate(round(toMm(ecowittData.getRainratein())));
+        weather.setRainEvent(round(toMm(ecowittData.getEventrainin())));
+        weather.setRainHourly(round(toMm(ecowittData.getHourlyrainin())));
+        weather.setRainDaily(round(toMm(ecowittData.getDailyrainin())));
+        weather.setRainWeekly(round(toMm(ecowittData.getWeeklyrainin())));
+        weather.setRainMonthly(round(toMm(ecowittData.getMonthlyrainin())));
+        weather.setSolarRadiation(round(ecowittData.getSolarradiation()));
         weather.setUvi(ecowittData.getUv());
 
         return weather;
+    }
+
+    private static double round(double number) {
+        return Math.round(number * 100D) / 100D;
     }
 
     private static double toCelsius(double fahrenheit) {
