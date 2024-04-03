@@ -14,8 +14,10 @@ public class StationEntity {
     @Id
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long stationId; //TODO Rename to station ID
+    private Long id;
 
+    @Column(nullable = false)
+    private Long stationId;
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)

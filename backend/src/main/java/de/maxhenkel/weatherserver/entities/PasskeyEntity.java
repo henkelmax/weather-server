@@ -14,6 +14,9 @@ public class PasskeyEntity {
     @Id
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
     private Long stationId;
 
     @Column(nullable = false)

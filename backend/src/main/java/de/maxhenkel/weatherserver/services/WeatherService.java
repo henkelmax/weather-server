@@ -29,4 +29,8 @@ public class WeatherService {
         return weatherRepository.findFirstByStationIdOrderByDateDesc(deviceId).map(updateEntity -> modelMapper.map(updateEntity, Weather.class));
     }
 
+    public WeatherEntity save(WeatherEntity weatherEntity) {
+        return weatherRepository.save(weatherEntity);
+    }
+
 }

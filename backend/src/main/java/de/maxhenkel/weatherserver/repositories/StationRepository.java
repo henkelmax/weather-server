@@ -5,4 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface StationRepository extends CrudRepository<StationEntity, Long> {
 
+    boolean existsByStationId(Long id);
+
 }

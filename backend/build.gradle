@@ -40,6 +40,7 @@ dependencies {
     runtimeOnly "com.h2database:h2:${h2_version}"
     implementation "org.modelmapper:modelmapper:${modelmapper_version}"
     //implementation "io.hypersistence:hypersistence-utils-hibernate-60:${hypersistence_version}"
+    implementation "com.opencsv:opencsv:${opencsv_version}"
 
 
     //implementation 'org.springframework:spring-context'

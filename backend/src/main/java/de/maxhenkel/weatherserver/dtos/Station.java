@@ -9,11 +9,19 @@ import java.util.Objects;
 
 @Data
 @NoArgsConstructor
-public class Station extends StationNoId {
+public class Station {
 
     @NotNull
     @JsonProperty("deviceId") //TODO Remove in v2
     private Long stationId;
+    @NotNull
+    private String name;
+    @NotNull
+    private String description;
+    @NotNull
+    private Double latitude;
+    @NotNull
+    private Double longitude;
 
     @Override
     public boolean equals(Object object) {

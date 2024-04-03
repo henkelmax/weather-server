@@ -9,13 +9,13 @@ import java.util.Objects;
 
 @Data
 @NoArgsConstructor
-public class PassKey {
+public class Passkey {
 
     @NotNull
     private Long stationId;
     @NotNull
     @Pattern(regexp = "^[0-9a-fA-F]{32}$")
-    private String passKey;
+    private String passkey;
 
     @Override
     public boolean equals(Object object) {
@@ -25,7 +25,7 @@ public class PassKey {
         if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        PassKey that = (PassKey) object;
+        Passkey that = (Passkey) object;
         return Objects.equals(stationId, that.stationId);
     }
 

@@ -1,6 +1,6 @@
 package de.maxhenkel.weatherserver.services;
 
-import de.maxhenkel.weatherserver.dtos.PassKey;
+import de.maxhenkel.weatherserver.dtos.Passkey;
 import de.maxhenkel.weatherserver.entities.PasskeyEntity;
 import de.maxhenkel.weatherserver.repositories.PasskeyRepository;
 import org.modelmapper.ModelMapper;
@@ -24,15 +24,15 @@ public class PasskeyService {
         return passkeyRepository.findFirstByPasskey(passkey).map(PasskeyEntity::getStationId);
     }
 
-    public Optional<PassKey> getById(long id) {
-        return passkeyRepository.findById(id).map(passkeyEntity -> modelMapper.map(passkeyEntity, PassKey.class));
+    public Optional<Passkey> getById(long id) {
+        return passkeyRepository.findById(id).map(passkeyEntity -> modelMapper.map(passkeyEntity, Passkey.class));
     }
 
-    public List<PassKey> getAll() {
-        return StreamSupport.stream(passkeyRepository.findAll().spliterator(), false).map(passkeyEntity -> modelMapper.map(passkeyEntity, PassKey.class)).toList();
+    public List<Passkey> getAll() {
+        return StreamSupport.stream(passkeyRepository.findAll().spliterator(), false).map(passkeyEntity -> modelMapper.map(passkeyEntity, Passkey.class)).toList();
     }
 
-    public boolean addPasskey(PassKey passkey) {
+    public boolean addPasskey(Passkey passkey) {
         if (passkeyRepository.existsById(passkey.getStationId())) {
             return false;
         }
