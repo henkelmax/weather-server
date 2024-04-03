@@ -39,7 +39,7 @@ public class SvgRenderService {
         model.addAttribute("uvi", weather.getUvi());
         model.addAttribute("sunIcon", svgs.getSunIcon());
         model.addAttribute("updateIcon", svgs.getUpdateIcon());
-        model.addAttribute("date", weather.getDate().atZone(ZoneId.systemDefault()).format(DATE_FORMAT));
+        model.addAttribute("date", weather.getDate().atZone(ZoneId.of("UTC")).withZoneSameInstant(ZoneId.systemDefault()).format(DATE_FORMAT));
     }
 
 }
