@@ -28,6 +28,8 @@ dependencies {
 
     implementation "io.micrometer:micrometer-registry-prometheus:${micrometer_version}"
 
+    implementation "com.github.jknack:handlebars-springmvc:${handlebars_version}"
+
     runtimeOnly "org.aspectj:aspectjrt:${aspectjrt_version}"
     implementation "org.aspectj:aspectjtools:${aspectjrt_version}"
 
