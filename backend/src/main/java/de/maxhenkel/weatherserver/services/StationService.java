@@ -37,4 +37,11 @@ public class StationService {
         return modelMapper.map(stationRepository.save(modelMapper.map(station, StationEntity.class)), Station.class);
     }
 
+    public boolean deleteStation(long id) {
+        if (!stationRepository.existsById(id)) {
+            return false;
+        }
+        stationRepository.deleteById(id);
+        return true;
+    }
 }

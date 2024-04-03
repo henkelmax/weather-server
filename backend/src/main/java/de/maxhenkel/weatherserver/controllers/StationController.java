@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -23,24 +24,33 @@ public class StationController {
     @Value("${weatherserver.defaultStationId:1}")
     private Long defaultStationId;
 
-    @GetMapping("stations")
+    @GetMapping("/stations")
     public List<Station> stations() {
         return stationService.getAll();
     }
 
-    @GetMapping("station")
+    @GetMapping("/station")
     public Station station(@RequestParam(name = "id") Optional<Long> deviceId) {
         return stationService.getById(deviceId.orElse(defaultStationId)).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No element found")); //TODO Return problem+json
     }
 
     @ValidateApiKey
-    @PostMapping("stations")
+    @PostMapping("/stations")
     public Station addStation(@RequestBody @Valid Station station) {
         Station addedStation = stationService.addStation(station);
         if (addedStation == null) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Station already exists");
         }
         return addedStation;
+    }
+
+    @ValidateApiKey
+    @DeleteMapping("/stations/{id}")
+    public ResponseEntity<Void> deleteStation(@PathVariable long id) {
+        if (!stationService.deleteStation(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Station not found"); //TODO Return problem+json
+        }
+        return ResponseEntity.ok().build();
     }
 
 }
