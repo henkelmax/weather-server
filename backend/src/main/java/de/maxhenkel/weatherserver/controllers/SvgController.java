@@ -26,7 +26,6 @@ public class SvgController {
     @Value("${weatherserver.defaultStationId:1}")
     private Long defaultStationId;
 
-    //TODO Cache
     @GetMapping(value = "/api/v1/widget/weather.svg", produces = "image/svg+xml")
     public String svg(Model model, @RequestParam(value = "id", required = false) Long stationId) throws IOException {
         if (stationId == null) {

@@ -5,9 +5,9 @@ import de.maxhenkel.weatherserver.entities.StationEntity;
 import de.maxhenkel.weatherserver.repositories.StationRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
