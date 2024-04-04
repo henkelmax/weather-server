@@ -1,4 +1,4 @@
-package de.maxhenkel.weatherserver.csvimport;
+package de.maxhenkel.weatherserver.csv;
 
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvDate;

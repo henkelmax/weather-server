@@ -1,7 +1,7 @@
 package de.maxhenkel.weatherserver.controllers;
 
 import de.maxhenkel.weatherserver.annotations.ValidateApiKey;
-import de.maxhenkel.weatherserver.csvimport.ImportService;
+import de.maxhenkel.weatherserver.csv.ImportService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
