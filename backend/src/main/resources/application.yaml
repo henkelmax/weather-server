@@ -19,8 +19,13 @@ spring:
       max-request-size: 128MB
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
   datasource:
     driverClassName: org.postgresql.Driver
   profiles:
     active: prod
+  flyway:
+    enabled: true
+    group: true
+    schemas: migrations
+    locations: classpath:db/migration/weather

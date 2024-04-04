@@ -21,22 +21,37 @@ public class WeatherEntity {
     private Long stationId;
     @Column(nullable = false)
     private LocalDateTime date;
-    //TODO Make everything NonNull
+    @Column(nullable = false)
     private Double temperature;
+    @Column(nullable = false)
     private Double humidity;
+    @Column(nullable = false)
     private Double relativePressure;
+    @Column(nullable = false)
     private Double absolutePressure;
+    @Column(nullable = false)
     private Double windDirection;
+    @Column(nullable = false)
     private Double windSpeed;
+    @Column(nullable = false)
     private Double windGust;
+    @Column(nullable = false)
     private Double maxDailyWindGust;
+    @Column(nullable = false)
     private Double rainRate;
+    @Column(nullable = false)
     private Double rainEvent;
+    @Column(nullable = false)
     private Double rainHourly;
+    @Column(nullable = false)
     private Double rainDaily;
+    @Column(nullable = false)
     private Double rainWeekly;
+    @Column(nullable = false)
     private Double rainMonthly;
+    @Column(nullable = false)
     private Double solarRadiation;
+    @Column(nullable = false)
     private Integer uvi;
 
     @Override
