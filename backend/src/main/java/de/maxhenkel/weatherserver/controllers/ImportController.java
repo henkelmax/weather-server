@@ -20,7 +20,7 @@ public class ImportController {
     @Autowired
     private ImportService importService;
 
-    @PostMapping(consumes = "text/csv")
+    @PostMapping(path = "/csv", consumes = "text/csv")
     @ValidateApiKey
     public ResponseEntity<String> importData(HttpServletRequest request) {
         try {

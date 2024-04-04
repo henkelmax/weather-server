@@ -16,7 +16,7 @@ public class ExportController {
     @Autowired
     private ExportService exportService;
 
-    @GetMapping(produces = "text/csv")
+    @GetMapping(path = "/csv", produces = "text/csv")
     @ValidateApiKey
     public String importData() {
         try {
