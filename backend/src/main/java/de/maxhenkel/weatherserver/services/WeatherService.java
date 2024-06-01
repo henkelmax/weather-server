@@ -21,7 +21,7 @@ public class WeatherService {
     private ModelMapper modelMapper;
 
     public List<Weather> getWeather(long deviceId, LocalDateTime from, LocalDateTime to) {
-        List<WeatherEntity> weather = weatherRepository.findByStationIdAndDateGreaterThanEqualAndDateLessThanEqual(deviceId, from, to);
+        List<WeatherEntity> weather = weatherRepository.findByStationIdAndDateGreaterThanEqualAndDateLessThanEqualOrderByDateDesc(deviceId, from, to);
         return weather.stream().map(updateEntity -> modelMapper.map(updateEntity, Weather.class)).toList();
     }
 

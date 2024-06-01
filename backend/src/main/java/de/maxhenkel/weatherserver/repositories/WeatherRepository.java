@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface WeatherRepository extends CrudRepository<WeatherEntity, Long> {
 
-    List<WeatherEntity> findByStationIdAndDateGreaterThanEqualAndDateLessThanEqual(long deviceId, LocalDateTime start, LocalDateTime end);
+    List<WeatherEntity> findByStationIdAndDateGreaterThanEqualAndDateLessThanEqualOrderByDateDesc(long deviceId, LocalDateTime start, LocalDateTime end);
 
     Optional<WeatherEntity> findFirstByStationIdOrderByDateDesc(long deviceId);
 
