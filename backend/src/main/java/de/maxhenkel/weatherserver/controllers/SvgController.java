@@ -6,15 +6,14 @@ import de.maxhenkel.weatherserver.svg.SvgRenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 
-@Controller
+@RestController
 public class SvgController {
 
     @Autowired
@@ -27,13 +26,12 @@ public class SvgController {
     private Long defaultStationId;
 
     @GetMapping(value = "/api/v1/widget/weather.svg", produces = "image/svg+xml")
-    public String svg(Model model, @RequestParam(value = "id", required = false) Long stationId) throws IOException {
+    public String svg(@RequestParam(value = "id", required = false) Long stationId) throws IOException {
         if (stationId == null) {
             stationId = defaultStationId;
         }
         Weather currentWeather = weatherService.getCurrentWeather(stationId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No weather data found"));
-        renderService.populateModel(model, currentWeather);
-        return "weather.svg";
+        return renderService.renderWidget(currentWeather);
     }
 
 }

@@ -15,6 +15,9 @@ public class SvgCacheService {
     @Getter
     private final Svgs svgs;
 
+    @Getter
+    private final String svgTemplate;
+
     public SvgCacheService(ResourceLoader resourceLoader) throws IOException {
         this.resourceLoader = resourceLoader;
         svgs = new Svgs();
@@ -25,6 +28,8 @@ public class SvgCacheService {
         svgs.setCloudy(getSvg("cloudy"));
         svgs.setSunnyCloudy(getSvg("sunny_cloudy"));
         svgs.setRainy(getSvg("rainy"));
+
+        svgTemplate = resourceLoader.getResource("classpath:/widget/weather.svg.hbs").getContentAsString(StandardCharsets.UTF_8);
     }
 
     private String getSvg(String name) throws IOException {
