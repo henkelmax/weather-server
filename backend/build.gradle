@@ -20,6 +20,7 @@ bootRun {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
     implementation 'org.springframework.boot:spring-boot-starter-aop'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
@@ -40,6 +41,7 @@ dependencies {
     implementation "org.modelmapper:modelmapper:${modelmapper_version}"
     implementation "com.opencsv:opencsv:${opencsv_version}"
 
+    implementation "com.google.guava:guava:${guava_version}"
     implementation 'org.hibernate.validator:hibernate-validator'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

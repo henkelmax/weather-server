@@ -5,6 +5,7 @@ import de.maxhenkel.weatherserver.services.WeatherService;
 import de.maxhenkel.weatherserver.svg.SvgRenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +26,7 @@ public class SvgController {
     @Value("${weatherserver.defaultStationId:1}")
     private Long defaultStationId;
 
+    @Cacheable(value = "weatherSvg", cacheManager = "svgCacheManager")
     @GetMapping(value = "/api/v1/widget/weather.svg", produces = "image/svg+xml")
     public String svg(@RequestParam(value = "id", required = false) Long stationId) throws IOException {
         if (stationId == null) {
