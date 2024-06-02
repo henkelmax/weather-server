@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="app">
     <v-app-bar>
       <v-app-bar-title class="text-uppercase">
         <RouterLink to="/" class="no-link">{{ $t("weather") }}</RouterLink>
@@ -22,7 +22,7 @@
       <v-btn icon="mdi-cog" variant="plain" to="/settings"/>
       <v-btn icon="mdi-refresh" variant="plain" @click="refresh"/>
     </v-app-bar>
-    <v-main>
+    <v-main class="main">
       <RouterView/>
     </v-main>
     <v-footer class="pa-3">
@@ -78,5 +78,13 @@ function forceSwUpdate() {
 .no-link {
   color: white;
   text-decoration: none;
+}
+
+.app {
+  height: 100%;
+}
+
+.main {
+  min-height: calc(100vh - 60px);
 }
 </style>
