@@ -286,7 +286,7 @@
       <v-col cols="12" class="pa-1">
         <v-card>
           <v-card-text>
-            <v-menu location="bottom">
+            <v-menu v-model="dateMenu" location="bottom" :close-on-content-click="false">
               <template v-slot:activator="{ props }">
                 <v-text-field
                     v-model="formattedDate"
@@ -372,6 +372,7 @@ const station = ref<Station | null>(null);
 const currentWeather = ref<Weather | null>(null);
 const weather = ref<Weather[] | null>(null);
 const date = ref(moment().startOf('day').toDate());
+const dateMenu = ref(false);
 
 function updateWeatherData() {
   fetch(getURL())
@@ -446,6 +447,9 @@ function dewpoint(temp: number, humidity: number) {
 
 watch(date, () => {
   updateWeatherData();
+  setTimeout(() => {
+    dateMenu.value = false;
+  }, 500);
 })
 
 const id = computed(() => {
