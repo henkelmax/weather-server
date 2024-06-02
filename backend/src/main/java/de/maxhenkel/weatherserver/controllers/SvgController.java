@@ -3,6 +3,7 @@ package de.maxhenkel.weatherserver.controllers;
 import de.maxhenkel.weatherserver.dtos.Weather;
 import de.maxhenkel.weatherserver.services.WeatherService;
 import de.maxhenkel.weatherserver.svg.SvgRenderService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
@@ -15,8 +16,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 
-@CrossOrigin
 @RestController
+@CrossOrigin
 public class SvgController {
 
     @Autowired
@@ -30,7 +31,8 @@ public class SvgController {
 
     @Cacheable(value = "weatherSvg", cacheManager = "svgCacheManager")
     @GetMapping(value = "/api/v1/widget/weather.svg", produces = "image/svg+xml")
-    public String svg(@RequestParam(value = "id", required = false) Long stationId) throws IOException {
+    public String svg(HttpServletResponse response, @RequestParam(value = "id", required = false) Long stationId) throws IOException {
+        response.setHeader("Access-Control-Allow-Origin", "*");
         if (stationId == null) {
             stationId = defaultStationId;
         }
