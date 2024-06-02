@@ -35,7 +35,7 @@ export default defineConfig({
                         type: "image/png"
                     },
                     {
-                        src: "icons/icon-64x64",
+                        src: "icons/icon-64x64.png",
                         sizes: "64x64",
                         type: "image/png"
                     }
