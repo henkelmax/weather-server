@@ -36,7 +36,7 @@ const chartOptions = computed(() => {
   return {
     height: 250,
     curveType: settingsStore.smoothGraphs ? "function" : undefined,
-    backgroundColor: "#1E1E1E",
+    backgroundColor: "#212121",
     series: props.seriesColors.map((e) => {
       return {color: e};
     }),
