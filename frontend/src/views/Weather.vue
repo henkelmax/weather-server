@@ -1,23 +1,23 @@
 <template>
-  <v-container>
+  <v-container class="weather-container">
     <v-row class="text-center" justify="center">
       <v-col v-if="station" cols="12" lg="3" md="4" class="pa-1">
         <v-card
-          height="100%"
-          @click="openMap(station.latitude, station.longitude)"
+            height="100%"
+            @click="openMap(station.latitude, station.longitude)"
         >
           <v-card-text>
             <v-row align="center">
               <v-col cols="12" class="pb-0">
-                <span class="text-h5"> {{ $t("station") }} </span>
+                <span class="text-h5 text-grey-lighten-1"> {{ $t("station") }} </span>
               </v-col>
               <v-col cols="12" class="pb-0">
-                <span class="text-h4 white--text">
+                <span class="text-h4">
                   {{ station.name }}
                 </span>
               </v-col>
               <v-col cols="12">
-                <span>
+                <span class="text-grey-lighten-1">
                   {{ station.description }}
                 </span>
               </v-col>
@@ -27,16 +27,16 @@
       </v-col>
 
       <template
-        v-if="
+          v-if="
           currentWeather && isToday() && weather != null && weather.length > 0
         "
       >
         <v-col cols="12" lg="3" md="4" class="pa-1">
           <MinMax
-            :title="$t('temperature')"
-            :value="`${currentWeather.temperature.toFixed(1)} °C`"
-            :min="`${min(weather, (e) => e.temperature).toFixed(1)} °C`"
-            :max="`${max(weather, (e) => e.temperature).toFixed(1)} °C`"
+              :title="$t('temperature')"
+              :value="`${currentWeather.temperature.toFixed(1)} °C`"
+              :min="`${min(weather, (e) => e.temperature).toFixed(1)} °C`"
+              :max="`${max(weather, (e) => e.temperature).toFixed(1)} °C`"
           />
         </v-col>
 
@@ -45,14 +45,14 @@
             <v-card-text>
               <v-row align="center">
                 <v-col cols="12">
-                  <span class="text-h5"> {{ $t("wind") }} </span>
+                  <span class="text-h5 text-grey-lighten-1"> {{ $t("wind") }} </span>
                 </v-col>
                 <v-col cols="6">
                   <v-row align="center">
                     <v-col cols="12" class="pt-0">
                       <v-icon
-                        x-large
-                        :style="`transform: rotate(${
+                          x-large
+                          :style="`transform: rotate(${
                           currentWeather.windDirection + 180
                         }deg);`"
                       >
@@ -60,19 +60,19 @@
                       </v-icon>
                     </v-col>
                     <v-col cols="12" class="pt-0">
-                      <span>{{ currentWeather.windDirection }} °</span>
+                      <span class="text-grey-lighten-1">{{ currentWeather.windDirection }} °</span>
                     </v-col>
                   </v-row>
                 </v-col>
                 <v-col cols="6">
                   <v-row align="center">
                     <v-col cols="12" class="pt-0">
-                      <v-icon small> mdi-windsock </v-icon>
-                      {{ currentWeather.windSpeed.toFixed(1) }} km/h
+                      <v-icon small> mdi-windsock</v-icon>
+                      <span class="ml-1 text-grey-lighten-1">{{ currentWeather.windSpeed.toFixed(1) }} km/h</span>
                     </v-col>
                     <v-col cols="12" class="pt-0">
-                      <v-icon small> mdi-weather-windy </v-icon>
-                      {{ currentWeather.windGust.toFixed(1) }} km/h
+                      <v-icon small> mdi-weather-windy</v-icon>
+                      <span class="ml-1 text-grey-lighten-1">{{ currentWeather.windGust.toFixed(1) }} km/h</span>
                     </v-col>
                   </v-row>
                 </v-col>
@@ -86,57 +86,57 @@
             <v-card-text>
               <v-row align="center">
                 <v-col cols="12">
-                  <span class="text-h5"> {{ $t("rain") }} </span>
+                  <span class="text-h5 text-grey-lighten-1"> {{ $t("rain") }} </span>
                 </v-col>
                 <v-col cols="6">
                   <v-row align="center">
                     <v-col cols="12" class="pt-0">
-                      <span>{{ $t("current") }}</span>
+                      <span class="text-grey-lighten-1">{{ $t("current") }}</span>
                     </v-col>
                     <v-col cols="12" class="pt-0">
-                      <span class="text-h4 white--text">
+                      <span class="text-h4">
                         {{ currentWeather.rainRate }}
                       </span>
-                      <span> mm/h</span>
+                      <span class="text-grey-lighten-1"> mm/h</span>
                     </v-col>
                   </v-row>
                 </v-col>
                 <v-col cols="6">
                   <v-row align="center">
                     <v-col cols="12" class="pt-0">
-                      <span>{{ $t("today") }}</span>
+                      <span class="text-grey-lighten-1">{{ $t("today") }}</span>
                     </v-col>
                     <v-col cols="12" class="pt-0">
-                      <span class="text-h4 white--text">
+                      <span class="text-h4">
                         {{ currentWeather.rainDaily }}
                       </span>
-                      <span> mm</span>
+                      <span class="text-grey-lighten-1"> mm</span>
                     </v-col>
                   </v-row>
                 </v-col>
                 <v-col cols="6">
                   <v-row align="center">
                     <v-col cols="12" class="pt-0">
-                      <span>{{ $t("this_week") }}</span>
+                      <span class="text-grey-lighten-1">{{ $t("this_week") }}</span>
                     </v-col>
                     <v-col cols="12" class="pt-0">
-                      <span class="text-h4 white--text">
+                      <span class="text-h4">
                         {{ currentWeather.rainWeekly.toFixed(0) }}
                       </span>
-                      <span> mm</span>
+                      <span class="text-grey-lighten-1"> mm</span>
                     </v-col>
                   </v-row>
                 </v-col>
                 <v-col cols="6">
                   <v-row align="center">
                     <v-col cols="12" class="pt-0">
-                      <span>{{ $t("this_month") }}</span>
+                      <span class="text-grey-lighten-1">{{ $t("this_month") }}</span>
                     </v-col>
                     <v-col cols="12" class="pt-0">
-                      <span class="text-h4 white--text">
+                      <span class="text-h4">
                         {{ currentWeather.rainMonthly.toFixed(0) }}
                       </span>
-                      <span> mm</span>
+                      <span class="text-grey-lighten-1"> mm</span>
                     </v-col>
                   </v-row>
                 </v-col>
@@ -150,28 +150,28 @@
             <v-card-text>
               <v-row align="center">
                 <v-col cols="12">
-                  <span class="text-h5"> {{ $t("sun") }} </span>
+                  <span class="text-h5 text-grey-lighten-1"> {{ $t("sun") }} </span>
                 </v-col>
                 <v-col cols="6">
                   <v-row align="center">
                     <v-col cols="12" class="pt-0">
-                      <span>{{ $t("solar") }}</span>
+                      <span class="text-grey-lighten-1">{{ $t("solar") }}</span>
                     </v-col>
                     <v-col cols="12" class="pt-0">
-                      <span class="text-h4 white--text">
+                      <span class="text-h4">
                         {{ currentWeather.solarRadiation.toFixed(0) }}
                       </span>
-                      <span> w/m²</span>
+                      <span class="text-grey-lighten-1"> w/m²</span>
                     </v-col>
                   </v-row>
                 </v-col>
                 <v-col cols="6">
                   <v-row align="center">
                     <v-col cols="12" class="pt-0">
-                      <span>{{ $t("uv_index") }}</span>
+                      <span class="text-grey-lighten-1">{{ $t("uv_index") }}</span>
                     </v-col>
                     <v-col cols="12" class="pt-0">
-                      <span class="text-h4 white--text">
+                      <span class="text-h4">
                         {{ currentWeather.uvi }}
                       </span>
                     </v-col>
@@ -187,18 +187,18 @@
             <v-card-text>
               <v-row align="center">
                 <v-col cols="12">
-                  <span class="text-h5"> {{ $t("daylight") }} </span>
+                  <span class="text-h5 text-grey-lighten-1"> {{ $t("daylight") }} </span>
                 </v-col>
                 <v-col cols="6">
                   <v-row align="center">
                     <v-col cols="12" class="pt-0">
-                      <span>{{ $t("sunrise") }}</span>
+                      <span class="text-grey-lighten-1">{{ $t("sunrise") }}</span>
                     </v-col>
                     <v-col cols="12" class="pt-0">
-                      <span class="text-h4 white--text">
+                      <span class="text-h4">
                         {{
-                          $moment(
-                            getSunrise(station.latitude, station.longitude)
+                          moment(
+                              getSunrise(station.latitude, station.longitude)
                           ).format("HH:mm")
                         }}
                       </span>
@@ -208,13 +208,13 @@
                 <v-col cols="6">
                   <v-row align="center">
                     <v-col cols="12" class="pt-0">
-                      <span>{{ $t("sunset") }}</span>
+                      <span class="text-grey-lighten-1">{{ $t("sunset") }}</span>
                     </v-col>
                     <v-col cols="12" class="pt-0">
-                      <span class="text-h4 white--text">
+                      <span class="text-h4">
                         {{
-                          $moment(
-                            getSunset(station.latitude, station.longitude)
+                          moment(
+                              getSunset(station.latitude, station.longitude)
                           ).format("HH:mm")
                         }}
                       </span>
@@ -228,19 +228,19 @@
 
         <v-col cols="12" lg="3" md="4" class="pa-1">
           <MinMax
-            :title="$t('pressure')"
-            :value="`${currentWeather.relativePressure.toFixed(0)} hPa`"
-            :min="`${min(weather, (e) => e.relativePressure).toFixed(0)} hPa`"
-            :max="`${max(weather, (e) => e.relativePressure).toFixed(0)} hPa`"
+              :title="$t('pressure')"
+              :value="`${currentWeather.relativePressure.toFixed(0)} hPa`"
+              :min="`${min(weather, (e) => e.relativePressure).toFixed(0)} hPa`"
+              :max="`${max(weather, (e) => e.relativePressure).toFixed(0)} hPa`"
           />
         </v-col>
 
         <v-col cols="12" lg="3" md="4" class="pa-1">
           <MinMax
-            :title="$t('humidity')"
-            :value="`${currentWeather.humidity.toFixed(0)} %`"
-            :min="`${min(weather, (e) => e.humidity).toFixed(0)} %`"
-            :max="`${max(weather, (e) => e.humidity).toFixed(0)} %`"
+              :title="$t('humidity')"
+              :value="`${currentWeather.humidity.toFixed(0)} %`"
+              :min="`${min(weather, (e) => e.humidity).toFixed(0)} %`"
+              :max="`${max(weather, (e) => e.humidity).toFixed(0)} %`"
           />
         </v-col>
 
@@ -249,18 +249,18 @@
             <v-card-text>
               <v-row align="center">
                 <v-col cols="12" class="pb-0">
-                  <span class="text-h5"> {{ $t("last_update") }} </span>
+                  <span class="text-h5 text-grey-lighten-1"> {{ $t("last_update") }} </span>
                 </v-col>
                 <v-col cols="12" class="pb-0">
-                  <span class="text-h4 white--text">
-                    {{ this.$moment(this.currentWeather.date).fromNow() }}
+                  <span class="text-h4">
+                    {{ moment(currentWeather.date).fromNow() }}
                   </span>
                 </v-col>
                 <v-col cols="12">
-                  <span>
+                  <span class="text-grey-lighten-1">
                     {{
-                      this.$moment(this.currentWeather.date).format(
-                        "DD.MM.YYYY HH:mm"
+                      moment(currentWeather.date).format(
+                          "DD.MM.YYYY HH:mm"
                       )
                     }}
                   </span>
@@ -275,40 +275,28 @@
         <v-card height="100%">
           <v-card-text>
             <v-progress-circular
-              :size="70"
-              :width="6"
-              indeterminate
+                :size="70"
+                :width="6"
+                indeterminate
             ></v-progress-circular>
           </v-card-text>
         </v-card>
       </v-col>
 
       <v-col cols="12" class="pa-1">
-        <v-card height="100%">
+        <v-card>
           <v-card-text>
-            <v-menu
-              v-model="calendar"
-              transition="scale-transition"
-              offset-y
-              min-width="auto"
-            >
-              <template v-slot:activator="{ on, attrs }">
+            <v-menu location="bottom">
+              <template v-slot:activator="{ props }">
                 <v-text-field
-                  v-model="date"
-                  label="Date"
-                  prepend-icon="mdi-calendar"
-                  readonly
-                  v-bind="attrs"
-                  v-on="on"
+                    v-model="formattedDate"
+                    label="Date"
+                    prepend-icon="mdi-calendar"
+                    readonly
+                    v-bind="props"
                 ></v-text-field>
               </template>
-              <v-date-picker
-                v-model="date"
-                scrollable
-                no-title
-                :first-day-of-week="1"
-                color="blue"
-              ></v-date-picker>
+              <v-date-picker v-model="date"></v-date-picker>
             </v-menu>
           </v-card-text>
         </v-card>
@@ -317,46 +305,46 @@
       <template v-if="weather != null && weather.length > 0">
         <v-col cols="12" class="pa-1">
           <Graph
-            :chartData="temperatureData"
-            :seriesColors="['#FFFF00']"
-            :lowerBound="false"
+              :chartData="temperatureData"
+              :seriesColors="['#FFFF00']"
+              :lowerBound="false"
           />
         </v-col>
         <v-col cols="12" class="pa-1">
           <Graph
-            :chartData="rainfallData"
-            :seriesColors="['#0088FF']"
-            :maxValue="10"
+              :chartData="rainfallData"
+              :seriesColors="['#0088FF']"
+              :maxValue="10"
           />
         </v-col>
         <v-col cols="12" class="pa-1">
           <Graph
-            :chartData="windData"
-            :seriesColors="['#00FF88']"
-            :maxValue="10"
+              :chartData="windData"
+              :seriesColors="['#00FF88']"
+              :maxValue="10"
           />
         </v-col>
         <v-col cols="12" class="pa-1">
-          <Graph :chartData="humidityData" :seriesColors="['#00FF00']" />
+          <Graph :chartData="humidityData" :seriesColors="['#00FF00']"/>
         </v-col>
         <v-col cols="12" class="pa-1">
           <Graph
-            :chartData="solarData"
-            :seriesColors="['#FFFF00']"
-            :maxValue="10"
-          />
-        </v-col>
-        <v-col cols="12" class="pa-1">
-          <Graph
-            :chartData="uviData"
-            :seriesColors="['#FFFF00']"
-            :maxValue="10"
+              :chartData="solarData"
+              :seriesColors="['#FFFF00']"
+              :maxValue="10"
           />
         </v-col>
         <v-col cols="12" class="pa-1">
           <Graph
-            :chartData="pressureData"
-            :seriesColors="['#00FFFF', '#00AAFF']"
+              :chartData="uviData"
+              :seriesColors="['#FFFF00']"
+              :maxValue="10"
+          />
+        </v-col>
+        <v-col cols="12" class="pa-1">
+          <Graph
+              :chartData="pressureData"
+              :seriesColors="['#00FFFF', '#00AAFF']"
           />
         </v-col>
       </template>
@@ -364,255 +352,291 @@
   </v-container>
 </template>
 
-<script>
-import Graph from "../components/Graph";
-import MinMax from "../components/MinMax";
-import { getSunrise, getSunset } from "sunrise-sunset-js";
+<script setup lang="ts">
+import moment from "moment/min/moment-with-locales";
+import Graph from "../components/Graph.vue";
+import MinMax from "../components/MinMax.vue";
+import {getSunrise, getSunset} from "sunrise-sunset-js";
+import {computed, ref, watch} from "vue";
+import {useI18n} from "vue-i18n";
+import {useRoute} from "vue-router";
+import {on} from "../events/eventBus";
 
-export default {
-  name: "Weather",
-  components: {
-    Graph,
-    MinMax,
-  },
-  data() {
-    return {
-      station: null,
-      currentWeather: null,
-      weather: null,
-      date: this.$moment().format("YYYY-MM-DD"),
-      calendar: false,
-    };
-  },
-  beforeCreate() {
-    this.$moment.locale(this.$i18n.locale);
-  },
-  created() {
-    this.$eventBus.$on("update", this.updateWeatherData);
-    fetch(`${this.getServerHost()}/api/v1/station`)
+const {locale, t} = useI18n();
+
+moment.locale(locale.value)
+
+const route = useRoute();
+
+const station = ref<Station | null>(null);
+const currentWeather = ref<Weather | null>(null);
+const weather = ref<Weather[] | null>(null);
+const date = ref(moment().startOf('day').toDate());
+
+function updateWeatherData() {
+  fetch(getURL())
       .then((response) => response.json())
       .then((data) => {
-        this.station = data;
-      });
-    this.updateWeatherData();
-    setInterval(this.updateWeatherData, 30000);
-  },
-  methods: {
-    getSunrise,
-    getSunset,
-    updateWeatherData() {
-      fetch(this.getURL())
-        .then((response) => response.json())
-        .then((data) => {
-          this.weather = data.map((w) => {
-            return { ...w, date: new Date(w.date) };
-          });
+        weather.value = data.map((w: any) => {
+          return {...w, date: new Date(w.date)} as Weather;
         });
-      fetch(`${this.getServerHost()}/api/v1/weather/current?id=${this.id}`)
-        .then((response) => response.json())
-        .then((data) => {
-          this.currentWeather = data;
-        });
-    },
-    getURL() {
-      const params = new URLSearchParams({
-        id: this.id,
-        from: this.$moment(this.date, "YYYY-MM-DD").valueOf(),
-        to: this.$moment(this.date, "YYYY-MM-DD").add(1, "days").valueOf(),
       });
-      return `${this.getServerHost()}/api/v1/weather?${params}`;
-    },
-    getServerHost() {
-      if (process.env.NODE_ENV === "development") {
-        // return "http://localhost:8089";
-        return "https://weather.maxhenkel.de";
-      } else {
-        return location.protocol + "//" + location.host;
-      }
-    },
-    isToday() {
-      return (
-        this.$moment(this.date, "YYYY-MM-DD").diff(
-          this.$moment(this.$moment().format("YYYY-MM-DD"), "YYYY-MM-DD")
-        ) === 0
-      );
-    },
-    openMap(lat, lon) {
-      window.open(`https://maps.google.com/?q=${lat},${lon}`, "_blank");
-    },
-    formatDate(date) {
-      return this.$moment(date).format("HH:mm:ss");
-    },
-    max(data, func) {
-      return Math.max(...data.map((e) => func(e)));
-    },
-    min(data, func) {
-      return Math.min(...data.map((e) => func(e)));
-    },
-    dewpoint(temp, humidity) {
-      let a, b;
-      if (temp >= 0) {
-        a = 7.5;
-        b = 237.3;
-      } else {
-        a = 7.6;
-        b = 240.7;
-      }
-      let sdd = 6.1078 * Math.pow(10, (a * temp) / (b + temp));
-      let dd = sdd * (humidity / 100);
-      let v = Math.log10(dd / 6.1078);
-      return (b * v) / (a - v);
-    },
-  },
-  watch: {
-    date() {
-      this.updateWeatherData();
-    },
-  },
-  computed: {
-    id() {
-      return Number.parseInt(this.$route.query.id) || 1;
-    },
-    loading() {
-      return this.weather === null;
-    },
-    temperatureData() {
-      const arr = this.weather.map((w) => {
-        return [
-          w.date,
+  fetch(`${getServerHost()}/api/v1/weather/current?id=${id.value}`)
+      .then((response) => response.json())
+      .then((data) => {
+        currentWeather.value = data;
+      });
+}
+
+function getURL() {
+  const searchParams: URLSearchParams = new URLSearchParams();
+  searchParams.append("id", String(id.value));
+  searchParams.append("from", String(moment(date.value, "YYYY-MM-DD").valueOf()));
+  searchParams.append("to", String(moment(date.value, "YYYY-MM-DD").add(1, "days").valueOf()));
+  return `${getServerHost()}/api/v1/weather?${searchParams}`;
+}
+
+function getServerHost() {
+  if (import.meta.env.MODE === "development") {
+    // return "http://localhost:8089";
+    return "https://weather.maxhenkel.de";
+  } else {
+    return location.protocol + "//" + location.host;
+  }
+}
+
+function isToday() {
+  return (
+      moment(date.value, "YYYY-MM-DD").diff(
+          moment(moment().format("YYYY-MM-DD"), "YYYY-MM-DD")
+      ) === 0
+  );
+}
+
+function openMap(lat: number, lon: number) {
+  window.open(`https://maps.google.com/?q=${lat},${lon}`, "_blank");
+}
+
+function formatDate(date: Date) {
+  return moment(date).format("HH:mm:ss");
+}
+
+function max<T>(data: T[], func: (e: T) => number): number {
+  return Math.max(...data.map((e) => func(e)));
+}
+
+function min<T>(data: T[], func: (e: T) => number): number {
+  return Math.min(...data.map((e) => func(e)));
+}
+
+function dewpoint(temp: number, humidity: number) {
+  let a, b;
+  if (temp >= 0) {
+    a = 7.5;
+    b = 237.3;
+  } else {
+    a = 7.6;
+    b = 240.7;
+  }
+  let sdd = 6.1078 * Math.pow(10, (a * temp) / (b + temp));
+  let dd = sdd * (humidity / 100);
+  let v = Math.log10(dd / 6.1078);
+  return (b * v) / (a - v);
+}
+
+watch(date, () => {
+  updateWeatherData();
+})
+
+const id = computed(() => {
+  return Number.parseInt(route.query.id as string) || 1;
+});
+
+const loading = computed(() => {
+  return weather.value === null;
+});
+
+const temperatureData = computed(() => {
+  if (weather.value === null) {
+    return [];
+  }
+  const arr: any[] = weather.value.map((w) => {
+    return [
+      w.date,
+      w.temperature,
+      `${formatDate(w.date)}\n${w.temperature} °C`,
+      +dewpoint(w.temperature, w.humidity).toFixed(2),
+      `${formatDate(w.date)}\n${dewpoint(
           w.temperature,
-          `${this.formatDate(w.date)}\n${w.temperature} °C`,
-          +this.dewpoint(w.temperature, w.humidity).toFixed(2),
-          `${this.formatDate(w.date)}\n${this.dewpoint(
-            w.temperature,
-            w.humidity
-          ).toFixed(2)} °C`,
-        ];
-      });
-      if (arr.length <= 0) {
-        arr.push([new Date(), 0, "", 0, ""]);
-      }
-      arr.unshift([
-        this.$t("date"),
-        this.$t("temperature"),
-        { type: "string", role: "tooltip" },
-        this.$t("dewpoint"),
-        { type: "string", role: "tooltip" },
-      ]);
-      return arr;
-    },
-    humidityData() {
-      const arr = this.weather.map((w) => {
-        return [
-          w.date,
-          w.humidity,
-          `${this.formatDate(w.date)}\n${w.humidity} %`,
-        ];
-      });
-      if (arr.length <= 0) {
-        arr.push([new Date(), 0, ""]);
-      }
-      arr.unshift([
-        this.$t("date"),
-        this.$t("humidity"),
-        { type: "string", role: "tooltip" },
-      ]);
-      return arr;
-    },
-    pressureData() {
-      const arr = this.weather.map((w) => {
-        return [
-          w.date,
-          w.relativePressure,
-          `${this.formatDate(w.date)}\n${w.relativePressure} hPa`,
-          w.absolutePressure,
-          `${this.formatDate(w.date)}\n${w.absolutePressure} hPa`,
-        ];
-      });
-      if (arr.length <= 0) {
-        arr.push([new Date(), 0, "", 0, ""]);
-      }
-      arr.unshift([
-        this.$t("date"),
-        this.$t("relative_pressure"),
-        { type: "string", role: "tooltip" },
-        this.$t("absolute_pressure"),
-        { type: "string", role: "tooltip" },
-      ]);
-      return arr;
-    },
-    rainfallData() {
-      const arr = this.weather.map((w) => {
-        return [
-          w.date,
-          w.rainRate,
-          `${this.formatDate(w.date)}\n${w.rainRate} mm`,
-        ];
-      });
-      if (arr.length <= 0) {
-        arr.push([new Date(), 0, ""]);
-      }
-      arr.unshift([
-        this.$t("date"),
-        this.$t("rainfall"),
-        { type: "string", role: "tooltip" },
-      ]);
-      return arr;
-    },
-    windData() {
-      const arr = this.weather.map((w) => {
-        return [
-          w.date,
-          w.windSpeed,
-          `${this.formatDate(w.date)}\n${w.windSpeed} km/h`,
-          w.windGust,
-          `${this.formatDate(w.date)}\n${w.windGust} km/h`,
-        ];
-      });
-      if (arr.length <= 0) {
-        arr.push([new Date(), 0, "", 0, ""]);
-      }
-      arr.unshift([
-        this.$t("date"),
-        this.$t("wind_speed"),
-        { type: "string", role: "tooltip" },
-        this.$t("wind_gust"),
-        { type: "string", role: "tooltip" },
-      ]);
-      return arr;
-    },
-    solarData() {
-      const arr = this.weather.map((w) => {
-        return [
-          w.date,
-          w.solarRadiation,
-          `${this.formatDate(w.date)}\n${w.solarRadiation} w/m²`,
-        ];
-      });
-      if (arr.length <= 0) {
-        arr.push([new Date(), 0, ""]);
-      }
-      arr.unshift([
-        this.$t("date"),
-        this.$t("solar_radiation"),
-        { type: "string", role: "tooltip" },
-      ]);
-      return arr;
-    },
-    uviData() {
-      const arr = this.weather.map((w) => {
-        return [w.date, w.uvi, `${this.formatDate(w.date)}\n${w.uvi} UVI`];
-      });
-      if (arr.length <= 0) {
-        arr.push([new Date(), 0, ""]);
-      }
-      arr.unshift([
-        this.$t("date"),
-        this.$t("uv_index"),
-        { type: "string", role: "tooltip" },
-      ]);
-      return arr;
-    },
-  },
-};
+          w.humidity
+      ).toFixed(2)} °C`,
+    ];
+  });
+  if (arr.length <= 0) {
+    arr.push([new Date(), 0, "", 0, ""]);
+  }
+  arr.unshift([
+    t("date"),
+    t("temperature"),
+    {type: "string", role: "tooltip"},
+    t("dewpoint"),
+    {type: "string", role: "tooltip"},
+  ]);
+  return arr;
+});
+
+const humidityData = computed(() => {
+  if (weather.value === null) {
+    return [];
+  }
+  const arr: any[] = weather.value.map((w) => {
+    return [
+      w.date,
+      w.humidity,
+      `${formatDate(w.date)}\n${w.humidity} %`,
+    ];
+  });
+  if (arr.length <= 0) {
+    arr.push([new Date(), 0, ""]);
+  }
+  arr.unshift([
+    t("date"),
+    t("humidity"),
+    {type: "string", role: "tooltip"},
+  ]);
+  return arr;
+});
+
+const pressureData = computed((): any[][] => {
+  if (weather.value === null) {
+    return [];
+  }
+  const arr: any[] = weather.value.map((w) => {
+    return [
+      w.date,
+      w.relativePressure,
+      `${formatDate(w.date)}\n${w.relativePressure} hPa`,
+      w.absolutePressure,
+      `${formatDate(w.date)}\n${w.absolutePressure} hPa`,
+    ];
+  });
+  if (arr.length <= 0) {
+    arr.push([new Date(), 0, "", 0, ""]);
+  }
+  arr.unshift([
+    t("date"),
+    t("relative_pressure"),
+    {type: "string", role: "tooltip"},
+    t("absolute_pressure"),
+    {type: "string", role: "tooltip"},
+  ]);
+  return arr;
+});
+
+const rainfallData = computed(() => {
+  if (weather.value === null) {
+    return [];
+  }
+  const arr: any[] = weather.value.map((w) => {
+    return [
+      w.date,
+      w.rainRate,
+      `${formatDate(w.date)}\n${w.rainRate} mm`,
+    ];
+  });
+  if (arr.length <= 0) {
+    arr.push([new Date(), 0, ""]);
+  }
+  arr.unshift([
+    t("date"),
+    t("rainfall"),
+    {type: "string", role: "tooltip"},
+  ]);
+  return arr;
+});
+
+const windData = computed(() => {
+  if (weather.value === null) {
+    return [];
+  }
+  const arr: any[] = weather.value.map((w) => {
+    return [
+      w.date,
+      w.windSpeed,
+      `${formatDate(w.date)}\n${w.windSpeed} km/h`,
+      w.windGust,
+      `${formatDate(w.date)}\n${w.windGust} km/h`,
+    ];
+  });
+  if (arr.length <= 0) {
+    arr.push([new Date(), 0, "", 0, ""]);
+  }
+  arr.unshift([
+    t("date"),
+    t("wind_speed"),
+    {type: "string", role: "tooltip"},
+    t("wind_gust"),
+    {type: "string", role: "tooltip"},
+  ]);
+  return arr;
+});
+
+const solarData = computed(() => {
+  if (weather.value === null) {
+    return [];
+  }
+  const arr: any[] = weather.value.map((w) => {
+    return [
+      w.date,
+      w.solarRadiation,
+      `${formatDate(w.date)}\n${w.solarRadiation} w/m²`,
+    ];
+  });
+  if (arr.length <= 0) {
+    arr.push([new Date(), 0, ""]);
+  }
+  arr.unshift([
+    t("date"),
+    t("solar_radiation"),
+    {type: "string", role: "tooltip"},
+  ]);
+  return arr;
+});
+
+const uviData = computed(() => {
+  if (weather.value === null) {
+    return [];
+  }
+  const arr: any[] = weather.value.map((w) => {
+    return [w.date, w.uvi, `${formatDate(w.date)}\n${w.uvi} UVI`];
+  });
+  if (arr.length <= 0) {
+    arr.push([new Date(), 0, ""]);
+  }
+  arr.unshift([
+    t("date"),
+    t("uv_index"),
+    {type: "string", role: "tooltip"},
+  ]);
+  return arr;
+});
+
+const formattedDate = computed(() => {
+  return moment(date.value).format("YYYY-MM-DD");
+})
+
+on("update", updateWeatherData);
+fetch(`${getServerHost()}/api/v1/station`)
+    .then((response) => response.json())
+    .then((data) => {
+      station.value = data;
+    });
+updateWeatherData();
+setInterval(updateWeatherData, 30000);
 </script>
+
+<style scoped>
+.weather-container {
+  max-width: 1785px;
+}
+</style>
