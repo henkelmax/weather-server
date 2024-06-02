@@ -1,9 +1,9 @@
-FROM node:12-alpine AS frontend-builder
+FROM node:20-alpine AS frontend-builder
 
 COPY frontend/package.json .
-COPY frontend/yarn.lock .
+COPY frontend/package-lock.json .
 
-RUN yarn install --non-interactive
+RUN npm ci
 
 COPY frontend .
 
