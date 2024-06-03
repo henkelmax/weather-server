@@ -30,7 +30,7 @@ public class SvgController {
     private Long defaultStationId;
 
     @Cacheable(value = "weatherSvg", cacheManager = "svgCacheManager")
-    @GetMapping(value = "/api/v1/widget/weather.svg", produces = "image/svg+xml")
+    @GetMapping(value = "/api/v1/widget/weather.svg", produces = "image/svg+xml;charset=UTF-8")
     public String svg(HttpServletResponse response, @RequestParam(value = "id", required = false) Long stationId) throws IOException {
         response.setHeader("Access-Control-Allow-Origin", "*");
         if (stationId == null) {
