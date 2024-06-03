@@ -26,12 +26,15 @@
     <v-main class="main">
       <RouterView/>
     </v-main>
-    <v-footer class="pa-3">
-      <span class="text-grey-lighten-1 text-caption">Release {{ PackageVersion }}</span>
-      <v-spacer></v-spacer>
-      <v-btn to="/privacy" class="font-weight-bold" variant="plain">{{ $t("privacy") }}</v-btn>
-      <v-btn to="/legal" class="font-weight-bold mr-2" variant="plain">{{ $t("legal") }}</v-btn>
-      <div class="mr-2">&copy; {{ new Date().getFullYear() }} Max Henkel</div>
+    <v-footer>
+      <v-row justify="center" no-gutters>
+        <v-btn to="/privacy" class="font-weight-bold mr-2" variant="plain">{{ $t("privacy") }}</v-btn>
+        <v-btn to="/legal" class="font-weight-bold mr-2" variant="plain">{{ $t("legal") }}</v-btn>
+        <v-col class="text-center mt-4" cols="12">
+          <span class="text-grey-lighten-1 mr-6">Release {{ PackageVersion }}</span>
+          <span class="text-grey-lighten-1">&copy; {{ new Date().getFullYear() }} Max Henkel</span>
+        </v-col>
+      </v-row>
     </v-footer>
     <v-snackbar :timeout="2000" v-model="showRefreshSnackbar" color="#333">
       {{ $t("refresh_toast") }}
