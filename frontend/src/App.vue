@@ -5,20 +5,21 @@
         <RouterLink to="/" class="no-link">{{ $t("weather") }}</RouterLink>
       </v-app-bar-title>
       <v-spacer></v-spacer>
-      <template v-if="!$vuetify.display.smAndDown">
-        <v-btn v-if="!!installPrompt" variant="plain" @click="installPWA">
-          <v-icon icon="mdi-download"/>
-          <span class="ml-1">
-          {{ $t("install") }}
-        </span>
-        </v-btn>
+      <template v-if="!!installPrompt">
+        <template v-if="!$vuetify.display.smAndDown">
+          <v-btn variant="plain" @click="installPWA">
+            <v-icon icon="mdi-download"/>
+            <span class="ml-1">
+              {{ $t("install") }}
+            </span>
+          </v-btn>
+        </template>
+        <template v-else>
+          <v-btn icon="mdi-download" variant="plain" @click="installPWA">
+            <v-icon icon="mdi-download"/>
+          </v-btn>
+        </template>
       </template>
-      <template v-else>
-        <v-btn icon="mdi-download" variant="plain" @click="installPWA">
-          <v-icon icon="mdi-download"/>
-        </v-btn>
-      </template>
-
       <v-btn icon="mdi-cog" variant="plain" to="/settings"/>
       <v-btn icon="mdi-refresh" variant="plain" @click="refresh"/>
     </v-app-bar>
