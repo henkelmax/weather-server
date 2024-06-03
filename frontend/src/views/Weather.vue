@@ -374,7 +374,18 @@ const weather = ref<Weather[] | null>(null);
 const date = ref(moment().startOf('day').toDate());
 const dateMenu = ref(false);
 
+function fetchStation() {
+  fetch(`${getServerHost()}/api/v1/station`)
+      .then((response) => response.json())
+      .then((data) => {
+        station.value = data;
+      });
+}
+
 function updateWeatherData() {
+  if (station.value == null) {
+    fetchStation();
+  }
   fetch(getTodaysWeatherURL())
       .then((response) => response.json())
       .then((data) => {
@@ -630,11 +641,7 @@ const formattedDate = computed(() => {
 })
 
 on("update", updateWeatherData);
-fetch(`${getServerHost()}/api/v1/station`)
-    .then((response) => response.json())
-    .then((data) => {
-      station.value = data;
-    });
+
 updateWeatherData();
 setInterval(updateWeatherData, 30000);
 </script>
