@@ -15,4 +15,9 @@ public class WebConfig implements WebMvcConfigurer {
                 .setCachePeriod(0); //TODO Check if this is needed
     }
 
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("forward:/index.html");
+    }
+
 }
