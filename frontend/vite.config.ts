@@ -12,7 +12,6 @@ export default defineConfig({
             devOptions: {
                 enabled: true
             },
-            includeAssets: ["**/*.ttf", "**/*.woff", "**/*.woff2", "**/*.eot"],
             workbox: {
                 cleanupOutdatedCaches: true,
                 globPatterns: ["**/*.{js,css,html,ico,png,jpg,svg,ttf,woff,woff2,eot}"],
