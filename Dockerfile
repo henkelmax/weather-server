@@ -7,7 +7,7 @@ RUN npm ci
 
 COPY frontend .
 
-RUN yarn build
+RUN npm run build
 
 FROM openjdk:17-jdk-alpine
 
