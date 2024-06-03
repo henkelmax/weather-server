@@ -33,4 +33,8 @@ public class WeatherService {
         return weatherRepository.save(weatherEntity);
     }
 
+    public WeatherEntity save(Weather weatherEntity) {
+        return save(modelMapper.map(weatherEntity, WeatherEntity.class));
+    }
+
 }

@@ -10,3 +10,8 @@ spring:
   h2:
     console:
       enabled: true
+
+pull_weather:
+  enabled: true
+  url: https://weather.maxhenkel.de/api/v1/weather/current?id=1
+  id: 1
