@@ -375,7 +375,7 @@ const date = ref(moment().startOf('day').toDate());
 const dateMenu = ref(false);
 
 function updateWeatherData() {
-  fetch(getURL())
+  fetch(getTodaysWeatherURL())
       .then((response) => response.json())
       .then((data) => {
         weather.value = data.map((w: any) => {
@@ -389,7 +389,7 @@ function updateWeatherData() {
       });
 }
 
-function getURL() {
+function getTodaysWeatherURL() {
   const searchParams: URLSearchParams = new URLSearchParams();
   searchParams.append("id", String(id.value));
   searchParams.append("from", String(moment(date.value, "YYYY-MM-DD").valueOf()));
