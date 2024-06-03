@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@vueuse/core": "^10.10.0",
-    "git-describe": "^4.1.1",
     "mitt": "^3.0.1",
     "moment": "^2.30.1",
     "pinia": "^2.1.7",
@@ -30,6 +29,7 @@
     "@types/node": "^20.12.5",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vue/tsconfig": "^0.5.1",
+    "git-describe": "^4.1.1",
     "npm-run-all2": "^6.1.2",
     "typescript": "~5.4.0",
     "vite": "^5.2.8",
