@@ -14,12 +14,12 @@ export default defineConfig({
             },
             workbox: {
                 cleanupOutdatedCaches: true,
-                globPatterns: ['**/*.{js,css,html,ico,png,jpg,svg,ttf,woff,woff2}'],
+                globPatterns: ["**/*.{js,css,html,ico,png,jpg,svg,ttf,woff,woff2}"],
                 navigateFallbackDenylist: [/^\/api/],
                 runtimeCaching: [
                     {
-                        urlPattern: ({url}) => url.pathname.startsWith('/api'),
-                        handler: 'NetworkOnly'
+                        urlPattern: ({url}) => url.pathname.startsWith("/api"),
+                        handler: "NetworkOnly"
                     }
                 ]
             },
