@@ -15,11 +15,13 @@ export default defineConfig({
                 enabled: true
             },
             workbox: {
-                // Disable caching
-                runtimeCaching: [],
-                globPatterns: [],
-                // Exclude all files from being precached
-                globIgnores: ['**/*'],
+                navigateFallbackDenylist: [/^\/api/],
+                runtimeCaching: [
+                    {
+                        urlPattern: ({url}) => url.pathname.startsWith('/api'),
+                        handler: 'NetworkOnly'
+                    }
+                ]
             },
             manifest: {
                 name: "Weather",
