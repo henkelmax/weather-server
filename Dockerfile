@@ -1,4 +1,4 @@
-FROM node:20-alpine AS frontend-builder
+FROM node:20 AS frontend-builder
 
 COPY frontend/package.json .
 COPY frontend/package-lock.json .
