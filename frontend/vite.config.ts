@@ -4,6 +4,8 @@ import {defineConfig} from "vite";
 import vue from "@vitejs/plugin-vue";
 import {VitePWA} from "vite-plugin-pwa";
 
+import gitDescribe from 'git-describe';
+
 export default defineConfig({
     plugins: [
         vue(),
@@ -54,5 +56,8 @@ export default defineConfig({
         alias: {
             "@": fileURLToPath(new URL("./src", import.meta.url))
         }
+    },
+    define: {
+        "__GIT_HASH__": JSON.stringify(gitDescribe.gitDescribeSync().hash)
     }
 });

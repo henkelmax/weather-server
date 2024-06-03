@@ -26,6 +26,7 @@
       <RouterView/>
     </v-main>
     <v-footer class="pa-3">
+      <span class="text-grey-lighten-1 text-caption">Release {{ gitHash }}</span>
       <v-spacer></v-spacer>
       <v-btn to="/privacy" class="font-weight-bold" variant="plain">{{ $t("privacy") }}</v-btn>
       <v-btn to="/legal" class="font-weight-bold mr-2" variant="plain">{{ $t("legal") }}</v-btn>
@@ -40,6 +41,8 @@ import {ref} from "vue";
 import {emit} from "./events/eventBus";
 
 const installPrompt = ref<BeforeInstallPromptEvent | null>(null);
+
+const gitHash = ref(__GIT_HASH__);
 
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
