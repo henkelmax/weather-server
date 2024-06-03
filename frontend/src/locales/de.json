@@ -1,6 +1,7 @@
 {
   "weather": "Wetter",
   "settings": "Einstellungem",
+  "refresh_toast": "Wetterdaten werden aktualisiert",
   "install": "Installieren",
   "privacy": "Privatsphäre",
   "legal": "Impressum",

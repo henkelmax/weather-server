@@ -33,6 +33,9 @@
       <v-btn to="/legal" class="font-weight-bold mr-2" variant="plain">{{ $t("legal") }}</v-btn>
       <div class="mr-2">&copy; {{ new Date().getFullYear() }} Max Henkel</div>
     </v-footer>
+    <v-snackbar :timeout="2000" v-model="showRefreshSnackbar" color="#333">
+      {{ $t("refresh_toast") }}
+    </v-snackbar>
   </v-app>
 </template>
 
@@ -42,8 +45,8 @@ import {ref} from "vue";
 import {emit} from "./events/eventBus";
 
 const installPrompt = ref<BeforeInstallPromptEvent | null>(null);
-
 const PackageVersion = ref(__PACKAGE_VERSION__);
+const showRefreshSnackbar = ref(false);
 
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
@@ -63,6 +66,7 @@ function installPWA() {
 }
 
 function refresh() {
+  showRefreshSnackbar.value = true;
   forceSwUpdate();
   emit("update");
 }

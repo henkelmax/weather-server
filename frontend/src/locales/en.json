@@ -1,6 +1,7 @@
 {
   "weather": "Weather",
   "settings": "Settings",
+  "refresh_toast": "Refreshing weather data",
   "install": "Install",
   "privacy": "Privacy",
   "legal": "Legal",
