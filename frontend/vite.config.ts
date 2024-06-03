@@ -12,6 +12,13 @@ export default defineConfig({
             devOptions: {
                 enabled: true
             },
+            workbox: {
+                // Disable caching
+                runtimeCaching: [],
+                globPatterns: [],
+                // Exclude all files from being precached
+                globIgnores: ['**/*'],
+            },
             manifest: {
                 name: "Weather",
                 short_name: "Weather",
