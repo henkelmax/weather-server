@@ -410,8 +410,8 @@ function getTodaysWeatherURL() {
 
 function getServerHost() {
   if (import.meta.env.MODE === "development") {
-    // return "http://localhost:8089";
-    return "https://weather.maxhenkel.de";
+    return "http://localhost:8088";
+    // return "https://weather.maxhenkel.de";
   } else {
     return location.protocol + "//" + location.host;
   }
