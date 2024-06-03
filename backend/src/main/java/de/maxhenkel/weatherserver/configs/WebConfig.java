@@ -8,23 +8,11 @@ import org.springframework.web.servlet.config.annotation.*;
 public class WebConfig implements WebMvcConfigurer {
 
     @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry
-                .addMapping("/**")
-                .allowedMethods("GET", "POST", "DELETE");
-    }
-
-    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
                 .addResourceHandler("/**")
                 .addResourceLocations("file:../frontend/dist/", "file:/var/www/")
                 .setCachePeriod(0); //TODO Check if this is needed
-    }
-
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("forward:/index.html");
     }
 
 }
