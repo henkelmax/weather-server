@@ -5,7 +5,6 @@
         <div class="privacy">
           <h1>Datenschutzerklärung</h1>
           <br/>
-
           <p>
             Verantwortliche Stelle im Sinne der Datenschutzgesetze,
             insbesondere der EU-Datenschutzgrundverordnung (DSGVO), ist:
@@ -17,7 +16,6 @@
             <br/>
             <img src="@/assets/mail.svg" height="14px" alt="mail"/>
           </p>
-
           <h2>Ihre Betroffenenrechte</h2>
           <p>
             Unter den angegebenen Kontaktdaten unseres
@@ -51,7 +49,6 @@
               haben (Art. 20 DSGVO).
             </li>
           </ul>
-          <p></p>
           <p>
             Sofern Sie uns eine Einwilligung erteilt haben, können Sie diese
             jederzeit mit Wirkung für die Zukunft widerrufen.
@@ -72,7 +69,6 @@
             >https://www.bfdi.bund.de/DE/Infothek/Anschriften_Links/anschriften_links-node.html</a
             >.
           </p>
-          <p></p>
           <h2>
             Erfassung allgemeiner Informationen beim Besuch unserer Website
           </h2>
@@ -88,7 +84,6 @@
             <li>Auswertung der Systemsicherheit und -stabilität sowie</li>
             <li>zu weiteren administrativen Zwecken.</li>
           </ul>
-          <p></p>
           <p>
             Wir verwenden Ihre Daten nicht, um Rückschlüsse auf Ihre Person
             zu ziehen. Informationen dieser Art werden von uns ggfs.
@@ -123,136 +118,23 @@
             Dienste und Services nicht verfügbar oder eingeschränkt sein.
             Aus diesem Grund ist ein Widerspruch ausgeschlossen.
           </p>
-          <p></p>
-          <p></p>
-          <h2>Cookies und LocalStorage</h2>
-          <h3>Art und Zweck der Verarbeitung:</h3>
-          <p>
-            Wie viele andere Webseiten verwenden wir auch so genannte
-            "Cookies" und den LocalStorage. Bei Cookies bzw. LocalStorage
-            handelt es sich um kleine Textdateien, die auf Ihrem Endgerät
-            (Laptop, Tablet, Smartphone o.ä.) gespeichert werden, wenn Sie
-            unsere Webseite besuchen.
-          </p>
-          <p>
-            Hierdurch erhalten wir bestimmte Daten wie z. B. IP-Adresse,
-            verwendeter Browser und Betriebssystem.
-          </p>
-          <p>
-            Cookies können nicht verwendet werden, um Programme zu starten
-            oder Viren auf einen Computer zu übertragen. Anhand der in
-            Cookies oder dem LocalStorage enthaltenen Informationen können
-            wir Ihnen die Navigation erleichtern und die korrekte Anzeige
-            unserer Webseiten ermöglichen.
-          </p>
-          <p>
-            In keinem Fall werden die von uns erfassten Daten an Dritte
-            weitergegeben oder ohne Ihre Einwilligung eine Verknüpfung mit
-            personenbezogenen Daten hergestellt.
-          </p>
-          <p>
-            Natürlich können Sie unsere Website grundsätzlich auch ohne
-            Cookies oder localStorage betrachten. Internet-Browser sind
-            regelmäßig so eingestellt, dass sie Cookies und LocalStorage
-            akzeptieren. Im Allgemeinen können Sie die Verwendung von
-            Cookies jederzeit über die Einstellungen Ihres Browsers
-            deaktivieren. Bitte verwenden Sie die Hilfefunktionen Ihres
-            Internetbrowsers, um zu erfahren, wie Sie diese Einstellungen
-            ändern können. Bitte beachten Sie, dass einzelne Funktionen
-            unserer Website möglicherweise nicht funktionieren, wenn Sie die
-            Verwendung von Cookies oder dem LocalStorage deaktiviert haben.
-          </p>
-          <h3>Speicherdauer und eingesetzte Cookies:</h3>
-          <p>
-            Soweit Sie uns durch Ihre Zustimmung die Verwendung von Cookies
-            und dem LocalStorage erlauben, können folgende dinge gespeichert
-            werden:
-          </p>
-          <ul>
-            <li>Einstellungen</li>
-          </ul>
-          <p></p>
-          <p>
-            Soweit diese Cookies bzw. der LocalStorage (auch)
-            personenbezogene Daten betreffen können, informieren wir Sie
-            darüber in den folgenden Abschnitten.
-          </p>
-          <p>
-            Sie können über Ihre Browsereinstellungen einzelne Cookies oder
-            den gesamten Cookie-Bestand löschen. Darüber hinaus erhalten Sie
-            Informationen und Anleitungen, wie diese Cookies gelöscht oder
-            deren Speicherung vorab blockiert werden können. Je nach
-            Anbieter Ihres Browsers finden Sie die notwendigen Informationen
-            unter den nachfolgenden Links:
-          </p>
-          <ul>
-            <li>
-              Mozilla Firefox:
-              <a
-                  href="https://support.mozilla.org/de/kb/cookies-loeschen-daten-von-websites-entfernen"
-                  target="_blank"
-                  rel="nofollow noopener"
-              >https://support.mozilla.org/de/kb/cookies-loeschen-daten-von-websites-entfernen</a
-              >
-            </li>
-            <li>
-              Internet Explorer:
-              <a
-                  href="https://support.microsoft.com/de-de/help/17442/windows-internet-explorer-delete-manage-cookies"
-                  target="_blank"
-                  rel="nofollow noopener"
-              >https://support.microsoft.com/de-de/help/17442/windows-internet-explorer-delete-manage-cookies</a
-              >
-            </li>
-            <li>
-              Google Chrome:
-              <a
-                  href="https://support.google.com/accounts/answer/61416?hl=de"
-                  target="_blank"
-                  rel="nofollow noopener"
-              >https://support.google.com/accounts/answer/61416?hl=de</a
-              >
-            </li>
-            <li>
-              Opera:
-              <a
-                  href="http://www.opera.com/de/help"
-                  target="_blank"
-                  rel="nofollow noopener"
-              >http://www.opera.com/de/help</a
-              >
-            </li>
-            <li>
-              Safari:
-              <a
-                  href="https://support.apple.com/kb/PH17191?locale=de_DE&viewlocale=de_DE"
-                  target="_blank"
-                  rel="nofollow noopener"
-              >https://support.apple.com/kb/PH17191?locale=de_DE&viewlocale=de_DE</a
-              >
-            </li>
-          </ul>
-          <p></p>
+          <h2>Cookies</h2>
+          <p>Diese Website verwendet <b>keine</b> Cookies.</p>
           <h2>SSL-Verschlüsselung</h2>
           <p>
             Um die Sicherheit Ihrer Daten bei der Übertragung zu schützen,
             verwenden wir dem aktuellen Stand der Technik entsprechende
             Verschlüsselungsverfahren (z. B. SSL) über HTTPS.
           </p>
-          <p></p>
           <h2>Eingesetzte Auftragsverarbeiter</h2>
-
           <p>
             Folgende Organisationen, Unternehmen bzw. Personen wurden vom
             Betreiber dieser Website mit der Verarbeitung von Daten
             beauftragt:
           </p>
-          <p></p>
           <ul>
             <li>netcup GmbH, Daimlerstraße 25, D-76185 Karlsruhe</li>
           </ul>
-          <p></p>
-
           <h2>Änderung unserer Datenschutzbestimmungen</h2>
           <p>
             Wir behalten uns vor, diese Datenschutzerklärung anzupassen,
