@@ -371,7 +371,7 @@ const route = useRoute();
 const station = ref<Station | null>(null);
 const currentWeather = ref<Weather | null>(null);
 const weather = ref<Weather[] | null>(null);
-const date = ref(moment().startOf('day').toDate());
+const date = ref(new Date());
 const dateMenu = ref(false);
 
 function fetchStation() {
@@ -383,7 +383,7 @@ function fetchStation() {
 }
 
 function onUserUpdate() {
-  date.value = moment().startOf('day').toDate();
+  date.value = new Date();
   updateWeatherData();
 }
 
@@ -408,8 +408,13 @@ function updateWeatherData() {
 function getTodaysWeatherURL() {
   const searchParams: URLSearchParams = new URLSearchParams();
   searchParams.append("id", String(id.value));
-  searchParams.append("from", String(moment(date.value, "YYYY-MM-DD").valueOf()));
-  searchParams.append("to", String(moment(date.value, "YYYY-MM-DD").add(1, "days").valueOf()));
+  if (isToday()) {
+    searchParams.append("from", String(moment().subtract(1, "days").valueOf()));
+  } else {
+    searchParams.append("from", String(moment(date.value).startOf("day").valueOf()));
+  }
+
+  searchParams.append("to", String(moment(date.value).endOf("day").valueOf()));
   return `${getServerHost()}/api/v1/weather?${searchParams}`;
 }
 
@@ -424,9 +429,7 @@ function getServerHost() {
 
 function isToday() {
   return (
-      moment(date.value, "YYYY-MM-DD").diff(
-          moment(moment().format("YYYY-MM-DD"), "YYYY-MM-DD")
-      ) === 0
+      moment(date.value).startOf("day").diff(moment().startOf("day")) === 0
   );
 }
 
