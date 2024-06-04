@@ -382,6 +382,11 @@ function fetchStation() {
       });
 }
 
+function onUserUpdate() {
+  date.value = moment().startOf('day').toDate();
+  updateWeatherData();
+}
+
 function updateWeatherData() {
   if (station.value == null) {
     fetchStation();
@@ -640,7 +645,7 @@ const formattedDate = computed(() => {
   return moment(date.value).format("YYYY-MM-DD");
 })
 
-on("update", updateWeatherData);
+on("update", onUserUpdate);
 
 updateWeatherData();
 setInterval(updateWeatherData, 30000);
