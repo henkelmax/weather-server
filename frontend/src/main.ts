@@ -1,5 +1,4 @@
 import "./assets/main.css";
-import "./types/pwa";
 
 import {createApp} from "vue";
 import {createPinia} from "pinia";
