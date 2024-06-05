@@ -1,4 +1,4 @@
-package de.maxhenkel.weatherserver.configuration;
+package de.maxhenkel.weatherserver.configs;
 
 import de.maxhenkel.weatherserver.dtos.Error;
 import jakarta.servlet.ServletException;
