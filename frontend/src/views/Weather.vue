@@ -1,287 +1,35 @@
 <template>
   <v-container class="weather-container">
     <v-row class="text-center" justify="center">
-      <v-col v-if="station" cols="12" lg="3" md="4" class="pa-1">
-        <v-card
-            height="100%"
-            @click="openMap(station.latitude, station.longitude)"
-        >
-          <v-card-text>
-            <v-row align="center">
-              <v-col cols="12" class="pb-0">
-                <span class="text-h5 text-grey-lighten-1"> {{ $t("station") }} </span>
-              </v-col>
-              <v-col cols="12" class="pb-0">
-                <span class="text-h4">
-                  {{ station.name }}
-                </span>
-              </v-col>
-              <v-col cols="12">
-                <span class="text-grey-lighten-1">
-                  {{ station.description }}
-                </span>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
-      </v-col>
-
-      <template
-          v-if="
-          currentWeather && isToday() && weather != null && weather.length > 0
-        "
-      >
+      <template v-if="isToday()">
         <v-col cols="12" lg="3" md="4" class="pa-1">
-          <MinMax
-              :title="$t('temperature')"
-              :value="`${currentWeather.temperature.toFixed(1)} °C`"
-              :min="`${min(weather, (e) => e.temperature).toFixed(1)} °C`"
-              :max="`${max(weather, (e) => e.temperature).toFixed(1)} °C`"
-          />
+          <StationCard :station="station"/>
         </v-col>
-
         <v-col cols="12" lg="3" md="4" class="pa-1">
-          <v-card height="100%">
-            <v-card-text>
-              <v-row align="center">
-                <v-col cols="12">
-                  <span class="text-h5 text-grey-lighten-1"> {{ $t("wind") }} </span>
-                </v-col>
-                <v-col cols="6">
-                  <v-row align="center">
-                    <v-col cols="12" class="pt-0">
-                      <v-icon
-                          x-large
-                          :style="`transform: rotate(${
-                          currentWeather.windDirection + 180
-                        }deg);`"
-                      >
-                        mdi-navigation
-                      </v-icon>
-                    </v-col>
-                    <v-col cols="12" class="pt-0">
-                      <span class="text-grey-lighten-1">{{ currentWeather.windDirection }} °</span>
-                    </v-col>
-                  </v-row>
-                </v-col>
-                <v-col cols="6">
-                  <v-row align="center">
-                    <v-col cols="12" class="pt-0">
-                      <v-icon small> mdi-windsock</v-icon>
-                      <span class="ml-1 text-grey-lighten-1">{{ currentWeather.windSpeed.toFixed(1) }} km/h</span>
-                    </v-col>
-                    <v-col cols="12" class="pt-0">
-                      <v-icon small> mdi-weather-windy</v-icon>
-                      <span class="ml-1 text-grey-lighten-1">{{ currentWeather.windGust.toFixed(1) }} km/h</span>
-                    </v-col>
-                  </v-row>
-                </v-col>
-              </v-row>
-            </v-card-text>
-          </v-card>
+          <TemperatureCard :current-weather="currentWeather" :weather="weather"/>
         </v-col>
-
         <v-col cols="12" lg="3" md="4" class="pa-1">
-          <v-card height="100%">
-            <v-card-text>
-              <v-row align="center">
-                <v-col cols="12">
-                  <span class="text-h5 text-grey-lighten-1"> {{ $t("rain") }} </span>
-                </v-col>
-                <v-col cols="6">
-                  <v-row align="center">
-                    <v-col cols="12" class="pt-0">
-                      <span class="text-grey-lighten-1">{{ $t("current") }}</span>
-                    </v-col>
-                    <v-col cols="12" class="pt-0">
-                      <span class="text-h4">
-                        {{ currentWeather.rainRate }}
-                      </span>
-                      <span class="text-grey-lighten-1"> mm/h</span>
-                    </v-col>
-                  </v-row>
-                </v-col>
-                <v-col cols="6">
-                  <v-row align="center">
-                    <v-col cols="12" class="pt-0">
-                      <span class="text-grey-lighten-1">{{ $t("today") }}</span>
-                    </v-col>
-                    <v-col cols="12" class="pt-0">
-                      <span class="text-h4">
-                        {{ currentWeather.rainDaily }}
-                      </span>
-                      <span class="text-grey-lighten-1"> mm</span>
-                    </v-col>
-                  </v-row>
-                </v-col>
-                <v-col cols="6">
-                  <v-row align="center">
-                    <v-col cols="12" class="pt-0">
-                      <span class="text-grey-lighten-1">{{ $t("this_week") }}</span>
-                    </v-col>
-                    <v-col cols="12" class="pt-0">
-                      <span class="text-h4">
-                        {{ currentWeather.rainWeekly.toFixed(0) }}
-                      </span>
-                      <span class="text-grey-lighten-1"> mm</span>
-                    </v-col>
-                  </v-row>
-                </v-col>
-                <v-col cols="6">
-                  <v-row align="center">
-                    <v-col cols="12" class="pt-0">
-                      <span class="text-grey-lighten-1">{{ $t("this_month") }}</span>
-                    </v-col>
-                    <v-col cols="12" class="pt-0">
-                      <span class="text-h4">
-                        {{ currentWeather.rainMonthly.toFixed(0) }}
-                      </span>
-                      <span class="text-grey-lighten-1"> mm</span>
-                    </v-col>
-                  </v-row>
-                </v-col>
-              </v-row>
-            </v-card-text>
-          </v-card>
+          <WindCard :current-weather="currentWeather"/>
         </v-col>
-
         <v-col cols="12" lg="3" md="4" class="pa-1">
-          <v-card height="100%">
-            <v-card-text>
-              <v-row align="center">
-                <v-col cols="12">
-                  <span class="text-h5 text-grey-lighten-1"> {{ $t("sun") }} </span>
-                </v-col>
-                <v-col cols="6">
-                  <v-row align="center">
-                    <v-col cols="12" class="pt-0">
-                      <span class="text-grey-lighten-1">{{ $t("solar") }}</span>
-                    </v-col>
-                    <v-col cols="12" class="pt-0">
-                      <span class="text-h4">
-                        {{ currentWeather.solarRadiation.toFixed(0) }}
-                      </span>
-                      <span class="text-grey-lighten-1"> w/m²</span>
-                    </v-col>
-                  </v-row>
-                </v-col>
-                <v-col cols="6">
-                  <v-row align="center">
-                    <v-col cols="12" class="pt-0">
-                      <span class="text-grey-lighten-1">{{ $t("uv_index") }}</span>
-                    </v-col>
-                    <v-col cols="12" class="pt-0">
-                      <span class="text-h4">
-                        {{ currentWeather.uvi }}
-                      </span>
-                    </v-col>
-                  </v-row>
-                </v-col>
-              </v-row>
-            </v-card-text>
-          </v-card>
+          <RainCard :current-weather="currentWeather"/>
         </v-col>
-
-        <v-col v-if="station" cols="12" lg="3" md="4" class="pa-1">
-          <v-card height="100%">
-            <v-card-text>
-              <v-row align="center">
-                <v-col cols="12">
-                  <span class="text-h5 text-grey-lighten-1"> {{ $t("daylight") }} </span>
-                </v-col>
-                <v-col cols="6">
-                  <v-row align="center">
-                    <v-col cols="12" class="pt-0">
-                      <span class="text-grey-lighten-1">{{ $t("sunrise") }}</span>
-                    </v-col>
-                    <v-col cols="12" class="pt-0">
-                      <span class="text-h4">
-                        {{
-                          moment(
-                              getSunrise(station.latitude, station.longitude)
-                          ).format("HH:mm")
-                        }}
-                      </span>
-                    </v-col>
-                  </v-row>
-                </v-col>
-                <v-col cols="6">
-                  <v-row align="center">
-                    <v-col cols="12" class="pt-0">
-                      <span class="text-grey-lighten-1">{{ $t("sunset") }}</span>
-                    </v-col>
-                    <v-col cols="12" class="pt-0">
-                      <span class="text-h4">
-                        {{
-                          moment(
-                              getSunset(station.latitude, station.longitude)
-                          ).format("HH:mm")
-                        }}
-                      </span>
-                    </v-col>
-                  </v-row>
-                </v-col>
-              </v-row>
-            </v-card-text>
-          </v-card>
-        </v-col>
-
         <v-col cols="12" lg="3" md="4" class="pa-1">
-          <MinMax
-              :title="$t('pressure')"
-              :value="`${currentWeather.relativePressure.toFixed(0)} hPa`"
-              :min="`${min(weather, (e) => e.relativePressure).toFixed(0)} hPa`"
-              :max="`${max(weather, (e) => e.relativePressure).toFixed(0)} hPa`"
-          />
+          <SunCard :current-weather="currentWeather"/>
         </v-col>
-
         <v-col cols="12" lg="3" md="4" class="pa-1">
-          <MinMax
-              :title="$t('humidity')"
-              :value="`${currentWeather.humidity.toFixed(0)} %`"
-              :min="`${min(weather, (e) => e.humidity).toFixed(0)} %`"
-              :max="`${max(weather, (e) => e.humidity).toFixed(0)} %`"
-          />
+          <DaylightCard :station="station"/>
         </v-col>
-
         <v-col cols="12" lg="3" md="4" class="pa-1">
-          <v-card height="100%">
-            <v-card-text>
-              <v-row align="center">
-                <v-col cols="12" class="pb-0">
-                  <span class="text-h5 text-grey-lighten-1"> {{ $t("last_update") }} </span>
-                </v-col>
-                <v-col cols="12" class="pb-0">
-                  <span class="text-h4">
-                    {{ moment(currentWeather.date).fromNow() }}
-                  </span>
-                </v-col>
-                <v-col cols="12">
-                  <span class="text-grey-lighten-1">
-                    {{
-                      moment(currentWeather.date).format(
-                          "DD.MM.YYYY HH:mm"
-                      )
-                    }}
-                  </span>
-                </v-col>
-              </v-row>
-            </v-card-text>
-          </v-card>
+          <PressureCard :current-weather="currentWeather" :weather="weather"/>
+        </v-col>
+        <v-col cols="12" lg="3" md="4" class="pa-1">
+          <HumidityCard :current-weather="currentWeather" :weather="weather"/>
+        </v-col>
+        <v-col cols="12" lg="3" md="4" class="pa-1">
+          <LastUpdateCard :current-weather="currentWeather"/>
         </v-col>
       </template>
-
-      <v-col v-if="loading" cols="12" class="pa-1">
-        <v-card height="100%">
-          <v-card-text>
-            <v-progress-circular
-                :size="70"
-                :width="6"
-                indeterminate
-            ></v-progress-circular>
-          </v-card-text>
-        </v-card>
-      </v-col>
 
       <v-col cols="12" class="pa-1">
         <v-card>
@@ -327,15 +75,22 @@
 </template>
 
 <script setup lang="ts">
-import moment from "moment/min/moment-with-locales";
 import Graph from "@/components/Graph.vue";
-import MinMax from "../components/MinMax.vue";
-import {getSunrise, getSunset} from "sunrise-sunset-js";
+import StationCard from "@/components/weather/StationCard.vue";
+import TemperatureCard from "@/components/weather/TemperatureCard.vue";
+import WindCard from "@/components/weather/WindCard.vue";
+import RainCard from "@/components/weather/RainCard.vue";
+import SunCard from "@/components/weather/SunCard.vue";
+import DaylightCard from "@/components/weather/DaylightCard.vue";
+import PressureCard from "@/components/weather/PressureCard.vue";
+import HumidityCard from "@/components/weather/HumidityCard.vue";
+import LastUpdateCard from "@/components/weather/LastUpdateCard.vue";
 import {computed, ref, watch} from "vue";
 import {useI18n} from "vue-i18n";
 import {useRoute} from "vue-router";
-import {on} from "../events/eventBus";
+import {on} from "@/events/eventBus";
 import {useSettingsStore} from "@/stores/settings";
+import moment from "moment/min/moment-with-locales";
 
 const settingsStore = useSettingsStore();
 const {locale, t} = useI18n();
@@ -416,18 +171,6 @@ function isToday() {
   );
 }
 
-function openMap(lat: number, lon: number) {
-  window.open(`https://maps.google.com/?q=${lat},${lon}`, "_blank");
-}
-
-function max<T>(data: T[], func: (e: T) => number): number {
-  return Math.max(...data.map((e) => func(e)));
-}
-
-function min<T>(data: T[], func: (e: T) => number): number {
-  return Math.min(...data.map((e) => func(e)));
-}
-
 function dewpoint(temp: number, humidity: number) {
   let a, b;
   if (temp >= 0) {
@@ -456,10 +199,6 @@ watch(date, () => {
 
 const id = computed(() => {
   return Number.parseInt(route.query.id as string) || 1;
-});
-
-const loading = computed(() => {
-  return weather.value === null;
 });
 
 const temperatureData = computed<TimeSeries[]>(() => {
