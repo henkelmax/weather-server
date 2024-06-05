@@ -335,7 +335,9 @@ import {computed, ref, watch} from "vue";
 import {useI18n} from "vue-i18n";
 import {useRoute} from "vue-router";
 import {on} from "../events/eventBus";
+import {useSettingsStore} from "@/stores/settings";
 
+const settingsStore = useSettingsStore();
 const {locale, t} = useI18n();
 
 moment.locale(locale.value)
@@ -383,7 +385,7 @@ function getTodaysWeatherURL() {
   const searchParams: URLSearchParams = new URLSearchParams();
   searchParams.append("id", String(id.value));
   if (isToday()) {
-    searchParams.append("from", String(moment().subtract(1, "days").valueOf()));
+    searchParams.append("from", String(moment().subtract(settingsStore.graphHistoryTime, "hours").valueOf()));
   } else {
     searchParams.append("from", String(moment(date.value).startOf("day").valueOf()));
   }

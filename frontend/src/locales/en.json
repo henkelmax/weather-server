@@ -2,6 +2,7 @@
   "weather": "Weather",
   "settings": "Settings",
   "refresh_toast": "Refreshing weather data",
+  "back": "Back",
   "install": "Install",
   "privacy": "Privacy",
   "legal": "Legal",
@@ -30,5 +31,6 @@
   "daylight": "Daylight",
   "sunrise": "Sunrise",
   "sunset": "Sunset",
-  "smooth_graphs": "Smooth graphs"
+  "smooth_graphs": "Smooth graphs",
+  "graph_history_time": "Graph history time (hours)"
 }
