@@ -9,14 +9,11 @@
 <script setup lang="ts">
 import {
   Chart,
-  CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
-  Title,
   Tooltip,
   Legend,
-  TimeScale,
   TimeSeriesScale
 } from "chart.js";
 import {Line} from "vue-chartjs";
@@ -27,14 +24,11 @@ import {computed} from "vue";
 const settingsStore = useSettingsStore();
 
 Chart.register(
-    CategoryScale,
     LinearScale,
     PointElement,
     LineElement,
-    Title,
     Tooltip,
     Legend,
-    TimeScale,
     TimeSeriesScale
 );
 
