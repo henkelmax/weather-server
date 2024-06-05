@@ -24,7 +24,7 @@
 <script setup lang="ts">
 import Graph from "@/components/Graph.vue";
 import {computed} from "vue";
-import {round} from "@/utils/utils";
+import {round} from "@/utils/math";
 import {useI18n} from "vue-i18n";
 
 const {t} = useI18n();

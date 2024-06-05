@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import MinMax from "@/components/MinMax.vue";
-import {max, min} from "@/utils/utils";
+import {max, min} from "@/utils/math";
 
 defineProps<{ currentWeather: Weather | null, weather: Weather[] | null }>();
 </script>
