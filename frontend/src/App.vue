@@ -4,24 +4,26 @@
       <v-app-bar-title class="text-uppercase">
         <RouterLink to="/" class="no-link">{{ $t("weather") }}</RouterLink>
       </v-app-bar-title>
-      <v-spacer></v-spacer>
-      <template v-if="!!installPrompt">
-        <template v-if="!$vuetify.display.smAndDown">
-          <v-btn variant="plain" @click="installPWA">
-            <v-icon icon="mdi-download"/>
-            <span class="ml-1">
+      <template v-slot:append>
+        <template v-if="!!installPrompt">
+          <template v-if="!$vuetify.display.smAndDown">
+            <v-btn variant="plain" @click="installPWA">
+              <v-icon icon="mdi-download"/>
+              <span class="ml-1">
               {{ $t("install") }}
             </span>
-          </v-btn>
+            </v-btn>
+          </template>
+          <template v-else>
+            <v-btn icon="mdi-download" variant="plain" @click="installPWA">
+              <v-icon icon="mdi-download"/>
+            </v-btn>
+          </template>
         </template>
-        <template v-else>
-          <v-btn icon="mdi-download" variant="plain" @click="installPWA">
-            <v-icon icon="mdi-download"/>
-          </v-btn>
-        </template>
+        <v-btn icon="mdi-history" variant="plain" to="/history"/>
+        <v-btn icon="mdi-cog" variant="plain" to="/settings"/>
+        <v-btn icon="mdi-refresh" variant="plain" @click="refresh"/>
       </template>
-      <v-btn icon="mdi-cog" variant="plain" to="/settings"/>
-      <v-btn icon="mdi-refresh" variant="plain" @click="refresh"/>
     </v-app-bar>
     <v-main class="main">
       <RouterView/>
