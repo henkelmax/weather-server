@@ -107,7 +107,15 @@ const options = computed<any>(() => {
         time: {
           tooltipFormat: "HH:mm",
           displayFormats: {
-            hour: "HH:mm"
+            millisecond: "HH:mm",
+            second: "HH:mm",
+            minute: "HH:mm",
+            hour: "HH:mm",
+            day: "HH:mm",
+            week: "HH:mm",
+            month: "HH:mm",
+            quarter: "HH:mm",
+            year: "HH:mm",
           }
         },
         grid: {
