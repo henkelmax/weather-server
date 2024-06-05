@@ -1,9 +1,7 @@
 package de.maxhenkel.weatherserver.configs;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.web.servlet.config.annotation.*;
 
 import java.nio.file.Paths;
@@ -13,9 +11,6 @@ import java.util.List;
 @Configuration
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
-
-    @Autowired
-    private Environment environment;
 
     @Value("#{environment.matchesProfiles('dev')}")
     private boolean isDev;
@@ -41,6 +36,14 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("forward:/index.html");
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry
+                .addMapping("/**")
+                .allowedMethods("*")
+                .allowedOrigins("*");
     }
 
 }
