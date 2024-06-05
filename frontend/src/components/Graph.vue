@@ -105,14 +105,14 @@ const options = computed<any>(() => {
         displayColors: false,
         backgroundColor: "#333",
         callbacks: {
-          afterBody: (tooltipItems) => {
+          afterBody: (tooltipItems: any[]) => {
             if (tooltipItems?.length <= 0 || props.data?.length <= 0) {
               return "";
             }
             const dataLength = props.data[0].data.length;
             const dataIndex = dataLength - 1 - tooltipItems[0].dataIndex;
             let tooltipText = "";
-            for (let x: TimeSeries of props.data) {
+            for (let x of props.data) {
               let footer = x.data[dataIndex].tooltipFooter;
               if (footer) {
                 if (tooltipText !== "") {
