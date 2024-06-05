@@ -296,7 +296,7 @@
                     v-bind="props"
                 ></v-text-field>
               </template>
-              <v-date-picker v-model="date"></v-date-picker>
+              <v-date-picker v-model="date" :allowed-dates="allowedDates"></v-date-picker>
             </v-menu>
           </v-card-text>
         </v-card>
@@ -349,6 +349,13 @@ const currentWeather = ref<Weather | null>(null);
 const weather = ref<Weather[] | null>(null);
 const date = ref(new Date());
 const dateMenu = ref(false);
+
+function allowedDates(date: unknown): boolean {
+  if (!(date instanceof Date)) {
+    return true;
+  }
+  return moment(date).startOf("day").diff(moment().startOf("day")) <= 0;
+}
 
 function fetchStation() {
   fetch(`${getServerHost()}/api/v1/station`)
