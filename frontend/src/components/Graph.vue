@@ -65,7 +65,7 @@ const data = computed<any>(() => {
         borderColor: ts.color,
         hoverBackgroundColor: ts.color,
         tension: settingsStore.smoothGraphs ? 0.25 : 0,
-        pointHitRadius: 100,
+        pointHitRadius: 10,
         tooltip: {
           callbacks: {
             label: (context: any) => {
