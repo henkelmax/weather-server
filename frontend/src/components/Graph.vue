@@ -1,82 +1,152 @@
 <template>
   <v-card>
-    <v-card-text class="pa-2">
-      <GChart
-          type="LineChart"
-          :settings="{ packages: ['corechart', 'timeline'] }"
-          :data="chartData"
-          :options="chartOptions"
-      />
+    <v-card-text class="pa-2" style="min-height: 250px">
+      <Line :data="data" :options="options"/>
     </v-card-text>
   </v-card>
 </template>
 
 <script setup lang="ts">
-import {GChart} from "vue-google-charts";
-import {computed} from "vue";
-
+import {
+  Chart,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  TimeScale,
+  TimeSeriesScale
+} from "chart.js";
+import {Line} from "vue-chartjs";
+import "chartjs-adapter-moment";
 import {useSettingsStore} from "@/stores/settings";
+import {computed} from "vue";
 
 const settingsStore = useSettingsStore();
 
-interface GraphProps {
-  chartData: any[][],
-  seriesColors: string[],
-  maxValue?: number
-  minValue?: number,
-  lowerBound?: boolean
+Chart.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+    TimeScale,
+    TimeSeriesScale
+);
+
+type GraphProps = {
+  min?: number,
+  max?: number,
+  yStepSize?: number,
+  data: TimeSeries[]
+};
+
+const props = defineProps<GraphProps>();
+
+function minYValue(): number | undefined {
+  if (props.min === undefined) {
+    return;
+  }
+  return Math.min(props.data.map(d => d.data.map(e => e.y)).flat().reduce((a, b) => Math.min(a, b)), props.min);
 }
 
-const props = withDefaults(defineProps<GraphProps>(), {
-  minValue: 0,
-  lowerBound: true
+function maxYValue(): number | undefined {
+  if (props.max === undefined) {
+    return;
+  }
+  return Math.max(props.data.map(d => d.data.map(e => e.y)).flat().reduce((a, b) => Math.max(a, b)), props.max);
+}
+
+const data = computed<any>(() => {
+  return {
+    datasets: props.data.map((ts: TimeSeries) => {
+      return {
+        label: ts.name,
+        color: ts.color,
+        borderColor: ts.color,
+        hoverBackgroundColor: ts.color,
+        tension: settingsStore.smoothGraphs ? 0.25 : 0,
+        pointHitRadius: 100,
+        tooltip: {
+          callbacks: {
+            label: (context: any) => {
+              return `${ts.name}: ${context.parsed.y} ${ts.unit}`
+            }
+          }
+        },
+        data: ts.data
+      }
+    })
+  }
 });
 
-const chartOptions = computed(() => {
+const options = computed<any>(() => {
   return {
-    height: 250,
-    curveType: settingsStore.smoothGraphs ? "function" : undefined,
-    backgroundColor: "#212121",
-    series: props.seriesColors.map((e) => {
-      return {color: e};
-    }),
-    legend: {
-      position: "top",
-      alignment: "end",
-      textStyle: {
-        color: "#FFF",
-        fontSize: 16,
-      },
+    responsive: true,
+    maintainAspectRatio: false,
+    elements: {
+      point: {
+        radius: 0,
+        hoverRadius: 6
+      }
     },
-    vAxis: {
-      baselineColor: "#FFF",
-      maxValue: props.maxValue,
-      minValue: props.minValue,
-      gridlines: {
-        color: "#666",
+    plugins: {
+      legend: {
+        align: "end",
+        labels: {
+          boxHeight: 1,
+          color: "#FFF",
+        }
       },
-      textStyle: {
-        color: "#FFF",
-      },
-      viewWindow: {
-        min: props.lowerBound ? 0 : undefined,
-      },
+      tooltip: {
+        displayColors: false,
+        backgroundColor: "#333",
+      }
     },
-    hAxis: {
-      baseline: props.chartData[1][0],
-      baselineColor: "#FFF",
-      format: "HH:mm",
-      gridlines: {
-        color: "#666",
+    scales: {
+      x: {
+        type: "time",
+        time: {
+          tooltipFormat: "HH:mm",
+          displayFormats: {
+            hour: "HH:mm"
+          }
+        },
+        grid: {
+          color: "#666"
+        },
+        ticks: {
+          color: "#FFF",
+          autoStep: true
+        },
+        border: {
+          display: true,
+          color: "#AAA",
+          width: 2
+        },
       },
-      textStyle: {
-        color: "#FFF",
-      },
-    },
-    chartArea: {
-      left: 50,
-      right: 25,
-    },
-  };
+      y: {
+        min: minYValue(),
+        max: maxYValue(),
+        grid: {
+          color: "#666",
+        },
+        ticks: {
+          color: "#FFF",
+          stepSize: props.yStepSize ?? undefined,
+          maxTicksLimit: 16
+        },
+        border: {
+          display: true,
+          color: "#AAA",
+          width: 2
+        },
+      }
+    }
+  }
 });
 </script>

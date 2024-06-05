@@ -304,48 +304,22 @@
 
       <template v-if="weather != null && weather.length > 0">
         <v-col cols="12" class="pa-1">
-          <Graph
-              :chartData="temperatureData"
-              :seriesColors="['#FFFF00']"
-              :lowerBound="false"
-          />
+          <Graph :data="temperatureData" :min="0"/>
         </v-col>
         <v-col cols="12" class="pa-1">
-          <Graph
-              :chartData="rainfallData"
-              :seriesColors="['#0088FF']"
-              :maxValue="10"
-          />
+          <Graph :data="rainfallData" :min="0" :max="10"/>
         </v-col>
         <v-col cols="12" class="pa-1">
-          <Graph
-              :chartData="windData"
-              :seriesColors="['#00FF88']"
-              :maxValue="10"
-          />
+          <Graph :data="windData" :min="0" :max="10"/>
         </v-col>
         <v-col cols="12" class="pa-1">
-          <Graph :chartData="humidityData" :seriesColors="['#00FF00']"/>
+          <Graph :data="humidityData" :min="0" :max="100"/>
         </v-col>
         <v-col cols="12" class="pa-1">
-          <Graph
-              :chartData="solarData"
-              :seriesColors="['#FFFF00']"
-              :maxValue="10"
-          />
+          <Graph :data="solarData" :min="0" :max="1000"/>
         </v-col>
         <v-col cols="12" class="pa-1">
-          <Graph
-              :chartData="uviData"
-              :seriesColors="['#FFFF00']"
-              :maxValue="10"
-          />
-        </v-col>
-        <v-col cols="12" class="pa-1">
-          <Graph
-              :chartData="pressureData"
-              :seriesColors="['#00FFFF', '#00AAFF']"
-          />
+          <Graph :data="pressureData" :min="950" :max="1050"/>
         </v-col>
       </template>
     </v-row>
@@ -354,7 +328,7 @@
 
 <script setup lang="ts">
 import moment from "moment/min/moment-with-locales";
-import Graph from "../components/Graph.vue";
+import Graph from "@/components/Graph.vue";
 import MinMax from "../components/MinMax.vue";
 import {getSunrise, getSunset} from "sunrise-sunset-js";
 import {computed, ref, watch} from "vue";
@@ -437,10 +411,6 @@ function openMap(lat: number, lon: number) {
   window.open(`https://maps.google.com/?q=${lat},${lon}`, "_blank");
 }
 
-function formatDate(date: Date) {
-  return moment(date).format("HH:mm:ss");
-}
-
 function max<T>(data: T[], func: (e: T) => number): number {
   return Math.max(...data.map((e) => func(e)));
 }
@@ -464,6 +434,10 @@ function dewpoint(temp: number, humidity: number) {
   return (b * v) / (a - v);
 }
 
+function round(n: number): number {
+  return Math.round(n * 10) / 10
+}
+
 watch(date, () => {
   updateWeatherData();
   setTimeout(() => {
@@ -479,169 +453,185 @@ const loading = computed(() => {
   return weather.value === null;
 });
 
-const temperatureData = computed(() => {
-  if (weather.value === null) {
-    return [];
+const temperatureData = computed<TimeSeries[]>(() => {
+  const series: TimeSeries[] = [];
+  if (weather.value === null || weather.value.length <= 0) {
+    return series;
   }
-  const arr: any[] = weather.value.map((w) => {
-    return [
-      w.date,
-      w.temperature,
-      `${formatDate(w.date)}\n${w.temperature} °C`,
-      +dewpoint(w.temperature, w.humidity).toFixed(2),
-      `${formatDate(w.date)}\n${dewpoint(
-          w.temperature,
-          w.humidity
-      ).toFixed(2)} °C`,
-    ];
+
+  const temps: TimeSeriesEntry[] = weather.value.map((w) => {
+    return {
+      x: w.date,
+      y: round(w.temperature)
+    };
   });
-  if (arr.length <= 0) {
-    arr.push([new Date(), 0, "", 0, ""]);
-  }
-  arr.unshift([
-    t("date"),
-    t("temperature"),
-    {type: "string", role: "tooltip"},
-    t("dewpoint"),
-    {type: "string", role: "tooltip"},
-  ]);
-  return arr;
+
+  series.push({
+    name: t("temperature"),
+    unit: "°C",
+    color: "#FFFF00",
+    data: temps
+  });
+
+  const dewpoints: TimeSeriesEntry[] = weather.value.map((w) => {
+    return {
+      x: w.date,
+      y: round(dewpoint(w.temperature, w.humidity))
+    };
+  });
+
+  series.push({
+    name: t("dewpoint"),
+    unit: "°C",
+    color: "#DC3912",
+    data: dewpoints
+  });
+
+  return series;
 });
 
-const humidityData = computed(() => {
-  if (weather.value === null) {
-    return [];
+const humidityData = computed<TimeSeries[]>(() => {
+  const series: TimeSeries[] = [];
+  if (weather.value === null || weather.value.length <= 0) {
+    return series;
   }
-  const arr: any[] = weather.value.map((w) => {
-    return [
-      w.date,
-      w.humidity,
-      `${formatDate(w.date)}\n${w.humidity} %`,
-    ];
+
+  const humidities: TimeSeriesEntry[] = weather.value.map((w) => {
+    return {
+      x: w.date,
+      y: round(w.humidity)
+    };
   });
-  if (arr.length <= 0) {
-    arr.push([new Date(), 0, ""]);
-  }
-  arr.unshift([
-    t("date"),
-    t("humidity"),
-    {type: "string", role: "tooltip"},
-  ]);
-  return arr;
+
+  series.push({
+    name: t("humidity"),
+    unit: "%",
+    color: "#00FF00",
+    data: humidities
+  });
+
+  return series;
 });
 
-const pressureData = computed((): any[][] => {
-  if (weather.value === null) {
-    return [];
+const rainfallData = computed<TimeSeries[]>(() => {
+  const series: TimeSeries[] = [];
+  if (weather.value === null || weather.value.length <= 0) {
+    return series;
   }
-  const arr: any[] = weather.value.map((w) => {
-    return [
-      w.date,
-      w.relativePressure,
-      `${formatDate(w.date)}\n${w.relativePressure} hPa`,
-      w.absolutePressure,
-      `${formatDate(w.date)}\n${w.absolutePressure} hPa`,
-    ];
+
+  const rainfalls: TimeSeriesEntry[] = weather.value.map((w) => {
+    return {
+      x: w.date,
+      y: round(w.rainRate)
+    };
   });
-  if (arr.length <= 0) {
-    arr.push([new Date(), 0, "", 0, ""]);
-  }
-  arr.unshift([
-    t("date"),
-    t("relative_pressure"),
-    {type: "string", role: "tooltip"},
-    t("absolute_pressure"),
-    {type: "string", role: "tooltip"},
-  ]);
-  return arr;
+
+  series.push({
+    name: t("rainfall"),
+    unit: "mm",
+    color: "#0088FF",
+    data: rainfalls
+  });
+
+  return series;
 });
 
-const rainfallData = computed(() => {
-  if (weather.value === null) {
-    return [];
+const windData = computed<TimeSeries[]>(() => {
+  const series: TimeSeries[] = [];
+  if (weather.value === null || weather.value.length <= 0) {
+    return series;
   }
-  const arr: any[] = weather.value.map((w) => {
-    return [
-      w.date,
-      w.rainRate,
-      `${formatDate(w.date)}\n${w.rainRate} mm`,
-    ];
+
+  const windSpeeds: TimeSeriesEntry[] = weather.value.map((w) => {
+    return {
+      x: w.date,
+      y: round(w.windSpeed)
+    };
   });
-  if (arr.length <= 0) {
-    arr.push([new Date(), 0, ""]);
-  }
-  arr.unshift([
-    t("date"),
-    t("rainfall"),
-    {type: "string", role: "tooltip"},
-  ]);
-  return arr;
+
+  series.push({
+    name: t("wind_speed"),
+    unit: "km/h",
+    color: "#00FF88",
+    data: windSpeeds
+  });
+
+  const windGusts: TimeSeriesEntry[] = weather.value.map((w) => {
+    return {
+      x: w.date,
+      y: round(w.windGust)
+    };
+  });
+
+  series.push({
+    name: t("wind_gust"),
+    unit: "km/h",
+    color: "#DC3912",
+    data: windGusts
+  });
+
+  return series;
 });
 
-const windData = computed(() => {
-  if (weather.value === null) {
-    return [];
+const solarData = computed<TimeSeries[]>(() => {
+  const series: TimeSeries[] = [];
+  if (weather.value === null || weather.value.length <= 0) {
+    return series;
   }
-  const arr: any[] = weather.value.map((w) => {
-    return [
-      w.date,
-      w.windSpeed,
-      `${formatDate(w.date)}\n${w.windSpeed} km/h`,
-      w.windGust,
-      `${formatDate(w.date)}\n${w.windGust} km/h`,
-    ];
+
+  const solarRadiations: TimeSeriesEntry[] = weather.value.map((w) => {
+    return {
+      x: w.date,
+      y: round(w.solarRadiation)
+    };
   });
-  if (arr.length <= 0) {
-    arr.push([new Date(), 0, "", 0, ""]);
-  }
-  arr.unshift([
-    t("date"),
-    t("wind_speed"),
-    {type: "string", role: "tooltip"},
-    t("wind_gust"),
-    {type: "string", role: "tooltip"},
-  ]);
-  return arr;
+
+  series.push({
+    name: t("solar_radiation"),
+    unit: "w/m²",
+    color: "#FFFF00",
+    data: solarRadiations
+  });
+  //TODO Add UVI to tooltip
+
+  return series;
 });
 
-const solarData = computed(() => {
-  if (weather.value === null) {
-    return [];
+const pressureData = computed<TimeSeries[]>(() => {
+  const series: TimeSeries[] = [];
+  if (weather.value === null || weather.value.length <= 0) {
+    return series;
   }
-  const arr: any[] = weather.value.map((w) => {
-    return [
-      w.date,
-      w.solarRadiation,
-      `${formatDate(w.date)}\n${w.solarRadiation} w/m²`,
-    ];
-  });
-  if (arr.length <= 0) {
-    arr.push([new Date(), 0, ""]);
-  }
-  arr.unshift([
-    t("date"),
-    t("solar_radiation"),
-    {type: "string", role: "tooltip"},
-  ]);
-  return arr;
-});
 
-const uviData = computed(() => {
-  if (weather.value === null) {
-    return [];
-  }
-  const arr: any[] = weather.value.map((w) => {
-    return [w.date, w.uvi, `${formatDate(w.date)}\n${w.uvi} UVI`];
+  const relativePressures: TimeSeriesEntry[] = weather.value.map((w) => {
+    return {
+      x: w.date,
+      y: round(w.relativePressure)
+    };
   });
-  if (arr.length <= 0) {
-    arr.push([new Date(), 0, ""]);
-  }
-  arr.unshift([
-    t("date"),
-    t("uv_index"),
-    {type: "string", role: "tooltip"},
-  ]);
-  return arr;
+
+  series.push({
+    name: t("relative_pressure"),
+    unit: "hPa",
+    color: "#00FFFF",
+    data: relativePressures
+  });
+
+  const absolutePressures: TimeSeriesEntry[] = weather.value.map((w) => {
+    return {
+      x: w.date,
+      y: round(w.absolutePressure)
+    };
+  });
+
+  series.push({
+    name: t("absolute_pressure"),
+    unit: "hPa",
+    color: "#00AAFF",
+    data: absolutePressures
+  });
+
+  return series;
 });
 
 const formattedDate = computed(() => {
