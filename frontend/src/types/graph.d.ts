@@ -1,11 +1,12 @@
 type TimeSeries = {
     name: string,
-    unit: string|null,
+    unit?: string,
     color: string,
     data: TimeSeriesEntry[]
 }
 
 type TimeSeriesEntry = {
     x: Date,
-    y: number
+    y: number,
+    tooltipFooter?: string
 }

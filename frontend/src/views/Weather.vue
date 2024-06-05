@@ -582,7 +582,8 @@ const solarData = computed<TimeSeries[]>(() => {
   const solarRadiations: TimeSeriesEntry[] = weather.value.map((w) => {
     return {
       x: w.date,
-      y: round(w.solarRadiation)
+      y: round(w.solarRadiation),
+      tooltipFooter: `UVI: ${w.uvi}`
     };
   });
 
@@ -592,7 +593,6 @@ const solarData = computed<TimeSeries[]>(() => {
     color: "#FFFF00",
     data: solarRadiations
   });
-  //TODO Add UVI to tooltip
 
   return series;
 });

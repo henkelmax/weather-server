@@ -36,7 +36,8 @@ type GraphProps = {
   min?: number,
   max?: number,
   yStepSize?: number,
-  data: TimeSeries[]
+  data: TimeSeries[],
+  tooltipFooter?: (tooltipItems: any) => string
 };
 
 const props = defineProps<GraphProps>();
@@ -68,7 +69,11 @@ const data = computed<any>(() => {
         tooltip: {
           callbacks: {
             label: (context: any) => {
-              return `${ts.name}: ${context.parsed.y} ${ts.unit}`
+              if (ts.unit) {
+                return `${ts.name}: ${context.parsed.y} ${ts.unit}`
+              } else {
+                return `${ts.name}: ${context.parsed.y}`
+              }
             }
           }
         },
@@ -99,6 +104,26 @@ const options = computed<any>(() => {
       tooltip: {
         displayColors: false,
         backgroundColor: "#333",
+        callbacks: {
+          afterBody: (tooltipItems) => {
+            if (tooltipItems?.length <= 0 || props.data?.length <= 0) {
+              return "";
+            }
+            const dataLength = props.data[0].data.length;
+            const dataIndex = dataLength - 1 - tooltipItems[0].dataIndex;
+            let tooltipText = "";
+            for (let x: TimeSeries of props.data) {
+              let footer = x.data[dataIndex].tooltipFooter;
+              if (footer) {
+                if (tooltipText !== "") {
+                  tooltipText += "\n";
+                }
+                tooltipText += footer;
+              }
+            }
+            return tooltipText;
+          },
+        }
       }
     },
     scales: {
