@@ -108,6 +108,8 @@ const options = computed<any>(() => {
         }
       },
       tooltip: {
+        mode: 'index',
+        position: 'average',
         displayColors: false,
         backgroundColor: "#333",
         callbacks: {
