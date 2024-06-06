@@ -1,24 +1,22 @@
 <template>
-  <template v-if="weather != null && weather.length > 0">
-    <v-col cols="12" class="pa-1">
-      <Graph :data="temperatureData" :min="0"/>
-    </v-col>
-    <v-col cols="12" class="pa-1">
-      <Graph :data="rainfallData" :min="0" :max="10"/>
-    </v-col>
-    <v-col cols="12" class="pa-1">
-      <Graph :data="windData" :min="0" :max="10"/>
-    </v-col>
-    <v-col cols="12" class="pa-1">
-      <Graph :data="humidityData" :min="0" :max="100"/>
-    </v-col>
-    <v-col cols="12" class="pa-1">
-      <Graph :data="solarData" :min="0" :max="1000"/>
-    </v-col>
-    <v-col cols="12" class="pa-1">
-      <Graph :data="pressureData" :min="950" :max="1050"/>
-    </v-col>
-  </template>
+  <v-col cols="12" class="pa-1">
+    <Graph :data="temperatureData" :min="0"/>
+  </v-col>
+  <v-col cols="12" class="pa-1">
+    <Graph :data="rainfallData" :min="0" :max="10"/>
+  </v-col>
+  <v-col cols="12" class="pa-1">
+    <Graph :data="windData" :min="0" :max="10"/>
+  </v-col>
+  <v-col cols="12" class="pa-1">
+    <Graph :data="humidityData" :min="0" :max="100"/>
+  </v-col>
+  <v-col cols="12" class="pa-1">
+    <Graph :data="solarData" :min="0" :max="1000"/>
+  </v-col>
+  <v-col cols="12" class="pa-1">
+    <Graph :data="pressureData" :min="950" :max="1050"/>
+  </v-col>
 </template>
 
 <script setup lang="ts">

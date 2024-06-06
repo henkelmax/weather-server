@@ -46,11 +46,17 @@ function minYValue(): number | undefined {
   if (props.min === undefined) {
     return;
   }
+  if(props.data.length <= 0) {
+    return;
+  }
   return Math.min(props.data.map(d => d.data.map(e => e.y)).flat().reduce((a, b) => Math.min(a, b)), props.min);
 }
 
 function maxYValue(): number | undefined {
   if (props.max === undefined) {
+    return;
+  }
+  if(props.data.length <= 0) {
     return;
   }
   return Math.max(props.data.map(d => d.data.map(e => e.y)).flat().reduce((a, b) => Math.max(a, b)), props.max);
