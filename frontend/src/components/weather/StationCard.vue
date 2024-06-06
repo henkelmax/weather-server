@@ -1,6 +1,6 @@
 <template>
-  <v-card height="100%" @click="station ? openMap(station.latitude, station.longitude) : {}">
-    <v-card-text>
+  <v-card height="100%" class="d-flex" @click="station ? openMap(station.latitude, station.longitude) : {}">
+    <v-card-text class="align-self-center">
       <v-row v-if="station" align="center">
         <v-col cols="12" class="pb-0">
           <span class="text-h5 text-grey-lighten-1"> {{ $t("station") }} </span>

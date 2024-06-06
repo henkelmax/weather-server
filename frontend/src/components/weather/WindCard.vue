@@ -1,6 +1,6 @@
 <template>
-  <v-card height="100%">
-    <v-card-text>
+  <v-card height="100%" class="d-flex">
+    <v-card-text class="align-self-center">
       <v-row v-if="currentWeather" align="center">
         <v-col cols="12">
           <span class="text-h5 text-grey-lighten-1"> {{ $t("wind") }} </span>
