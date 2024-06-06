@@ -31,6 +31,12 @@
         <v-col cols="12" lg="3" md="4" class="pa-1">
           <HumidityHistoryCard :weather="weather"/>
         </v-col>
+        <v-col cols="12" lg="3" md="4" class="pa-1">
+          <RainHistoryCard :weather="weather"/>
+        </v-col>
+        <v-col cols="12" lg="3" md="4" class="pa-1">
+          <DaylightCard :station="station" :date="date"/>
+        </v-col>
       </v-row>
       <v-row class="text-center" justify="center">
         <Graphs :weather="weather"/>
@@ -51,6 +57,8 @@ import {fetchStation, fetchWeather, getWeatherParams} from "@/utils/api";
 import {useSettingsStore} from "@/stores/settings";
 import {useI18n} from "vue-i18n";
 import {on} from "@/events/eventBus";
+import RainHistoryCard from "@/components/weather/RainHistoryCard.vue";
+import DaylightCard from "@/components/weather/DaylightCard.vue";
 
 const {locale} = useI18n();
 moment.locale(locale.value);

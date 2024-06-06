@@ -12,7 +12,7 @@
             </v-col>
             <v-col cols="12" class="pt-0">
               <span class="text-h4">
-                {{ moment(getSunrise(station.latitude, station.longitude)).format("HH:mm") }}
+                {{ moment(getSunrise(station.latitude, station.longitude, date)).format("HH:mm") }}
               </span>
             </v-col>
           </v-row>
@@ -24,7 +24,7 @@
             </v-col>
             <v-col cols="12" class="pt-0">
               <span class="text-h4">
-                {{ moment(getSunset(station.latitude, station.longitude)).format("HH:mm") }}
+                {{ moment(getSunset(station.latitude, station.longitude, date)).format("HH:mm") }}
               </span>
             </v-col>
           </v-row>
@@ -39,5 +39,13 @@
 import moment from "moment/min/moment-with-locales";
 import {getSunrise, getSunset} from "sunrise-sunset-js";
 
-defineProps<{ station: Station | null }>();
+type DaylightProps = {
+  station: Station | null,
+  date: Date
+};
+
+withDefaults(defineProps<DaylightProps>(), {
+  station: null,
+  date: () => new Date()
+});
 </script>
