@@ -47,3 +47,7 @@ export function fetchWeather(params: URLSearchParams): Promise<Weather[]> {
 export function fetchStation(): Promise<Station> {
     return fetch(`${getServerHost()}/api/v1/station`).then((response) => response.json());
 }
+
+export function fetchStations(): Promise<Station[]> {
+    return fetch(`${getServerHost()}/api/v1/stations`).then((response) => response.json());
+}

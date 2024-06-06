@@ -16,6 +16,17 @@
                 :max="24"
                 :min="1"
             />
+            <v-select
+                v-if="stations"
+                class="mt-6"
+                density="compact"
+                v-model="selectedStation"
+                :item-props="stationProps"
+                :items="stations"
+                :label="$t('station')"
+                :hint="`${selectedStation?.name}, ${selectedStation?.description}`"
+                persistent-hint
+            />
           </v-card-text>
           <v-card-actions>
             <v-spacer/>
@@ -29,10 +40,12 @@
 
 <script setup lang="ts">
 import {useSettingsStore} from "@/stores/settings";
-import {ref} from "vue";
+import {computed, ref} from "vue";
+import {fetchStations} from "@/utils/api";
 
 const settingsStore = useSettingsStore();
 
+const stations = ref<Station[] | null>(null);
 const graphHistoryTimeTickLabels = ref({
   1: '1',
   6: '6',
@@ -40,5 +53,23 @@ const graphHistoryTimeTickLabels = ref({
   18: '18',
   24: '24'
 });
+
+function stationProps(station: Station) {
+  return {
+    title: station.name,
+    subtitle: station.description,
+  };
+}
+
+const selectedStation = computed<Station | null>({
+  get() {
+    return stations.value?.find(station => station.deviceId === settingsStore.stationId) ?? null
+  },
+  set(newValue) {
+    settingsStore.stationId = newValue?.deviceId ?? 1;
+  }
+});
+
+fetchStations().then(s => stations.value = s);
 </script>
 
