@@ -35,6 +35,7 @@
   "sunrise": "Sunrise",
   "sunset": "Sunset",
   "smooth_graphs": "Smooth graphs",
+  "show_current_day": "Only show current day",
   "graph_history_time": "Graph history time (hours)",
   "no_data_title": "No data",
   "no_data_description": "No data available for this date"

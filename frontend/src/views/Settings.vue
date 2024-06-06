@@ -5,6 +5,7 @@
         <v-card>
           <v-card-title class="text-center">{{ $t("settings") }}</v-card-title>
           <v-card-text>
+            <v-checkbox v-model="settingsStore.showCurrentDay" :label="$t('show_current_day')"/>
             <v-checkbox v-model="settingsStore.smoothGraphs" :label="$t('smooth_graphs')"/>
             <div class="text-xl">{{ $t("graph_history_time") }}</div>
             <v-slider

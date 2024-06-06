@@ -3,7 +3,8 @@ import {useLocalStorage} from "@vueuse/core";
 
 export const useSettingsStore = defineStore("settings", () => {
     const smoothGraphs = useLocalStorage("smoothGraphs", true);
+    const showCurrentDay = useLocalStorage("showCurrentDay", true);
     const graphHistoryTime = useLocalStorage("graphHistoryTime", 24);
     const stationId = useLocalStorage("stationId", 1);
-    return {stationId, smoothGraphs, graphHistoryTime};
+    return {stationId, smoothGraphs, showCurrentDay, graphHistoryTime};
 });

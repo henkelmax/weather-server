@@ -17,7 +17,11 @@ export function getTodaysWeatherParams(id: number, hours: number = 24) {
     const searchParams: URLSearchParams = new URLSearchParams();
     const now = moment();
     searchParams.append("id", String(id));
-    searchParams.append("from", String(now.subtract(hours, "hours").valueOf()));
+    if (hours <= 0) {
+        searchParams.append("from", String(now.startOf("day").valueOf()));
+    } else {
+        searchParams.append("from", String(now.subtract(hours, "hours").valueOf()));
+    }
     return searchParams;
 }
 

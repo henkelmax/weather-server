@@ -35,6 +35,7 @@
   "sunrise": "Sonnenaufgang",
   "sunset": "Sonnenuntergang",
   "smooth_graphs": "Geglättete Diagramme",
+  "show_current_day": "Nur den aktuellen Tag anzeigen",
   "graph_history_time": "Diagrammverlaufszeit (Stunden)",
   "no_data_title": "Keine Daten",
   "no_data_description": "Es sind für das ausgewählte Datum keine Daten verfügbar"

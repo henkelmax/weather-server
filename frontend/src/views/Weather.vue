@@ -60,7 +60,7 @@ function updateWeatherData() {
     fetchStation().then(s => station.value = s);
   }
   fetchCurrentWeather(settingsStore.stationId).then(w => currentWeather.value = w);
-  fetchWeather(getTodaysWeatherParams(settingsStore.stationId, settingsStore.graphHistoryTime)).then(w => weather.value = w);
+  fetchWeather(getTodaysWeatherParams(settingsStore.stationId, settingsStore.showCurrentDay ? 0 : settingsStore.graphHistoryTime)).then(w => weather.value = w);
 }
 
 on("update", updateWeatherData);
