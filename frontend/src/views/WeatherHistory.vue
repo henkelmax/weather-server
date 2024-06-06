@@ -14,20 +14,28 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-row class="text-center" justify="center">
-      <v-col cols="12" lg="3" md="4" class="pa-1">
-        <TemperatureHistoryCard :weather="weather"/>
-      </v-col>
-      <v-col cols="12" lg="3" md="4" class="pa-1">
-        <PressureHistoryCard :weather="weather"/>
-      </v-col>
-      <v-col cols="12" lg="3" md="4" class="pa-1">
-        <HumidityHistoryCard :weather="weather"/>
-      </v-col>
-    </v-row>
-    <v-row class="text-center" justify="center">
-      <Graphs :weather="weather"/>
-    </v-row>
+    <v-empty-state
+        v-if="weather && weather.length <= 0"
+        icon="mdi-weather-cloudy-alert"
+        :title="$t('no_data_title')"
+        :text="$t('no_data_description')"
+    ></v-empty-state>
+    <template v-else>
+      <v-row class="text-center" justify="center">
+        <v-col cols="12" lg="3" md="4" class="pa-1">
+          <TemperatureHistoryCard :weather="weather"/>
+        </v-col>
+        <v-col cols="12" lg="3" md="4" class="pa-1">
+          <PressureHistoryCard :weather="weather"/>
+        </v-col>
+        <v-col cols="12" lg="3" md="4" class="pa-1">
+          <HumidityHistoryCard :weather="weather"/>
+        </v-col>
+      </v-row>
+      <v-row class="text-center" justify="center">
+        <Graphs :weather="weather"/>
+      </v-row>
+    </template>
   </v-container>
 </template>
 
