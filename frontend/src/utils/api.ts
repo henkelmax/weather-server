@@ -18,7 +18,6 @@ export function getTodaysWeatherParams(id: number, hours: number = 24) {
     const now = moment();
     searchParams.append("id", String(id));
     searchParams.append("from", String(now.subtract(hours, "hours").valueOf()));
-    searchParams.append("to", String(now.endOf("day").valueOf()));
     return searchParams;
 }
 
