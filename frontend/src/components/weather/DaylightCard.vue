@@ -41,7 +41,7 @@ import {getSunrise, getSunset} from "sunrise-sunset-js";
 
 type DaylightProps = {
   station: Station | null,
-  date: Date
+  date?: Date
 };
 
 withDefaults(defineProps<DaylightProps>(), {
