@@ -1,10 +1,10 @@
 <template>
   <template v-if="weather && currentWeather">
-    <MinMax
+    <MinMaxCurrent
         :title="$t('temperature')"
-        :value="`${currentWeather.temperature.toFixed(1)} °C`"
-        :min="`${min(weather, (e) => e.temperature).toFixed(1)} °C`"
-        :max="`${max(weather, (e) => e.temperature).toFixed(1)} °C`"
+        :value="`${round(currentWeather.temperature)} °C`"
+        :min="`${round(min(weather, (e) => e.temperature))} °C`"
+        :max="`${round(max(weather, (e) => e.temperature))} °C`"
     />
   </template>
   <v-card v-else height="100%">
@@ -15,8 +15,8 @@
 </template>
 
 <script setup lang="ts">
-import MinMax from "@/components/MinMax.vue";
-import {max, min} from "@/utils/math";
+import MinMaxCurrent from "@/components/MinMaxCurrent.vue";
+import {max, min, round} from "@/utils/math";
 
 defineProps<{ currentWeather: Weather | null, weather: Weather[] | null }>();
 </script>

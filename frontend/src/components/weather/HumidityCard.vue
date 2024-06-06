@@ -1,6 +1,6 @@
 <template>
   <template v-if="weather && currentWeather">
-    <MinMax
+    <MinMaxCurrent
         :title="$t('humidity')"
         :value="`${currentWeather.humidity.toFixed(0)} %`"
         :min="`${min(weather, (e) => e.humidity).toFixed(0)} %`"
@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import MinMax from "@/components/MinMax.vue";
+import MinMaxCurrent from "@/components/MinMaxCurrent.vue";
 import {max, min} from "@/utils/math";
 
 defineProps<{ currentWeather: Weather | null, weather: Weather[] | null }>();
