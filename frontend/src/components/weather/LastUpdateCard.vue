@@ -23,6 +23,10 @@
 
 <script setup lang="ts">
 import moment from "moment/min/moment-with-locales";
+import {useI18n} from "vue-i18n";
+
+const {locale} = useI18n();
+moment.locale(locale.value);
 
 defineProps<{ currentWeather: Weather | null }>();
 </script>
