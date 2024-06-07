@@ -1,10 +1,18 @@
 <template>
   <template v-if="weather && currentWeather">
     <MinMaxCurrent
+        v-if="weather.length > 0"
         :title="$t('pressure')"
         :value="`${currentWeather.relativePressure.toFixed(0)} hPa`"
         :min="`${min(weather, (e) => e.relativePressure).toFixed(0)} hPa`"
         :max="`${max(weather, (e) => e.relativePressure).toFixed(0)} hPa`"
+    />
+    <MinMaxCurrent
+        v-else
+        :title="$t('pressure')"
+        :value="`${currentWeather.relativePressure.toFixed(0)} hPa`"
+        :min="`${currentWeather.relativePressure.toFixed(0)} hPa`"
+        :max="`${currentWeather.relativePressure.toFixed(0)} hPa`"
     />
   </template>
   <v-card v-else height="100%">

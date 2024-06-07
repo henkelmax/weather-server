@@ -1,10 +1,18 @@
 <template>
   <template v-if="weather && currentWeather">
     <MinMaxCurrent
+        v-if="weather.length > 0"
         :title="$t('humidity')"
         :value="`${currentWeather.humidity.toFixed(0)} %`"
         :min="`${min(weather, (e) => e.humidity).toFixed(0)} %`"
         :max="`${max(weather, (e) => e.humidity).toFixed(0)} %`"
+    />
+    <MinMaxCurrent
+        v-else
+        :title="$t('humidity')"
+        :value="`${currentWeather.humidity.toFixed(0)} %`"
+        :min="`${currentWeather.humidity.toFixed(0)} %`"
+        :max="`${currentWeather.humidity.toFixed(0)} %`"
     />
   </template>
   <v-card v-else height="100%">

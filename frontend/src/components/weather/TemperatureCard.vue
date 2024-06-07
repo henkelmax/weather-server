@@ -1,10 +1,18 @@
 <template>
   <template v-if="weather && currentWeather">
     <MinMaxCurrent
+        v-if="weather.length > 0"
         :title="$t('temperature')"
         :value="`${round(currentWeather.temperature)} °C`"
         :min="`${round(min(weather, (e) => e.temperature))} °C`"
         :max="`${round(max(weather, (e) => e.temperature))} °C`"
+    />
+    <MinMaxCurrent
+        v-else
+        :title="$t('temperature')"
+        :value="`${round(currentWeather.temperature)} °C`"
+        :min="`${round(currentWeather.temperature)} °C`"
+        :max="`${round(currentWeather.temperature)} °C`"
     />
   </template>
   <v-card v-else height="100%">
