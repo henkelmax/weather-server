@@ -1,5 +1,5 @@
 <template>
-  <v-container class="weather-container">
+  <v-container class="weather-container pa-2">
     <v-row class="text-center justify-center ga-2">
       <v-col cols="12" lg="3" md="4">
         <StationCard :station="station" />

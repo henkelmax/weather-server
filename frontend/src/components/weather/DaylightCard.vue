@@ -1,7 +1,7 @@
 <template>
   <v-card height="100%" class="d-flex">
     <v-card-text class="align-self-center">
-      <v-row class="align-center" v-if="station">
+      <v-row class="align-center ga-2" v-if="station">
         <v-col cols="12">
           <span class="text-headline-medium text-grey-lighten-1"> {{ $t('daylight') }} </span>
         </v-col>

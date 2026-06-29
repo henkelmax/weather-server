@@ -1,7 +1,7 @@
 <template>
   <v-card height="100%" class="d-flex">
     <v-card-text class="align-self-center">
-      <v-row class="align-center">
+      <v-row class="align-center ga-2">
         <v-col cols="12" class="pb-0">
           <span class="text-headline-medium text-grey-lighten-1"> {{ title }} </span>
         </v-col>
@@ -9,11 +9,11 @@
           <span class="text-headline-large"> {{ value }} </span>
         </v-col>
         <v-col cols="6">
-          <v-icon class="mr-1"> mdi-format-vertical-align-top</v-icon>
+          <v-icon class="mr-1">mdi-format-vertical-align-top</v-icon>
           <span class="text-grey-lighten-1"> {{ max }} </span>
         </v-col>
         <v-col cols="6">
-          <v-icon class="mr-1"> mdi-format-vertical-align-bottom</v-icon>
+          <v-icon class="mr-1">mdi-format-vertical-align-bottom</v-icon>
           <span class="text-grey-lighten-1"> {{ min }}</span>
         </v-col>
       </v-row>
