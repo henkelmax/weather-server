@@ -1,31 +1,31 @@
 <template>
   <v-container class="weather-container">
-    <v-row class="text-center justify-center">
-      <v-col cols="12" lg="3" md="4" class="pa-1">
+    <v-row class="text-center justify-center ga-2">
+      <v-col cols="12" lg="3" md="4">
         <StationCard :station="station"/>
       </v-col>
-      <v-col cols="12" lg="3" md="4" class="pa-1">
+      <v-col cols="12" lg="3" md="4">
         <TemperatureCard :current-weather="currentWeather" :weather="weather"/>
       </v-col>
-      <v-col cols="12" lg="3" md="4" class="pa-1">
+      <v-col cols="12" lg="3" md="4">
         <WindCard :current-weather="currentWeather"/>
       </v-col>
-      <v-col cols="12" lg="3" md="4" class="pa-1">
+      <v-col cols="12" lg="3" md="4">
         <RainCard :current-weather="currentWeather"/>
       </v-col>
-      <v-col cols="12" lg="3" md="4" class="pa-1">
+      <v-col cols="12" lg="3" md="4">
         <SunCard :current-weather="currentWeather"/>
       </v-col>
-      <v-col cols="12" lg="3" md="4" class="pa-1">
+      <v-col cols="12" lg="3" md="4">
         <DaylightCard :station="station"/>
       </v-col>
-      <v-col cols="12" lg="3" md="4" class="pa-1">
+      <v-col cols="12" lg="3" md="4">
         <PressureCard :current-weather="currentWeather" :weather="weather"/>
       </v-col>
-      <v-col cols="12" lg="3" md="4" class="pa-1">
+      <v-col cols="12" lg="3" md="4">
         <HumidityCard :current-weather="currentWeather" :weather="weather"/>
       </v-col>
-      <v-col cols="12" lg="3" md="4" class="pa-1">
+      <v-col cols="12" lg="3" md="4">
         <LastUpdateCard :current-weather="currentWeather"/>
       </v-col>
       <Graphs :weather="weather"/>

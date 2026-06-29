@@ -1,12 +1,12 @@
 <template>
   <v-container class="weather-container">
-    <v-row class="text-center justify-center">
-      <v-col cols="12" lg="3" md="4" class="pa-1">
+    <v-row class="text-center justify-center ga-2">
+      <v-col cols="12" lg="3" md="4">
         <StationCard :station="station"/>
       </v-col>
     </v-row>
-    <v-row class="text-center justify-center">
-      <v-col cols="12" lg="3" md="4" class="pa-1">
+    <v-row class="text-center justify-center ga-2">
+      <v-col cols="12" lg="3" md="4">
         <v-card>
           <v-card-text class="d-flex justify-center">
             <v-date-picker v-model="date" :allowed-dates="allowedDates" hide-header></v-date-picker>
@@ -21,24 +21,24 @@
         :text="$t('no_data_description')"
     ></v-empty-state>
     <template v-else>
-      <v-row class="text-center justify-center">
-        <v-col cols="12" lg="3" md="4" class="pa-1">
+      <v-row class="text-center justify-center ga-2">
+        <v-col cols="12" lg="3" md="4">
           <TemperatureHistoryCard :weather="weather"/>
         </v-col>
-        <v-col cols="12" lg="3" md="4" class="pa-1">
+        <v-col cols="12" lg="3" md="4">
           <PressureHistoryCard :weather="weather"/>
         </v-col>
-        <v-col cols="12" lg="3" md="4" class="pa-1">
+        <v-col cols="12" lg="3" md="4">
           <HumidityHistoryCard :weather="weather"/>
         </v-col>
-        <v-col cols="12" lg="3" md="4" class="pa-1">
+        <v-col cols="12" lg="3" md="4">
           <RainHistoryCard :weather="weather"/>
         </v-col>
-        <v-col cols="12" lg="3" md="4" class="pa-1">
+        <v-col cols="12" lg="3" md="4">
           <DaylightCard :station="station" :date="date"/>
         </v-col>
       </v-row>
-      <v-row class="text-center justify-center">
+      <v-row class="text-center justify-center ga-2">
         <Graphs :weather="weather"/>
       </v-row>
     </template>
