@@ -7,7 +7,7 @@
       <template v-slot:append>
         <template v-if="!!installPrompt">
           <template v-if="!$vuetify.display.smAndDown">
-            <v-btn variant="plain" @click="installPWA">
+            <v-btn class="text-uppercase" variant="plain" @click="installPWA">
               <v-icon icon="mdi-download" />
               <span class="ml-1">
                 {{ $t('install') }}
@@ -30,8 +30,8 @@
     </v-main>
     <v-footer>
       <v-row class="justify-center" no-gutters>
-        <v-btn to="/privacy" class="font-weight-bold mr-2" variant="plain">{{ $t('privacy') }}</v-btn>
-        <v-btn to="/legal" class="font-weight-bold mr-2" variant="plain">{{ $t('legal') }}</v-btn>
+        <v-btn to="/privacy" class="text-uppercase font-weight-bold mr-2" variant="plain">{{ $t('privacy') }}</v-btn>
+        <v-btn to="/legal" class="text-uppercase font-weight-bold mr-2" variant="plain">{{ $t('legal') }}</v-btn>
         <v-col class="text-center mt-4" cols="12">
           <span class="text-grey-lighten-1 mr-6">Release {{ PackageVersion }}</span>
           <span class="text-grey-lighten-1">&copy; {{ new Date().getFullYear() }} Max Henkel</span>
