@@ -1,0 +1,3 @@
+
+### Get current weather
+GET {{url}}/api/v1/weather/current?id=1
