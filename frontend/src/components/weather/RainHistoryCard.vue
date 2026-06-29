@@ -1,17 +1,17 @@
 <template>
   <v-card height="100%" class="d-flex">
     <v-card-text class="align-self-center">
-      <v-row v-if="lastWeather" align="center">
+      <v-row class="align-center" v-if="lastWeather">
         <v-col cols="12">
-          <span class="text-h5 text-grey-lighten-1"> {{ $t("rain") }} </span>
+          <span class="text-headline-medium text-grey-lighten-1"> {{ $t("rain") }} </span>
         </v-col>
         <v-col cols="12">
-          <v-row align="center">
+          <v-row class="align-center">
             <v-col cols="12" class="pt-0">
               <span class="text-grey-lighten-1">{{ $t("day") }}</span>
             </v-col>
             <v-col cols="12" class="pt-0">
-              <span class="text-h4">
+              <span class="text-headline-large">
                 {{ lastWeather.rainDaily }}
               </span>
               <span class="text-grey-lighten-1"> mm</span>
@@ -19,12 +19,12 @@
           </v-row>
         </v-col>
         <v-col cols="6">
-          <v-row align="center">
+          <v-row class="align-center">
             <v-col cols="12" class="pt-0">
               <span class="text-grey-lighten-1">{{ $t("week") }}</span>
             </v-col>
             <v-col cols="12" class="pt-0">
-              <span class="text-h4">
+              <span class="text-headline-large">
                 {{ lastWeather.rainWeekly.toFixed(0) }}
               </span>
               <span class="text-grey-lighten-1"> mm</span>
@@ -32,12 +32,12 @@
           </v-row>
         </v-col>
         <v-col cols="6">
-          <v-row align="center">
+          <v-row class="align-center">
             <v-col cols="12" class="pt-0">
               <span class="text-grey-lighten-1">{{ $t("month") }}</span>
             </v-col>
             <v-col cols="12" class="pt-0">
-              <span class="text-h4">
+              <span class="text-headline-large">
                 {{ lastWeather.rainMonthly.toFixed(0) }}
               </span>
               <span class="text-grey-lighten-1"> mm</span>

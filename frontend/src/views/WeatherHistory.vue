@@ -1,11 +1,11 @@
 <template>
   <v-container class="weather-container">
-    <v-row class="text-center" justify="center">
+    <v-row class="text-center justify-center">
       <v-col cols="12" lg="3" md="4" class="pa-1">
         <StationCard :station="station"/>
       </v-col>
     </v-row>
-    <v-row class="text-center" justify="center">
+    <v-row class="text-center justify-center">
       <v-col cols="12" lg="3" md="4" class="pa-1">
         <v-card>
           <v-card-text class="d-flex justify-center">
@@ -21,7 +21,7 @@
         :text="$t('no_data_description')"
     ></v-empty-state>
     <template v-else>
-      <v-row class="text-center" justify="center">
+      <v-row class="text-center justify-center">
         <v-col cols="12" lg="3" md="4" class="pa-1">
           <TemperatureHistoryCard :weather="weather"/>
         </v-col>
@@ -38,7 +38,7 @@
           <DaylightCard :station="station" :date="date"/>
         </v-col>
       </v-row>
-      <v-row class="text-center" justify="center">
+      <v-row class="text-center justify-center">
         <Graphs :weather="weather"/>
       </v-row>
     </template>

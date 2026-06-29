@@ -29,7 +29,7 @@
       <RouterView/>
     </v-main>
     <v-footer>
-      <v-row justify="center" no-gutters>
+      <v-row class="justify-center" no-gutters>
         <v-btn to="/privacy" class="font-weight-bold mr-2" variant="plain">{{ $t("privacy") }}</v-btn>
         <v-btn to="/legal" class="font-weight-bold mr-2" variant="plain">{{ $t("legal") }}</v-btn>
         <v-col class="text-center mt-4" cols="12">

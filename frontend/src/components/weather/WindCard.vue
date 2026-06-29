@@ -1,14 +1,14 @@
 <template>
   <v-card height="100%" class="d-flex">
     <v-card-text class="align-self-center">
-      <v-row v-if="currentWeather" align="center">
+      <v-row class="align-center" v-if="currentWeather">
         <v-col cols="12">
-          <span class="text-h5 text-grey-lighten-1"> {{ $t("wind") }} </span>
+          <span class="text-headline-medium text-grey-lighten-1"> {{ $t("wind") }} </span>
         </v-col>
         <v-col cols="6">
-          <v-row align="center">
+          <v-row class="align-center">
             <v-col cols="12" class="pt-0">
-              <v-icon x-large :style="`transform: rotate(${ currentWeather.windDirection + 180 }deg);`">
+              <v-icon size="x-large" :style="`transform: rotate(${ currentWeather.windDirection + 180 }deg);`">
                 mdi-navigation
               </v-icon>
             </v-col>
@@ -18,13 +18,13 @@
           </v-row>
         </v-col>
         <v-col cols="6">
-          <v-row align="center">
+          <v-row class="align-center">
             <v-col cols="12" class="pt-0">
-              <v-icon small> mdi-windsock</v-icon>
+              <v-icon size="small"> mdi-windsock</v-icon>
               <span class="ml-1 text-grey-lighten-1">{{ currentWeather.windSpeed.toFixed(1) }} km/h</span>
             </v-col>
             <v-col cols="12" class="pt-0">
-              <v-icon small> mdi-weather-windy</v-icon>
+              <v-icon size="small"> mdi-weather-windy</v-icon>
               <span class="ml-1 text-grey-lighten-1">{{ currentWeather.windGust.toFixed(1) }} km/h</span>
             </v-col>
           </v-row>

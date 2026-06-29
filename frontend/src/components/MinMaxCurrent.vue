@@ -1,12 +1,12 @@
 <template>
   <v-card height="100%" class="d-flex">
     <v-card-text class="align-self-center">
-      <v-row align="center">
+      <v-row class="align-center">
         <v-col cols="12" class="pb-0">
-          <span class="text-h5 text-grey-lighten-1"> {{ title }} </span>
+          <span class="text-headline-medium text-grey-lighten-1"> {{ title }} </span>
         </v-col>
         <v-col cols="12" class="pb-0">
-          <span class="text-h4"> {{ value }} </span>
+          <span class="text-headline-large"> {{ value }} </span>
         </v-col>
         <v-col cols="6">
           <v-icon class="mr-1"> mdi-format-vertical-align-top</v-icon>

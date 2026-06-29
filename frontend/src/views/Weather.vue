@@ -1,6 +1,6 @@
 <template>
   <v-container class="weather-container">
-    <v-row class="text-center" justify="center">
+    <v-row class="text-center justify-center">
       <v-col cols="12" lg="3" md="4" class="pa-1">
         <StationCard :station="station"/>
       </v-col>
