@@ -1,7 +1,7 @@
 <template>
   <v-container class="weather-container pa-2">
     <v-row class="text-center justify-center ga-2">
-      <v-col cols="12" lg="3" md="4">
+      <v-col cols="12" md="4">
         <StationCard :station="station" />
       </v-col>
     </v-row>
@@ -22,19 +22,19 @@
     ></v-empty-state>
     <template v-else>
       <v-row class="text-center justify-center ga-2">
-        <v-col cols="12" lg="3" md="4">
+        <v-col cols="12" md="4">
           <TemperatureHistoryCard :weather="weather" />
         </v-col>
-        <v-col cols="12" lg="3" md="4">
+        <v-col cols="12" md="4">
           <PressureHistoryCard :weather="weather" />
         </v-col>
-        <v-col cols="12" lg="3" md="4">
+        <v-col cols="12" md="4">
           <HumidityHistoryCard :weather="weather" />
         </v-col>
-        <v-col cols="12" lg="3" md="4">
+        <v-col cols="12" md="4">
           <RainHistoryCard :weather="weather" />
         </v-col>
-        <v-col cols="12" lg="3" md="4">
+        <v-col cols="12" md="4">
           <DaylightCard :station="station" :date="date" />
         </v-col>
       </v-row>

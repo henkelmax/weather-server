@@ -7,11 +7,11 @@
         </v-col>
         <v-col cols="6" class="d-flex justify-center">
           <v-icon class="mr-1 align-self-center">mdi-format-vertical-align-top</v-icon>
-          <span class="text-headline-medium align-self-center"> {{ max }} </span>
+          <span class="text-headline-small align-self-center"> {{ max }} </span>
         </v-col>
         <v-col cols="6" class="d-flex justify-center">
           <v-icon class="mr-1 align-self-center">mdi-format-vertical-align-bottom</v-icon>
-          <span class="text-headline-medium align-self-center"> {{ min }}</span>
+          <span class="text-headline-small align-self-center"> {{ min }}</span>
         </v-col>
       </v-row>
     </v-card-text>
