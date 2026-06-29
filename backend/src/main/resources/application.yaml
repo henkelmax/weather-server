@@ -1,14 +1,3 @@
-server:
-  error:
-    path: /error
-    whitelabel:
-      enabled: false
-  servlet:
-    encoding:
-      charset: UTF-8
-      enabled: true
-      force: true
-
 management:
   server:
     port: 8070
@@ -18,7 +7,16 @@ management:
         include: [ "prometheus" ]
 
 spring:
+  web:
+    error:
+      path: /error
+      whitelabel:
+        enabled: false
   servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
     multipart:
       max-file-size: 128MB
       max-request-size: 128MB
