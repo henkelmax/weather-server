@@ -1,3 +1,22 @@
 
 ### Get current weather
 GET {{url}}/api/v1/weather/current?id=1
+
+### Get weather
+GET {{url}}/api/v1/weather?id=1
+
+### Get SVG
+GET {{url}}/api/v1/widget/weather.svg
+
+### Get stations
+GET {{url}}/api/v1/stations
+
+### Get station
+GET {{url}}/api/v1/station?id=1
+
+### Get station
+GET {{url}}/api/v1/stations/1
+
+### CSV export
+GET {{url}}/api/v1/export/csv
+x-api-key: 00000000-0000-0000-0000-000000000000
