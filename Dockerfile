@@ -9,7 +9,7 @@ COPY frontend .
 
 RUN npm run build
 
-FROM openjdk:17-jdk-alpine
+FROM openjdk:25-jdk-alpine
 
 COPY --from=frontend-builder dist /var/www/
 COPY . .
