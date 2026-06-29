@@ -4,7 +4,7 @@ import de.maxhenkel.weatherserver.annotations.ValidateApiKey;
 import de.maxhenkel.weatherserver.dtos.Passkey;
 import de.maxhenkel.weatherserver.services.PasskeyService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +13,11 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/passkeys")
 public class PasskeyController {
 
-    @Autowired
-    private PasskeyService passkeyService;
+    private final PasskeyService passkeyService;
 
     @GetMapping
     @ValidateApiKey

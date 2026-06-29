@@ -3,9 +3,9 @@ package de.maxhenkel.weatherserver.services;
 import de.maxhenkel.weatherserver.dtos.Station;
 import de.maxhenkel.weatherserver.entities.StationEntity;
 import de.maxhenkel.weatherserver.repositories.StationRepository;
+import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.Nullable;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,13 +13,11 @@ import java.util.Optional;
 import java.util.stream.StreamSupport;
 
 @Service
+@RequiredArgsConstructor
 public class StationService {
 
-    @Autowired
-    private StationRepository stationRepository;
-
-    @Autowired
-    private ModelMapper modelMapper;
+    private final StationRepository stationRepository;
+    private final ModelMapper modelMapper;
 
     public Optional<Station> getByStationId(long id) {
         return stationRepository.findByStationId(id).map(e -> modelMapper.map(e, Station.class));

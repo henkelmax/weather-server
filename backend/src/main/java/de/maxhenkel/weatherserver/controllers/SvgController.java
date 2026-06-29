@@ -3,7 +3,7 @@ package de.maxhenkel.weatherserver.controllers;
 import de.maxhenkel.weatherserver.dtos.Weather;
 import de.maxhenkel.weatherserver.services.WeatherService;
 import de.maxhenkel.weatherserver.svg.SvgRenderService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
@@ -15,13 +15,11 @@ import org.springframework.web.server.ResponseStatusException;
 import java.io.IOException;
 
 @RestController
+@RequiredArgsConstructor
 public class SvgController {
 
-    @Autowired
-    private SvgRenderService renderService;
-
-    @Autowired
-    private WeatherService weatherService;
+    private final SvgRenderService renderService;
+    private final WeatherService weatherService;
 
     @Value("${weatherserver.defaultStationId:1}")
     private Long defaultStationId;

@@ -6,20 +6,18 @@ import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import de.maxhenkel.weatherserver.entities.WeatherEntity;
 import de.maxhenkel.weatherserver.repositories.WeatherRepository;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.StringWriter;
 
 @Service
+@RequiredArgsConstructor
 public class ExportService {
 
-    @Autowired
-    private WeatherRepository weatherRepository;
-
-    @Autowired
-    private ModelMapper modelMapper;
+    private final WeatherRepository weatherRepository;
+    private final ModelMapper modelMapper;
 
     public String exportCsv() throws CsvRequiredFieldEmptyException, CsvDataTypeMismatchException {
         StringWriter writer = new StringWriter();

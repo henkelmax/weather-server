@@ -3,7 +3,7 @@ package de.maxhenkel.weatherserver.controllers;
 import de.maxhenkel.weatherserver.annotations.ValidateApiKey;
 import de.maxhenkel.weatherserver.csv.ImportService;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,11 +14,11 @@ import org.springframework.web.server.ResponseStatusException;
 import java.io.IOException;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/import")
 public class ImportController {
 
-    @Autowired
-    private ImportService importService;
+    private final ImportService importService;
 
     @PostMapping(path = "/csv", consumes = "text/csv")
     @ValidateApiKey

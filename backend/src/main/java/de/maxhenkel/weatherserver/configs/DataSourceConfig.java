@@ -1,7 +1,7 @@
 package de.maxhenkel.weatherserver.configs;
 
 import de.maxhenkel.weatherserver.Utils;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.jdbc.autoconfigure.DataSourceProperties;
 import org.springframework.context.annotation.Bean;
@@ -12,10 +12,10 @@ import javax.sql.DataSource;
 
 @Profile("prod")
 @Configuration
+@RequiredArgsConstructor
 public class DataSourceConfig {
 
-    @Autowired
-    private DataSourceProperties dataSourceProperties;
+    private final DataSourceProperties dataSourceProperties;
 
     @Bean
     public DataSource getDataSource() {

@@ -1,8 +1,8 @@
 package de.maxhenkel.weatherserver.services;
 
 import de.maxhenkel.weatherserver.dtos.Weather;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 @Service
 @EnableScheduling
+@RequiredArgsConstructor
 @ConditionalOnProperty(name = "pull_weather.enabled", havingValue = "true")
 public class PullDataService {
 
@@ -22,11 +23,8 @@ public class PullDataService {
     @Value("${pull_weather.id:1}")
     private Integer id;
 
-    @Autowired
-    private RestTemplate restTemplate;
-
-    @Autowired
-    private WeatherService weatherService;
+    private final RestTemplate restTemplate;
+    private final WeatherService weatherService;
 
     @Scheduled(fixedRate = 10L * 60L * 1000L, initialDelay = 0L)
     public void fetchWeatherFromUrl() {

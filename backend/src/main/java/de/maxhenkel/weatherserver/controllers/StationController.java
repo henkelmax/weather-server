@@ -4,7 +4,7 @@ import de.maxhenkel.weatherserver.annotations.ValidateApiKey;
 import de.maxhenkel.weatherserver.dtos.Station;
 import de.maxhenkel.weatherserver.services.StationService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +15,11 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v1")
 public class StationController {
 
-    @Autowired
-    private StationService stationService;
+    private final StationService stationService;
 
     @Value("${weatherserver.defaultStationId:1}")
     private Long defaultStationId;

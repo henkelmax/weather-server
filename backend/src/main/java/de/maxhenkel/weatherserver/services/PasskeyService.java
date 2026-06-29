@@ -3,8 +3,8 @@ package de.maxhenkel.weatherserver.services;
 import de.maxhenkel.weatherserver.dtos.Passkey;
 import de.maxhenkel.weatherserver.entities.PasskeyEntity;
 import de.maxhenkel.weatherserver.repositories.PasskeyRepository;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,13 +12,11 @@ import java.util.Optional;
 import java.util.stream.StreamSupport;
 
 @Service
+@RequiredArgsConstructor
 public class PasskeyService {
 
-    @Autowired
-    private PasskeyRepository passkeyRepository;
-
-    @Autowired
-    private ModelMapper modelMapper;
+    private final PasskeyRepository passkeyRepository;
+    private final ModelMapper modelMapper;
 
     public Optional<Long> getId(String passkey) {
         return passkeyRepository.findFirstByPasskey(passkey).map(PasskeyEntity::getStationId);

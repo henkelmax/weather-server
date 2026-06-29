@@ -3,7 +3,7 @@ package de.maxhenkel.weatherserver.controllers;
 import de.maxhenkel.weatherserver.dtos.EcowittData;
 import de.maxhenkel.weatherserver.services.EcowittService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping({"/api/v1/weather/ecowitt", "/data/ecowitt"})
 public class EcowittController {
 
-    @Autowired
-    private EcowittService ecowittService;
+    private final EcowittService ecowittService;
 
     @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<Void> ecowitt(@Valid EcowittData ecowittData) {

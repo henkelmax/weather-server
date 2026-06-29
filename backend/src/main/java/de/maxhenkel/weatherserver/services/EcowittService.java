@@ -3,7 +3,7 @@ package de.maxhenkel.weatherserver.services;
 import de.maxhenkel.weatherserver.dtos.EcowittData;
 import de.maxhenkel.weatherserver.entities.WeatherEntity;
 import de.maxhenkel.weatherserver.repositories.WeatherRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -11,15 +11,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class EcowittService {
 
     private static final DateTimeFormatter ECOWITT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    @Autowired
-    private PasskeyService passkeyService;
-
-    @Autowired
-    private WeatherRepository weatherRepository;
+    private final PasskeyService passkeyService;
+    private final WeatherRepository weatherRepository;
 
     public boolean addEcowittWeather(EcowittData ecowittData) {
         Optional<Long> optionalId = passkeyService.getId(ecowittData.getPASSKEY());
