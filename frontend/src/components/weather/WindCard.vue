@@ -3,12 +3,12 @@
     <v-card-text class="align-self-center">
       <v-row class="align-center" v-if="currentWeather">
         <v-col cols="12">
-          <span class="text-headline-medium text-grey-lighten-1"> {{ $t("wind") }} </span>
+          <span class="text-headline-medium text-grey-lighten-1"> {{ $t('wind') }} </span>
         </v-col>
         <v-col cols="6">
           <v-row class="align-center">
             <v-col cols="12" class="pt-0">
-              <v-icon size="x-large" :style="`transform: rotate(${ currentWeather.windDirection + 180 }deg);`">
+              <v-icon size="x-large" :style="`transform: rotate(${currentWeather.windDirection + 180}deg);`">
                 mdi-navigation
               </v-icon>
             </v-col>
@@ -30,11 +30,11 @@
           </v-row>
         </v-col>
       </v-row>
-      <v-skeleton-loader v-else type="heading, list-item-three-line"/>
+      <v-skeleton-loader v-else type="heading, list-item-three-line" />
     </v-card-text>
   </v-card>
 </template>
 
 <script setup lang="ts">
-defineProps<{ currentWeather: Weather | null }>();
+defineProps<{currentWeather: Weather | null}>();
 </script>

@@ -1,33 +1,33 @@
 <template>
   <v-col cols="12" class="pa-1">
-    <Graph :data="temperatureData" :min="0"/>
+    <Graph :data="temperatureData" :min="0" />
   </v-col>
   <v-col cols="12" class="pa-1">
-    <Graph :data="rainfallData" :min="0" :max="10"/>
+    <Graph :data="rainfallData" :min="0" :max="10" />
   </v-col>
   <v-col cols="12" class="pa-1">
-    <Graph :data="windData" :min="0" :max="10"/>
+    <Graph :data="windData" :min="0" :max="10" />
   </v-col>
   <v-col cols="12" class="pa-1">
-    <Graph :data="humidityData" :min="0" :max="100"/>
+    <Graph :data="humidityData" :min="0" :max="100" />
   </v-col>
   <v-col cols="12" class="pa-1">
-    <Graph :data="solarData" :min="0" :max="1000"/>
+    <Graph :data="solarData" :min="0" :max="1000" />
   </v-col>
   <v-col cols="12" class="pa-1">
-    <Graph :data="pressureData" :min="950" :max="1050"/>
+    <Graph :data="pressureData" :min="950" :max="1050" />
   </v-col>
 </template>
 
 <script setup lang="ts">
-import Graph from "@/components/Graph.vue";
-import {computed} from "vue";
-import {round} from "@/utils/math";
-import {useI18n} from "vue-i18n";
+import Graph from '@/components/Graph.vue';
+import {computed} from 'vue';
+import {round} from '@/utils/math';
+import {useI18n} from 'vue-i18n';
 
 const {t} = useI18n();
 
-const props = defineProps<{ weather: Weather[] | null }>();
+const props = defineProps<{weather: Weather[] | null}>();
 
 const temperatureData = computed<TimeSeries[]>(() => {
   const series: TimeSeries[] = [];
@@ -35,7 +35,7 @@ const temperatureData = computed<TimeSeries[]>(() => {
     return series;
   }
 
-  const temps: TimeSeriesEntry[] = props.weather.map((w) => {
+  const temps: TimeSeriesEntry[] = props.weather.map(w => {
     return {
       x: w.date,
       y: round(w.temperature)
@@ -43,13 +43,13 @@ const temperatureData = computed<TimeSeries[]>(() => {
   });
 
   series.push({
-    name: t("temperature"),
-    unit: "°C",
-    color: "#FFFF00",
+    name: t('temperature'),
+    unit: '°C',
+    color: '#FFFF00',
     data: temps
   });
 
-  const dewpoints: TimeSeriesEntry[] = props.weather.map((w) => {
+  const dewpoints: TimeSeriesEntry[] = props.weather.map(w => {
     return {
       x: w.date,
       y: round(dewpoint(w.temperature, w.humidity))
@@ -57,9 +57,9 @@ const temperatureData = computed<TimeSeries[]>(() => {
   });
 
   series.push({
-    name: t("dewpoint"),
-    unit: "°C",
-    color: "#DC3912",
+    name: t('dewpoint'),
+    unit: '°C',
+    color: '#DC3912',
     data: dewpoints
   });
 
@@ -72,7 +72,7 @@ const humidityData = computed<TimeSeries[]>(() => {
     return series;
   }
 
-  const humidities: TimeSeriesEntry[] = props.weather.map((w) => {
+  const humidities: TimeSeriesEntry[] = props.weather.map(w => {
     return {
       x: w.date,
       y: round(w.humidity)
@@ -80,9 +80,9 @@ const humidityData = computed<TimeSeries[]>(() => {
   });
 
   series.push({
-    name: t("humidity"),
-    unit: "%",
-    color: "#00FF00",
+    name: t('humidity'),
+    unit: '%',
+    color: '#00FF00',
     data: humidities
   });
 
@@ -95,7 +95,7 @@ const rainfallData = computed<TimeSeries[]>(() => {
     return series;
   }
 
-  const rainfalls: TimeSeriesEntry[] = props.weather.map((w) => {
+  const rainfalls: TimeSeriesEntry[] = props.weather.map(w => {
     return {
       x: w.date,
       y: round(w.rainRate)
@@ -103,9 +103,9 @@ const rainfallData = computed<TimeSeries[]>(() => {
   });
 
   series.push({
-    name: t("rainfall"),
-    unit: "mm",
-    color: "#0088FF",
+    name: t('rainfall'),
+    unit: 'mm',
+    color: '#0088FF',
     data: rainfalls
   });
 
@@ -118,7 +118,7 @@ const windData = computed<TimeSeries[]>(() => {
     return series;
   }
 
-  const windSpeeds: TimeSeriesEntry[] = props.weather.map((w) => {
+  const windSpeeds: TimeSeriesEntry[] = props.weather.map(w => {
     return {
       x: w.date,
       y: round(w.windSpeed)
@@ -126,13 +126,13 @@ const windData = computed<TimeSeries[]>(() => {
   });
 
   series.push({
-    name: t("wind_speed"),
-    unit: "km/h",
-    color: "#00FF88",
+    name: t('wind_speed'),
+    unit: 'km/h',
+    color: '#00FF88',
     data: windSpeeds
   });
 
-  const windGusts: TimeSeriesEntry[] = props.weather.map((w) => {
+  const windGusts: TimeSeriesEntry[] = props.weather.map(w => {
     return {
       x: w.date,
       y: round(w.windGust)
@@ -140,9 +140,9 @@ const windData = computed<TimeSeries[]>(() => {
   });
 
   series.push({
-    name: t("wind_gust"),
-    unit: "km/h",
-    color: "#DC3912",
+    name: t('wind_gust'),
+    unit: 'km/h',
+    color: '#DC3912',
     data: windGusts
   });
 
@@ -155,7 +155,7 @@ const solarData = computed<TimeSeries[]>(() => {
     return series;
   }
 
-  const solarRadiations: TimeSeriesEntry[] = props.weather.map((w) => {
+  const solarRadiations: TimeSeriesEntry[] = props.weather.map(w => {
     return {
       x: w.date,
       y: round(w.solarRadiation),
@@ -164,9 +164,9 @@ const solarData = computed<TimeSeries[]>(() => {
   });
 
   series.push({
-    name: t("solar_radiation"),
-    unit: "w/m²",
-    color: "#FFFF00",
+    name: t('solar_radiation'),
+    unit: 'w/m²',
+    color: '#FFFF00',
     data: solarRadiations
   });
 
@@ -179,7 +179,7 @@ const pressureData = computed<TimeSeries[]>(() => {
     return series;
   }
 
-  const relativePressures: TimeSeriesEntry[] = props.weather.map((w) => {
+  const relativePressures: TimeSeriesEntry[] = props.weather.map(w => {
     return {
       x: w.date,
       y: round(w.relativePressure)
@@ -187,13 +187,13 @@ const pressureData = computed<TimeSeries[]>(() => {
   });
 
   series.push({
-    name: t("relative_pressure"),
-    unit: "hPa",
-    color: "#00FFFF",
+    name: t('relative_pressure'),
+    unit: 'hPa',
+    color: '#00FFFF',
     data: relativePressures
   });
 
-  const absolutePressures: TimeSeriesEntry[] = props.weather.map((w) => {
+  const absolutePressures: TimeSeriesEntry[] = props.weather.map(w => {
     return {
       x: w.date,
       y: round(w.absolutePressure)
@@ -201,9 +201,9 @@ const pressureData = computed<TimeSeries[]>(() => {
   });
 
   series.push({
-    name: t("absolute_pressure"),
-    unit: "hPa",
-    color: "#00AAFF",
+    name: t('absolute_pressure'),
+    unit: 'hPa',
+    color: '#00AAFF',
     data: absolutePressures
   });
 

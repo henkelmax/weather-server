@@ -23,9 +23,9 @@
 
 <script setup lang="ts">
 defineProps<{
-  title: string,
-  value: string,
-  max: string
-  min: string,
+  title: string;
+  value: string;
+  max: string;
+  min: string;
 }>();
 </script>
