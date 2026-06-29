@@ -5,9 +5,16 @@ plugins {
 }
 
 group = 'de.maxhenkel'
-archivesBaseName = 'weatherserver'
+base.archivesName = 'weatherserver'
 version = project_version
-sourceCompatibility = '17'
+
+def javaVersion = Integer.parseInt(java_version)
+
+java {
+    toolchain {
+        languageVersion =  JavaLanguageVersion.of(javaVersion)
+    }
+}
 
 repositories {
     mavenCentral()
@@ -51,6 +58,7 @@ dependencies {
 compileJava.options.encoding = 'UTF-8'
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+    options.release = javaVersion
 }
 
 tasks.named('test') {
